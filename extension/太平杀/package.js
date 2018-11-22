@@ -1,0 +1,15 @@
+extension["太平杀"]={
+	intro:"",
+	author:"种花兔",
+	netdisk:"",
+	forum:"",
+	version:"1.0",
+	files:["zhujianglu.jpg","zhanglingkai.jpg","extension.js","chenzhenbo.jpg","panhaotian.jpg",
+		"chenhongliang.jpg","yaohuangshen.jpg","liangyue.jpg","package.js","wumengxiang.jpg",
+		"shiao.jpg","huanghaojun.jpg","zhengqihang.jpg","chenkaihao.jpg","xujingyi.jpg",
+		"xusichen.jpg","xusichens.jpg","maozihao.jpg","yuanyuxuan.jpg","zhangyihe.jpg","liuchun.jpg",
+		"wanglina.jpg","xuqingyi.jpg","luxinting.jpg","wangjing.jpg","mouminzi.jpg","laileshang.jpg",
+		"zhangche.jpg","laimeixi.jpg","wanghongge.jpg","renyanguo.jpg","zhangjingchao.jpg",
+		"dingjianxin.jpg","zhouxiaoyan.jpg","huzhichao.jpg"],
+	size:"66KB"
+};

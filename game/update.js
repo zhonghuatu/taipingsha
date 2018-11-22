@@ -1,17 +1,15 @@
 window.noname_update={
-	version:'1.9.57.1',
-	update:'1.9.56',
+	version:'2.0',
+	update:'2.0',
 	changeLog:[
-		'bug修复'
+		'太平杀离线版出炉！'
 	],
 	files:[
-		'card/extra.js',
-		'card/guozhan.js',
 		'card/standard.js',
-		'card/swd.js',
-		'card/yunchou.js',
+		'card/extra.js',
+		'card/standard.js',
 		'character/extra.js',
-		'game/asset.js',
-		'mode/boss.js'
+		'character/diy.js',
+		'character/standard.js',
 	]
 };

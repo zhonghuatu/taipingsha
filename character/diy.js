@@ -44,7 +44,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			hushiqun: ['male', 'wu', 4, ['tps_yuanhuo', 'jiuchi']],
 			wangguiyang: ['male', 'wu', 3, ['guhuo']],
 			shouxintao: ['male', 'shen', 4, ['jiang', 'tps_youxiu', 'zhiba'], ['zhu']],
-			gechenqi: ['male', 'wu', 4, ['tps_baohou', 'reganglie']],
+			gechenqi: ['male', 'wu', 4, [/*'tps_baohou', */'reganglie']],
 			chenzhanhao: ['male', 'wu', 4, ['tps_shigu', 'tps_zhuangzhuang']],
 		},
 		characterFilter:{
@@ -1735,8 +1735,7 @@ player.update();
 			},
 			tps_zhuangzhuang: {
 				trigger: {
-					player: "loseHpEnd",
-					player: "DamageEnd",
+					player: ["loseHpEnd","damageEnd"],
 				},
 				forced: true,
 				audio: 2,
@@ -2127,7 +2126,7 @@ player.update();
 						rejudge: 1,
 					},
 				},
-			},
+			},/*
 			tps_tianshi:{
     audio:"guanxing",
     alter:true,
@@ -2259,7 +2258,7 @@ player.update();
             sub:true,
         },
     },
-},
+},*/
         },
 		translate:{
 			liangyue:"梁越",
@@ -2413,10 +2412,10 @@ player.update();
 			tps_lumang_info: "锁定技，准备阶段，你进行一次判定，若为文科牌，则直到回合结束，你使用文科【发作业】无距离限制且不能被【刷作业】响应，你可以额外使用一张【发作业】；否则直到下回合开始，你的所有文科手牌视为【刷作业】，所有理科手牌视为【发作业】。",
 			tps_lumang1: "鲁莽-攻",
 			tps_lumang1_info: "锁定技，直到回合结束，你使用文科【发作业】无距离限制且不能被【刷作业】响应，你可以额外使用一张【发作业】",
-			tps_lumang2: "鲁莽-文",
-			tps_lumang2_info: "锁定技，直到下回合开始，你的所有文科手牌视为【刷作业】。",
-			tps_lumang3: "鲁莽-理",
-			tps_lumang3_info: "锁定技，直到下回合开始，你的所有理科手牌视为【发作业】。",
+			tps_lumang3: "鲁莽-文",
+			tps_lumang3_info: "锁定技，直到下回合开始，你的所有文科手牌视为【刷作业】。",
+			tps_lumang2: "鲁莽-理",
+			tps_lumang2_info: "锁定技，直到下回合开始，你的所有理科手牌视为【发作业】。",
 			tps_yinshang: "阴伤",
 			tps_yinshang_info: "每当你使用或打出一张【刷作业】，可令任意一名角色进行一次判定，若结果为科学，其受到一点校级扣分，然后你回复一点分数；若结果为数学，其受到两点校级扣分",
 			tps_wulai: "无赖",

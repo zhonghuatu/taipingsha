@@ -5,20 +5,20 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 		connect:true,
 		character:{
 			liangyue: ['male', 'shen', 4, ['tps_wudi', 'tps_shoucuo', 'tps_duoluo'], ['des:太平吉安人际关系中心，爱好编程，但学习成绩并不稳定']],
-			yaohuangshen: ['male', 'wu', 3, [], ['des:机灵鬼一个，身手矫健，爱耍小聪明。']],
+			yaohuangshen: ['male', 'wu', 3, ['tps_huyou'], ['des:机灵鬼一个，身手矫健，爱耍小聪明。']],
 			chenhongliang: ['male', 'wu', 6, ['tps_zifu'], ['des:此货人际关系较广，不过许多都叫他欠债还钱。因为其举止有些粗鲁，一度被称为尸比（屁）。不过打架的话最好别找他。']],
 			rechenhongliang: ['male', 'wu', 4, ['tps_lumang'], ['des:此货人际关系较广，不过许多都叫他欠债还钱。因为其举止有些粗鲁，一度被称为尸比（屁）。不过打架的话最好别找他。']],
 			panhaotian: ['male', 'shu', 3, ['tps_wulai','tps_yinshang'], ['des:潘皓天，太平吉安中不太突出的一个人物，喜欢阅读。']],
 			chenzhenbo: ['male', 'shu', 4, ['liangong', 'tps_juehou'], ['des:陈桢博，反低效学习小组创始人之一，是反低效学习小组中最有发言权的人，不仅如此，他还因为日人功夫了得而被太平吉安成员熟知。']],
 			yuanyuxuan: ['male', 'shu', 3, ['shensi', 'tiba'], ['des:袁雨轩，是太平吉安总部最强大的刷题者，不仅作业刷的快，还有令人羡慕的好成绩。就是有时候老是被姚皇燊上。']],
-			wumengxiang: ['male', 'wu', 8, ['benghuai'],['des:吴孟祥，虽然很胖但打篮球很灵活，现已离开东南。']],
+			wumengxiang: ['male', 'wu', 8, ['benghuai'],['des:吴孟祥，虽然很胖但打篮球很灵活，<strong>现已离开东南</strong>。']],
 			shiao: ['male', 'shu', 4, ['tps_bufa', 'tps_bangtou'],['des:施敖是最有天分也是最不守纪律的一个，初一初二从不写作业，经常带着他们寝室的人违纪。']],
 			huanghaojun: ['male', 'wei', 4, ['tps_siren'],['des:黄浩峻对德意志第三帝国爱得深沉，因经常被葛大爷骂被誉为“死人”。']],
-			zhengqihang: ['male', 'shu', 3, ['tps_zilian', 'tps_qianshui'],['des:在寿老师的眼里，郑启航就是个半吊子。不过同学们对他的了解不限于此。']],
-			chenkaihao: ['male', 'wei', 3, ['tps_jinze', 'tps_renqing']],
-			xujingyi: ['male', 'wei', 3, ['xinjianxiong', 'tps_weigui']],
-			xusichen: ['male', 'qun', 3, ['tps_bangtou', 'tps_gaizi']],
-			xusichens: ['male', 'qun', 2, ['juejing', 'tps_baofa']],
+			zhengqihang: ['male', 'shu', 3, ['tps_zilian', 'tps_qianshui'],['des:在寿老师的眼里，郑启航就是个半吊子。不过同学们对他的了解不限于此。他推崇利益至上，甚至为此写了一本《利益论》（未完成）。他最著名的称号就是“王八”，因为他的签名就像“郑王八”。']],
+			chenkaihao: ['male', 'wei', 3, ['tps_jinze', 'tps_renqing'],['des:陈凯豪可谓是初三四班最帅的之一，作为一个语文课代表，<s>他非常的尽职</s>。']],
+			xujingyi: ['male', 'wei', 3, ['xinjianxiong', 'tps_weigui'],['des:徐憬怿作为秦王能面不改色地应对比他高一个头的荆轲（贵炀兄），违起纪来跟写一篇美妙的诗歌一样，而且他在这两个方面都做得很好。']],
+			xusichen: ['male', 'qun', 3, ['tps_bangtou', 'tps_gaizi'],['des:你可不能小瞧短小精悍的徐思辰']],
+			xusichens: ['male', 'qun', 2, ['juejing', 'tps_baofa'],['des:你可不能小瞧短小精悍的徐思辰']],
 			maozihao: ['male', 'shu', 3, ['tps_wanji', 'tps_gaile']],
 			zhanglingkai: ['male', 'shu', 4, ['tps_huashui', 'tps_tianshi']],
 			zhangyihe: ['female', 'shen', 3, ['huashen', 'xinsheng']],
@@ -32,7 +32,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			zhangche: ['female', 'wei', 3, ['tps_tianwen', 'tps_wencai']],
 			laimeixi: ['female', 'wu', 3, ['beige', 'lijian']],
 			wanghongge: ['male', 'shu', 4, ['tps_jinye']],
-			renyanguo: ['male', 'shu', 3, ['tps_fanxing', 'tps_gaile', 'tps_jianguan','songwei'], ['zhu']],
+			renyanguo: ['male', 'shu', 3, ['tps_fanxing', 'tps_gaile', 'tps_jianguan','tps_songwei'], ['zhu']],
 			zhangjingchao: ['female', 'wei', 3, ['tps_jianguan', 'tps_guanban', 'tps_yali', 'tps_weiwang'], ['zhu']],
 			dingjianxin: ['female', 'qun', 3, ['tps_kuanrong']],
 			zhouxiaoyan: ['female', 'qun', 3, ['tps_chaqin']],
@@ -2259,6 +2259,82 @@ player.update();
         },
     },
 },*/
+			tps_huyou:{
+				unique:true,
+				locked:true,
+				group:['tps_huyou1','tps_huyou2'],
+				ai:{
+					effect:{
+						target:function(card){
+							if(card.name=='nanman' || card.name=='wanjian') return [0,1];
+						}
+					}
+				}
+			},
+			tps_huyou1:{
+				audio:2,
+				trigger:{target:'useCardToBefore'},
+				forced:true,
+				priority:15,
+				filter:function(event,player){
+					return (event.card.name=='nanman' || event.card.name=='wanjian');
+				},
+				content:function(){
+					trigger.cancel();
+				}
+			},
+			tps_huyou2:{
+				trigger:{global:'useCardAfter'},
+				forced:true,
+				filter:function(event,player){
+					return ((event.card.name=='nanman' || event.card.name=='wanjian')&&event.player!=player&&get.position(event.card)=='d'&&get.itemtype(event.card)=='card');
+				},
+				content:function(){
+					player.gain(trigger.card);
+					player.$gain2(trigger.card);
+				}
+			},
+			tps_songwei:{
+				unique:true,
+				global:'tps_songwei2',
+				zhuSkill:true,
+			},
+			tps_songwei2:{
+				audio:2,
+				forceaudio:true,
+				trigger:{player:'judgeEnd'},
+				filter:function(event,player){
+					if(player.group!='shu') return false;
+					if(get.color(event.result.card)!='black') return false;
+					return game.hasPlayer(function(target){
+						return player!=target&&target.hasZhuSkill('tps_songwei',player);
+					});
+				},
+				direct:true,
+				content:function(){
+					'step 0'
+					var list=game.filterPlayer(function(current){
+						return current!=player&&current.hasZhuSkill('tps_songwei',player);
+					});
+					list.sortBySeat();
+					event.list=list;
+					'step 1'
+					if(event.list.length){
+						var current=event.list.shift();
+						event.current=current;
+						player.chooseBool(get.prompt('tps_songwei',current)).set('choice',get.attitude(player,current)>0);
+					}
+					else{
+						event.finish();
+					}
+					'step 2'
+					if(result.bool){
+						player.logSkill('tps_songwei',event.current);
+						event.current.draw();
+					}
+					event.goto(1);
+				}
+			},
         },
 		translate:{
 			liangyue:"梁越",
@@ -2422,6 +2498,13 @@ player.update();
 			tps_wulai_info: "任意一名角色的判定生效前，你可以打出一张理科牌替换之",
 			tps_jianlou: "捡漏",
 			tps_jianlou_info: "其他角色使用或打出一张【刷作业】时，你可在结算完成后弃置一张牌并获得之。",
+			tps_huyou: "忽悠",
+			tps_huyou1: "忽悠",
+			tps_huyou2: "忽悠",
+			tps_huyou_info: "锁定技，【作业来了】、【上晚自习】对你无效；若其他角色使用的【作业来了】、【上晚自习】在结算完时进入弃牌堆，你立即获得它。",
+			tps_songwei:'颂威',
+			tps_songwei2:'颂威',
+			tps_songwei_info:'班长技，其他理势力的角色的判定牌结果为♠或♣且生效后，可以让你摸一张牌。',
 		},
 	};
 });

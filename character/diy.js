@@ -1,63 +1,64 @@
 'use strict';
-game.import('character',function(lib,game,ui,get,ai,_status){
-	return {
-		name:'diy',
-		connect:true,
-		character:{
-			liangyue: ['male', 'shen', 4, ['tps_wudi', 'tps_shoucuo', 'tps_duoluo'], ['des:太平吉安人际关系中心，爱好编程，但学习成绩并不稳定']],
-			yaohuangshen: ['male', 'wu', 3, ['tps_huyou'], ['des:机灵鬼一个，身手矫健，爱耍小聪明。']],
-			chenhongliang: ['male', 'wu', 6, ['tps_zifu'], ['des:此货人际关系较广，不过许多都叫他欠债还钱。因为其举止有些粗鲁，一度被称为尸比（屁）。不过打架的话最好别找他。']],
-			rechenhongliang: ['male', 'wu', 4, ['tps_lumang'], ['des:此货人际关系较广，不过许多都叫他欠债还钱。因为其举止有些粗鲁，一度被称为尸比（屁）。不过打架的话最好别找他。']],
-			panhaotian: ['male', 'shu', 3, ['tps_wulai','tps_yinshang'], ['des:潘皓天，太平吉安中不太突出的一个人物，喜欢阅读。']],
-			chenzhenbo: ['male', 'shu', 4, ['liangong', 'tps_juehou'], ['des:陈桢博，反低效学习小组创始人之一，是反低效学习小组中最有发言权的人，不仅如此，他还因为日人功夫了得而被太平吉安成员熟知。']],
-			yuanyuxuan: ['male', 'shu', 3, ['shensi', 'tiba'], ['des:袁雨轩，是太平吉安总部最强大的刷题者，不仅作业刷的快，还有令人羡慕的好成绩。就是有时候老是被姚皇燊上。']],
-			wumengxiang: ['male', 'wu', 8, ['benghuai'],['des:吴孟祥，虽然很胖但打篮球很灵活，<strong>现已离开东南</strong>。']],
-			shiao: ['male', 'shu', 4, ['tps_bufa', 'tps_bangtou'],['des:施敖是最有天分也是最不守纪律的一个，初一初二从不写作业，经常带着他们寝室的人违纪。']],
-			huanghaojun: ['male', 'wei', 4, ['tps_siren'],['des:黄浩峻对德意志第三帝国爱得深沉，因经常被葛大爷骂被誉为“死人”。']],
-			zhengqihang: ['male', 'shu', 3, ['tps_zilian', 'tps_qianshui'],['des:在寿老师的眼里，郑启航就是个半吊子。不过同学们对他的了解不限于此。他推崇利益至上，甚至为此写了一本《利益论》（未完成）。他最著名的称号就是“王八”，因为他的签名就像“郑王八”。']],
-			chenkaihao: ['male', 'wei', 3, ['tps_jinze', 'tps_renqing'],['des:陈凯豪可谓是初三四班最帅的之一，作为一个语文课代表，<s>他非常的尽职</s>。']],
-			xujingyi: ['male', 'wei', 3, ['xinjianxiong', 'tps_weigui'],['des:徐憬怿作为秦王能面不改色地应对比他高一个头的荆轲（贵炀兄），违起纪来跟写一篇美妙的诗歌一样，而且他在这两个方面都做得很好。']],
-			xusichen: ['male', 'qun', 3, ['tps_bangtou', 'tps_gaizi'],['des:你可不能小瞧短小精悍的徐思辰']],
-			xusichens: ['male', 'qun', 2, ['juejing', 'tps_baofa'],['des:你可不能小瞧短小精悍的徐思辰']],
-			maozihao: ['male', 'shu', 3, ['tps_wanji', 'tps_gaile']],
-			zhanglingkai: ['male', 'shu', 4, ['tps_huashui', 'tps_tianshi']],
-			zhangyihe: ['female', 'shen', 3, ['huashen', 'xinsheng']],
-			liuchun: ['female', 'wu', 3, ['tps_jiwei', 'tps_jianguan']],
-			wanglina: ['female', 'qun', 3, ['tps_zuobi']],
-			xuqingyi: ['female', 'wei', 4, ['tps_zaoli']],
-			luxinting: ['female', 'wei', 3, ['tps_qinxue']],
-			wangjing: ['female', 'qun', 3, ['tps_jianguan','zhiheng','jiuyuan'], ['zhu']],
-			mouminzi: ['female', 'wei', 3, ['tps_tianwen', 'tps_miaobi']],
-			laileshang: ['female', 'wei', 3, ['tps_bili']],
-			zhangche: ['female', 'wei', 3, ['tps_tianwen', 'tps_wencai']],
-			laimeixi: ['female', 'wu', 3, ['beige', 'lijian']],
-			wanghongge: ['male', 'shu', 4, ['tps_jinye']],
-			renyanguo: ['male', 'shu', 3, ['tps_fanxing', 'tps_gaile', 'tps_jianguan','tps_songwei'], ['zhu']],
-			zhangjingchao: ['female', 'wei', 3, ['tps_jianguan', 'tps_guanban', 'tps_yali', 'tps_weiwang'], ['zhu']],
-			dingjianxin: ['female', 'qun', 3, ['tps_kuanrong']],
-			zhouxiaoyan: ['female', 'qun', 3, ['tps_chaqin']],
-			huzhichao: ['male', 'shu', 4, ['tps_chachu','baonue'], ['zhu']],
-			zhujianglu: ['female', 'shu', 3, ['tps_laoshou', 'tps_laolian']],
-			liujiqing: ['male', 'shu', 3, ['tps_jingxin']],
-			zhoulinghang: ['male', 'wu', 3, ['tps_yifen']],
-			'tps_xuheng': ['male', 'wu', 3, ['tps_bier']],
-			hushiqun: ['male', 'wu', 4, ['tps_yuanhuo', 'jiuchi']],
-			wangguiyang: ['male', 'wu', 3, ['guhuo']],
-			shouxintao: ['male', 'shen', 4, ['jiang', 'tps_youxiu', 'zhiba'], ['zhu']],
-			gechenqi: ['male', 'wu', 4, [/*'tps_baohou', */'reganglie']],
-			chenzhanhao: ['male', 'wu', 4, ['tps_shigu', 'tps_zhuangzhuang']],
-		},
-		characterFilter:{
-			
-		},
-		characterIntro:{
-		},
-		characterTitle:{
-		},
-		perfectPair:{
-		},
-		skill:{
-			shensi:{
+game.import('character',
+function(lib, game, ui, get, ai, _status) {
+    return {
+        name: 'diy',
+        connect: true,
+        character: {
+            liangyue: ['male', 'shen', 4, ['tps_wudi', 'tps_shoucuo', 'tps_duoluo'], ['des:太平吉安人际关系中心，爱好编程，但学习成绩并不稳定']],
+            yaohuangshen: ['male', 'wu', 3, ['tps_huyou'], ['des:机灵鬼一个，身手矫健，爱耍小聪明。']],
+            chenhongliang: ['male', 'wu', 6, ['tps_zifu'], ['des:此货人际关系较广，不过许多都叫他欠债还钱。因为其举止有些粗鲁，一度被称为尸比（屁）。不过打架的话最好别找他。']],
+            rechenhongliang: ['male', 'wu', 4, ['tps_lumang'], ['des:此货人际关系较广，不过许多都叫他欠债还钱。因为其举止有些粗鲁，一度被称为尸比（屁）。不过打架的话最好别找他。']],
+            panhaotian: ['male', 'shu', 3, ['tps_wulai', 'tps_yinshang'], ['des:潘皓天，太平吉安中不太突出的一个人物，喜欢阅读。']],
+            chenzhenbo: ['male', 'shu', 4, ['liangong', 'tps_juehou'], ['des:陈桢博，反低效学习小组创始人之一，是反低效学习小组中最有发言权的人，不仅如此，他还因为日人功夫了得而被太平吉安成员熟知。']],
+            yuanyuxuan: ['male', 'shu', 3, ['shensi', 'tiba'], ['des:袁雨轩，是太平吉安总部最强大的刷题者，不仅作业刷的快，还有令人羡慕的好成绩。就是有时候老是被姚皇燊上。']],
+            wumengxiang: ['male', 'wu', 8, ['benghuai'], ['des:吴孟祥，虽然很胖但打篮球很灵活，<strong>现已离开东南</strong>。']],
+            shiao: ['male', 'shu', 4, ['tps_bufa', 'tps_bangtou'], ['des:施敖是最有天分也是最不守纪律的一个，初一初二从不写作业，经常带着他们寝室的人违纪。']],
+            huanghaojun: ['male', 'wei', 4, ['tps_siren'], ['des:黄浩峻对德意志第三帝国爱得深沉，因经常被葛大爷骂被誉为“死人”。']],
+            zhengqihang: ['male', 'shu', 3, ['tps_zilian', 'tps_qianshui'], ['des:在寿老师的眼里，郑启航就是个半吊子。不过同学们对他的了解不限于此。他推崇利益至上，甚至为此写了一本《利益论》（未完成）。他最著名的称号就是“王八”，因为他的签名就像“郑王八”。']],
+            chenkaihao: ['male', 'wei', 3, ['tps_jinze', 'tps_renqing'], ['des:陈凯豪可谓是初三四班最帅的之一，作为一个语文课代表，<s>他非常的尽职</s>。']],
+            xujingyi: ['male', 'wei', 3, ['xinjianxiong', 'tps_weigui'], ['des:徐憬怿作为秦王能面不改色地应对比他高一个头的荆轲（贵炀兄），违起纪来跟写一篇美妙的诗歌一样，而且他在这两个方面都做得很好。']],
+            xusichen: ['male', 'qun', 3, ['tps_bangtou', 'tps_gaizi'], ['des:你可不能小瞧短小精悍的徐思辰']],
+            xusichens: ['male', 'qun', 2, ['juejing', 'tps_baofa'], ['des:你可不能小瞧短小精悍的徐思辰']],
+            maozihao: ['male', 'shu', 3, ['tps_wanji', 'tps_gaile']],
+            zhanglingkai: ['male', 'shu', 4, ['tps_huashui', 'tps_tianshi']],
+            zhangyihe: ['female', 'shen', 3, ['huashen', 'xinsheng']],
+            liuchun: ['female', 'wu', 3, ['tps_jiwei', 'tps_jianguan']],
+            wanglina: ['female', 'qun', 3, ['tps_zuobi']],
+            xuqingyi: ['female', 'wei', 4, ['tps_zaoli']],
+            luxinting: ['female', 'wei', 3, ['tps_qinxue']],
+            wangjing: ['female', 'qun', 3, ['tps_jianguan', 'zhiheng', 'jiuyuan'], ['zhu']],
+            mouminzi: ['female', 'wei', 3, ['tps_tianwen', 'tps_miaobi', 'tps_shenghua']],
+            laileshang: ['female', 'wei', 3, ['tps_bili']],
+            zhangche: ['female', 'wei', 3, ['tps_tianwen', 'tps_wencai']],
+            laimeixi: ['female', 'wu', 3, ['beige', 'lijian']],
+            wanghongge: ['male', 'shu', 4, ['tps_jinye']],
+            renyanguo: ['male', 'shu', 3, ['tps_fanxing', 'tps_gaile', 'tps_jianguan', 'tps_songwei'], ['zhu']],
+            zhangjingchao: ['female', 'wei', 3, ['tps_jianguan', 'tps_guanban', 'tps_yali', 'tps_weiwang'], ['zhu']],
+            dingjianxin: ['female', 'qun', 3, ['tps_kuanrong']],
+            zhouxiaoyan: ['female', 'qun', 3, ['tps_chaqin']],
+            huzhichao: ['male', 'shu', 4, ['tps_chachu', 'baonue'], ['zhu']],
+            zhujianglu: ['female', 'shu', 3, ['tps_laoshou', 'tps_laolian']],
+            liujiqing: ['male', 'shu', 3, ['tps_jingxin']],
+            zhoulinghang: ['male', 'wu', 3, ['tps_yifen']],
+            'tps_xuheng': ['male', 'wu', 3, ['tps_bier']],
+            hushiqun: ['male', 'wu', 4, ['tps_yuanhuo', 'jiuchi']],
+            wangguiyang: ['male', 'wu', 3, ['guhuo']],
+            shouxintao: ['male', 'shen', 4, ['jiang', 'tps_youxiu', 'zhiba'], ['zhu']],
+            gechenqi: ['male', 'wu', 4, ['tps_baohou', 'reganglie']],
+            chenzhanhao: ['male', 'wu', 4, ['tps_shigu', 'tps_zhuangzhuang']],
+            wangmeidie: ['female', 'wei', 4, ['tps_fengkuang', 'tps_shikong']],
+			wangzile: ['male', 'wu', 2, ['tps_xingyun']],
+			sunbohua: ['male', 'shu', 4, ['tps_luanma']],
+        },
+        characterFilter: {
+
+},
+        characterIntro: {},
+        characterTitle: {},
+        perfectPair: {},
+        skill: {
+            shensi:{
                 audio:"luoshen",
                 alter:true,
                 trigger:{
@@ -1297,7 +1298,7 @@ player.update();
                 forced:true,
                 audio:2,
                 content:function (){
-        player.chooseToDiscard('h',true,2);
+        player.chooseToDiscard('he',true,2);
     },
                 ai:{
                 },
@@ -2335,176 +2336,607 @@ player.update();
 					event.goto(1);
 				}
 			},
+            tps_fengkuang: {
+                audio: 2,
+                unique: true,
+                enable: "phaseUse",
+                limited: true,
+                skillAnimation: "epic",
+                animationColor: "thunder",
+                filterTarget: function(card, player, target) {
+                    return target != player;
+                },
+                selectTarget: -1,
+                multitarget: true,
+                multiline: true,
+                content: function() {
+                    "step 0"
+					player.awakenSkill('tps_fengkuang');
+                    event.current = player.next;
+                    "step 1"
+					event.current.animate('target');
+                    event.current.damage('thunder');
+                    if (event.current.next != player) {
+                        event.current = event.current.next;
+                        game.delay(0.5);
+                        event.goto(1);
+                    }
+                },
+                ai: {
+                    order: 1,
+                    result: {
+                        player: function(player) {
+                            if (lib.config.mode == 'identity' && game.zhu.isZhu && player.identity == 'fan') {
+                                if (game.zhu.hp == 1) return 1;
+                            }
+                            var num = 0;
+                            var players = game.filterPlayer();
+                            for (var i = 0; i < players.length; i++) {
+                                var att = get.attitude(player, players[i]);
+                                if (att > 0) att = 1;
+                                if (att < 0) att = -1;
+                                if (players[i] != player && players[i].hp <= 3) {
+                                    if (players[i].countCards('h') == 0) num += att / players[i].hp;
+                                    else if (players[i].countCards('h') == 1) num += att / 2 / players[i].hp;
+                                    else if (players[i].countCards('h') == 2) num += att / 4 / players[i].hp;
+                                }
+                                if (players[i].hp == 1) num += att * 1.5;
+                            }
+                            if (player.hp == 1) {
+                                return - num;
+                            }
+                            if (player.hp == 2) {
+                                return - game.players.length / 4 - num;
+                            }
+                            return - game.players.length / 3 - num;
+                        },
+                    },
+                },
+            },
+            tps_shikong: {
+                audio: 2,
+                unique: true,
+                enable: "phaseUse",
+                limited: true,
+                skillAnimation: "epic",
+                animationColor: "thunder",
+                filterTarget: function(card, player, target) {
+                    return target != player;
+                },
+                selectTarget: -1,
+                multitarget: true,
+                multiline: true,
+                content: function() {
+                    "step 0"
+					player.awakenSkill('tps_shikong');
+                    event.current = player.next;
+                    "step 1"
+					event.current.animate('target');
+                    event.current.damage('thunder');
+                    if (event.current.next != player) {
+                        event.current = event.current.next;
+                        game.delay(0.5);
+                        event.goto(1);
+                    }
+                },
+                ai: {
+                    order: 1,
+                    result: {
+                        player: function(player) {
+                            if (lib.config.mode == 'identity' && game.zhu.isZhu && player.identity == 'fan') {
+                                if (game.zhu.hp == 1) return 1;
+                            }
+                            var num = 0;
+                            var players = game.filterPlayer();
+                            for (var i = 0; i < players.length; i++) {
+                                var att = get.attitude(player, players[i]);
+                                if (att > 0) att = 1;
+                                if (att < 0) att = -1;
+                                if (players[i] != player && players[i].hp <= 3) {
+                                    if (players[i].countCards('h') == 0) num += att / players[i].hp;
+                                    else if (players[i].countCards('h') == 1) num += att / 2 / players[i].hp;
+                                    else if (players[i].countCards('h') == 2) num += att / 4 / players[i].hp;
+                                }
+                                if (players[i].hp == 1) num += att * 1.5;
+                            }
+                            if (player.hp == 1) {
+                                return - num;
+                            }
+                            if (player.hp == 2) {
+                                return - game.players.length / 4 - num;
+                            }
+                            return - game.players.length / 3 - num;
+                        },
+                    },
+                },
+            },
+            tps_shenghua: {
+                audio: "luoshen",
+                alter: true,
+                trigger: {
+                    player: "damageEnd",
+                },
+                frequent: true,
+                content: function() {
+                    "step 0"
+                    if (event.cards == undefined) event.cards = [];
+                    player.judge(function(card) {
+                        if (get.color(card) == 'red') return 1.5;
+                        return - 1.5;
+                    },
+                    ui.special);
+                    "step 1"
+                    if (result.judge > 0) {
+                        event.cards.push(result.card);
+                        if (lib.config.autoskilllist.contains('tps_shenghua')) {
+                            player.chooseBool('是否再次发动【生花】？');
+                        } else {
+                            event._result = {
+                                bool: true
+                            };
+                        }
+                    } else {
+                        for (var i = 0; i < event.cards.length; i++) {
+                            if (get.position(event.cards[i]) != 's') {
+                                event.cards.splice(i, 1);
+                                i--;
+                            }
+                        }
+                        player.gain(event.cards, 'gain2');
+                        player.storage.tps_shenghua = event.cards.slice(0);
+                        event.finish();
+                    }
+                    "step 2"
+                    if (result.bool) {
+                        event.goto(0);
+                    } else {
+                        if (event.cards.length) {
+                            player.gain(event.cards, 'gain2');
+                            player.storage.tps_shenghua = event.cards.slice(0);
+                        }
+                    }
+                },
+                mod: {
+                    ignoredHandcard: function(card, player) {
+                        if (get.is.altered('tps_shenghua') && player.storage.tps_shenghua && player.storage.tps_shenghua.contains(card)) {
+                            return true;
+                        }
+                    },
+                },
+                group: "shensi_clear",
+                subSkill: {
+                    clear: {
+                        trigger: {
+                            player: "phaseAfter",
+                        },
+                        silent: true,
+                        content: function() {
+                            delete player.storage.tps_shenghua;
+                        },
+                        sub: true,
+                        forced: true,
+                        popup: false,
+                    },
+                },
+            },
+			tps_xingyun:{
+				audio:2,
+				trigger:{player:'damageBegin'},
+				filter:function(event,player){
+					return true;
+				},
+				check:function(event,player){
+					return true;
+				},
+				content:function(){
+					"step 1"
+					player.judge(function(card) {
+                        if (get.suit(card)=='heart'&&get.number(card)>1&&get.number(card)<10) return -1.5;
+                        return 1.5;
+                    },ui.special);
+					"step 2"
+					if(result.suit!='heart'||result.number==1||result.number>=10){
+						trigger.cancel();
+						return 1.5;
+					}else{
+						return -1.5;
+					};
+				},
+				ai:{
+					expose:0.4
+				}
+			},
+			tps_luanma:{
+				audio:2,
+				trigger:{
+					player:'phaseBegin',
+				},
+				alter:true,
+				content:function(){
+					"step 1"
+					player.judge(function(card) {/*
+                        if (get.suit(card)=='diamond' && get.number(card)<=5){
+							return -1.5;
+						}else if(get.suit(card)=='club' && get.number(card)<=5){
+							return 1.5;
+						}
+                        return 0;*/
+						if(get.suit(card)=='club'){
+						if(get.number(card)==1){
+							if(lib.config.mode == 'identity'){
+								event.current = player.next;
+								"step 3"
+								if(player.identity=="zhu" || player.identity=="zhong"){
+									if(event.current.identity=="fan" || event.current.identity=="nei"){
+										event.current.animate('target');
+										event.current.die();
+									}
+								}else if(player.identity=="fan"){
+									if(event.current.identity=="zhu" || event.current.identity=="zhong"){
+										event.current.animate('target');
+										event.current.die();
+									}
+								}else{
+									if(event.current.identity!="zhu"){
+										event.current.animate('target');
+										event.current.die();
+									}else{
+										event.target=event.current;
+									}
+								}
+								if (event.current.next != player) {
+									event.current = event.current.next;
+									game.delay(0.5);
+									event.goto(3);
+								}else if(player.identity=="nei"){
+									event.target.animate('target');
+									event.target.die();
+								}
+							}else{
+								game.over(true);
+							}
+						}else if(get.number(card)==2){
+							player.draw(10);
+						}else if(get.number(card)==3){
+							player.draw(5);
+						}else if(get.number(card)==4){
+							player.chooseTarget(get.prompt('tps_luanma'));
+							if(result.bool){
+								event.target=result.targets[0];
+								event.target.die();
+							}
+						}else if(get.number(card)==5){
+							player.chooseTarget(get.prompt('tps_luanma')).ai=function(target){
+								if(target.hasSkillTag('noturn')) return 0;
+								var player=_status.event.player;
+								if(get.attitude(_status.event.player,target)==0) return 0;
+								if(get.attitude(_status.event.player,target)>0){
+									if(target.classList.contains('turnedover')) return 1000-target.countCards('h');
+									if(player.maxHp-player.hp<3) return -1;
+									return 100-target.countCards('h');
+								}
+								else{
+									if(target.classList.contains('turnedover')) return -1;
+									if(player.maxHp-player.hp>=3) return -1;
+									return 1+target.countCards('h');
+								}
+							};
+							if(result.bool){
+								event.target=result.targets[0];
+								event.target.turnOver();
+							}
+						}
+						return 1.5;
+					}else if(get.suit(card)=='diamond'){
+						if(get.number(card)==1){
+							if(lib.config.mode == 'identity'){
+								event.current = player.next;
+								"step 3"
+								if(player.identity=="zhu" || player.identity=="zhong"){
+									if(event.current.identity=="zhu" || event.current.identity=="zhong"){
+										event.current.animate('target');
+										event.current.die();
+									}
+								}else if(player.identity=="fan"){
+									if(event.current.identity=="fan"){
+										event.current.animate('target');
+										event.current.die();
+									}
+								}
+								if (event.current.next != player && player.identity!="nei") {
+									event.current = event.current.next;
+									game.delay(0.5);
+									event.goto(3);
+								}else{
+									player.die();
+								}
+							}else{
+								game.over(false);
+							}
+						}else if(get.number(card)==2){
+							player.chooseToDiscard('he',true,10);
+							player.skip('phaseUse');
+							player.skip('phaseDraw');
+						}else if(get.number(card)==3){
+							player.chooseToDiscard('he',true,5);
+						}else if(get.number(card)==4){
+							player.die();
+						}else if(get.number(card)==5){
+							player.turnOver();
+						}
+						return -1.5;
+					}
+						return 0;
+                    },ui.special);
+					/*game.log(result.suit,'的判定牌改为',result.number);
+					if(result.suit=='club'){
+						player.die();
+						if(result.number==1 && lib.config.mode == 'identity'){
+							event.current = player.next;
+							"step 3"
+							if(player.identity=="zhu" || player.identity=="zhong"){
+								if(event.current.identity=="fan" || event.current.identity=="nei"){
+									event.current.animate('target');
+									event.current.die();
+								}
+							}else if(player.identity=="fan"){
+								if(event.current.identity=="zhu" || event.current.identity=="zhong"){
+									event.current.animate('target');
+									event.current.die();
+								}
+							}else{
+								if(event.current.identity=="fan" || event.current.identity=="zhong"){
+									event.current.animate('target');
+									event.current.die();
+								}
+							}
+							if (event.current.next != player) {
+								event.current = event.current.next;
+								game.delay(0.5);
+								event.goto(3);
+							}
+						}else if(result.number==2){
+							player.draw(10);
+						}else if(result.number==3){
+							player.draw(5);
+						}else if(result.number==4){
+							player.chooseTarget(get.prompt('tps_luanma'));
+							if(result.bool){
+								event.target=result.targets[0];
+								event.target.die();
+							}
+						}else if(result.number==5){
+							player.chooseTarget(get.prompt('tps_luanma'));
+							if(result.bool){
+								event.target=result.targets[0];
+								event.target.turnOver();
+							}
+						}
+						return 1.5;
+					}else if(result.suit=='diamond'){
+						player.die();
+						if(result.number==1 && lib.config.mode == 'identity'){
+							event.current = player.next;
+							"step 3"
+							if(player.identity=="zhu" || player.identity=="zhong"){
+								if(event.current.identity=="zhu" || event.current.identity=="zhong"){
+									event.current.animate('target');
+									event.current.die();
+								}
+							}else if(player.identity=="fan"){
+								if(event.current.identity=="fan"){
+									event.current.animate('target');
+									event.current.die();
+								}
+							}
+							if (event.current.next != player && player.identity!="nei") {
+								event.current = event.current.next;
+								game.delay(0.5);
+								event.goto(3);
+							}else{
+								player.die();
+							}
+						}else if(result.number==2){
+							player.chooseToDiscard('he',true,10);
+							player.skip('phaseUse');
+							player.skip('phaseDraw');
+						}else if(result.number==3){
+							player.chooseToDiscard('he',true,5);
+						}else if(result.number==4){
+							player.die();
+						}else if(result.number==4){
+							player.turnOver();
+						}
+						return -1.5;
+					};*/
+					
+				}
+			},
         },
-		translate:{
-			liangyue:"梁越",
-            yaohuangshen:"姚皇燊",
-			rechenhongliang:"界陈泓亮",
-            chenhongliang:"陈泓亮",
-            panhaotian:"潘皓天",
-            chenzhenbo:"陈桢博",
-            yuanyuxuan:"袁雨轩",
-            wumengxiang:"吴孟祥",
-            shiao:"施敖",
-            huanghaojun:"黄浩峻",
-            zhengqihang:"郑启航",
-            chenkaihao:"陈凯豪",
-            xujingyi:"徐憬怿",
-            xusichen:"徐思辰",
-            xusichens:"界徐思辰",
-            maozihao:"毛子豪",
-            zhanglingkai:"张凌凯",
-            zhangyihe:"章易禾",
-            liuchun:"刘纯",
-            wanglina:"王丽娜",
-            xuqingyi:"徐晴宜",
-            luxinting:"卢鑫廷",
-            wangjing:"王晶",
-            mouminzi:"牟旻紫",
-            laileshang:"赖乐商",
-            zhangche:"张彻",
-            laimeixi:"来美羲",
-            wanghongge:"老王",
-            renyanguo:"任老板",
-            zhangjingchao:"超姐",
-            dingjianxin:"丁老师",
-            zhouxiaoyan:"周老师",
-            huzhichao:"超哥",
-            zhujianglu:"小天使",
-            liujiqing:"柳季青",
-            zhoulinghang:"周凌航",
-            tps_xuheng:"徐衡",
-            hushiqun:"胡识群",
-            wangguiyang:"王贵炀",
-			shouxintao: "寿鑫涛",
-			gechenqi: "葛辰启",
-			chenzhanhao: "陈占豪",
-			
-			tiba:"题霸",
-            tiba_info:"你可以将一张理科手牌当[闪]使用或打出",
-            shensi:"神思",
-            shensi_info:"准备阶段，你可以进行一定判定，若为理科则可以继续判定，直到出现文科。然后你获得所有理科的判定牌。",
-            shensi_info_alter:"准备阶段，你可以进行一定判定，若为理科则可以继续判定，直到出现文科。然后你获得所有理科的判定牌。你通过神思获得的牌，不计入当前回合的手牌上限",
-            liangong:"连攻",
-            liangong_info:"每当你使用的【发作业】被目标角色使用的【刷作业】抵消时，你可以对其使用一张【发作业】（无距离限制）。",
-            tps_bufa:"不法",
-            tps_bufa_info:"你可以将一张科学花色的手牌当[午休讲话]使用",
-            tps_bangtou:"帮头",
-            tps_bangtou_info:"你可以将一张科学手牌当【结派】使用，若以此法使用的【结派】仅指定一个目标，你摸一张牌；你可以重做科学牌",
-            tps_siren:"死人",
-            tps_siren_info:"锁定技，在你死亡前，若你的体力值不大于0，亮出牌堆顶的一张牌并置于你的角色牌上，若此牌的点数与你角色牌上已有的牌点数均不同，则你回复至1体力。只要你的角色牌上有牌，你的手牌上限便与这些牌数量相等",
-            tps_zilian:"自恋",
-            tps_zilian_info:"你可以将你的任意一张♠或♣手牌当【我很优秀】使用。",
-            tps_jinze:"尽责",
-            tps_jinze_info:"锁定技，你使用的【发作业】需要两张【刷作业】响应",
-            tps_baofa:"爆发",
-            tps_baofa_info:"你可以将同花色的X张牌按下列规则使用或打出：语文当【补作业】，方块当具年级焰扣分的【杀】，科学当【闪】，数学当【我很优秀】（X为你当前的体力值且至少为1）",
-            tps_gaizi:"改字",
-            tps_gaizi_info:"你可以将[发作业]当[刷作业]，或[刷作业]当[发作业]使用或打出",
-            tps_gaile:"改了",
-            tps_gaile_info:"在任意角色的判定牌生效前，你可以打出一张牌代替之",
-            tps_wanji:"完击",
-            tps_wanji_info:"你可以将你的任意一张♠或♣手牌当【我很优秀】使用。",
-            tps_zifu:"自负",
-            tps_zifu_info:"你可以将一张英语花色的手牌当[罚站]使用",
-            tps_yixue:"易学",
-            tps_yixue_info:"所有人都展示角色牌后，你随机获得两张未加入游戏的角色牌，选一张置于你面前并声明该角色的一项技能，你拥有该技能且同时将性别和势力属性变成与该角色相同知道该易学被替换。在你的每个准备阶段和结束后，你可以替换易学牌，你须为新的易学重新声明一项技能（你不可声明限定技、觉醒技或班长技）。",
-            tps_nixue:"逆学",
-            tps_nixue_info:"你每受到1点扣分，可获得一张新易学牌。",
-            tps_jiwei:"纪委",
-            tps_jiwei_info:"出牌阶段限一次，你可以选择一项：将一张英语花色牌当做【罚站】使用；或弃置一张英语花色牌并弃置场上的一张【罚站】。选择完成后，你摸一张牌。",
-            tps_jianguan:"监管",
-            tps_jianguan_info:"你可以将一张英语花色的手牌当[罚站]使用",
-            tps_zuobi:"作弊",
-            tps_zuobi_info:"你的手牌上限+2。",
-            tps_zaoli:"早离",
-            tps_zaoli_info:"锁定技，杀死你的角色立即死亡。",
-            tps_qinxue:"勤学",
-            tps_qinxue_info:"摸牌阶段，你可以额外摸三张牌",
-            tps_tianwen:"偏文",
-            tps_tianwen_info:"锁定技，你的英语牌均视为语文",
-            tps_miaobi:"妙笔",
-            tps_miaobi_info:"你可以将一张文科科手牌当[刷作业]使用或打出",
-            tps_bili:"比离",
-            tps_bili_info:"出牌阶段限一次，你可以与一名其他角色排名，若你赢，则直到回合结束，该角色不能使用或打出手牌且其非锁定技失效，若你没赢，你可令该角色回复一点体力。",
-            tps_wencai:"文采",
-            tps_wencai_info:"当你成为[发作业]的目标时，可以弃置一张牌将其转移给攻击范围内的一名其他角色，此角色不能是[发作业]的使用者",
-            tps_jinye:"敬业",
-            tps_jinye_info:"出牌阶段，你使用[发作业]无数量限制",
-            tps_fanxing:"反省",
-            tps_fanxing_info:"你可以将一张科学花色的手牌当[集体补课]使用",
-            tps_guanban:"管班",
-            tps_guanban_info:"锁定技，你使用的【发作业】或【核对作业】需要两张【刷作业】或【发作业】响应",
-            tps_kuanrong:"宽容",
-            tps_kuanrong_info:"出牌阶段，你可以弃置一张手牌令一名角色回复一点体力，每阶段限一次",
-            tps_chaqin:"查寝",
-            tps_chaqin_info:"你可以将一张任意牌当[查寝]使用",
-            tps_chachu:"查处",
-            tps_chachu_info:"你可以将一张科学花色的手牌当[抽查]使用",
-            tps_laoshou:"老手",
-            tps_laoshou_info:"摸牌阶段，你可以额外摸一张牌",
-            tps_laolian:"老练",
-            tps_laolian_info:"你的手牌上限+1。",
-            tps_huashui:"滑水",
-            tps_huashui_info:"锁定技，当你没有手牌时，不能成为[发作业]或[核对作业]的目标",
-            tps_wudi:"无敌",
-            tps_wudi_info:"锁定技，游戏开始时，你的血量变为无限，且你多摸4张牌。",
-            tps_shoucuo:"受挫",
-            tps_shoucuo_info:"锁定技 每当你失去1点体力后，你弃两张牌。",
-            tps_duoluo:"堕落",
-            tps_duoluo_info:"觉醒技，准备阶段，若你没有手牌，你立即死亡。",
-            tps_yali:"压力",
-            tps_yali_info:"你可以将两张与你本回合以此法转化的花色均不相同的手牌当【上晚自习】使用，然后当一名已受伤的角色因响应此牌而打出【闪】时，该角色摸一张牌",
-            tps_weiwang:"威望",
-            tps_weiwang_info:"班长技，场上每有一名其他文科角色存活，你的手牌上限便+2。",
-            tps_jingxin:"静心",
-            tps_jingxin_info:"锁定技，当你没有手牌时，不能成为[资料漏发]或[罚站]的目标",
-            tps_yifen:"遗愤",
-            tps_yifen_info:"锁定技，杀死你的角色受到3点校级扣分。",
-            tps_bier:"闭耳",
-            tps_bier_info:"锁定技，你不能成【发作业】目标",
-            tps_weigui:"违规",
-            tps_weigui_info:"每当你使用【发作业】指定一名目标角色后，你无视其助刷。",
-            tps_yuanhuo:"怨火",
+        translate: {
+            liangyue: "梁越",
+            yaohuangshen: "姚皇燊",
+            rechenhongliang: "界陈泓亮",
+            chenhongliang: "陈泓亮",
+            panhaotian: "潘皓天",
+            chenzhenbo: "陈桢博",
+            yuanyuxuan: "袁雨轩",
+            wumengxiang: "吴孟祥",
+            shiao: "施敖",
+            huanghaojun: "黄浩峻",
+            zhengqihang: "郑启航",
+            chenkaihao: "陈凯豪",
+            xujingyi: "徐憬怿",
+            xusichen: "徐思辰",
+            xusichens: "界徐思辰",
+            maozihao: "毛子豪",
+            zhanglingkai: "张凌凯",
+            zhangyihe: "章易禾",
+            liuchun: "刘纯",
+            wanglina: "王丽娜",
+            xuqingyi: "徐晴宜",
+            luxinting: "卢鑫廷",
+            wangjing: "王晶",
+            mouminzi: "牟旻紫",
+            laileshang: "赖乐商",
+            zhangche: "张彻",
+            laimeixi: "来美羲",
+            wanghongge: "老王",
+            renyanguo: "任老板",
+            zhangjingchao: "超姐",
+            dingjianxin: "丁老师",
+            zhouxiaoyan: "周老师",
+            huzhichao: "超哥",
+            zhujianglu: "小天使",
+            liujiqing: "柳季青",
+            zhoulinghang: "周凌航",
+            tps_xuheng: "徐衡",
+            hushiqun: "胡识群",
+            wangguiyang: "王贵炀",
+            shouxintao: "寿鑫涛",
+            gechenqi: "葛辰启",
+            chenzhanhao: "陈占豪",
+            wangmeidie: "王小虫",
+			wangzile: "王梓乐",
+			sunbohua: "孙伯桦",
+
+            tiba: "题霸",
+            tiba_info: "你可以将一张理科手牌当[闪]使用或打出",
+            shensi: "神思",
+            shensi_info: "准备阶段，你可以进行一定判定，若为理科则可以继续判定，直到出现文科。然后你获得所有理科的判定牌。",
+            shensi_info_alter: "准备阶段，你可以进行一定判定，若为理科则可以继续判定，直到出现文科。然后你获得所有理科的判定牌。你通过神思获得的牌，不计入当前回合的手牌上限",
+            liangong: "连攻",
+            liangong_info: "每当你使用的【发作业】被目标角色使用的【刷作业】抵消时，你可以对其使用一张【发作业】（无距离限制）。",
+            tps_bufa: "不法",
+            tps_bufa_info: "你可以将一张科学花色的手牌当[午休讲话]使用",
+            tps_bangtou: "帮头",
+            tps_bangtou_info: "你可以将一张科学手牌当【结派】使用，若以此法使用的【结派】仅指定一个目标，你摸一张牌；你可以重做科学牌",
+            tps_siren: "死人",
+            tps_siren_info: "锁定技，在你死亡前，若你的体力值不大于0，亮出牌堆顶的一张牌并置于你的角色牌上，若此牌的点数与你角色牌上已有的牌点数均不同，则你回复至1体力。只要你的角色牌上有牌，你的手牌上限便与这些牌数量相等",
+            tps_zilian: "自恋",
+            tps_zilian_info: "你可以将你的任意一张♠或♣手牌当【我很优秀】使用。",
+            tps_jinze: "尽责",
+            tps_jinze_info: "锁定技，你使用的【发作业】需要两张【刷作业】响应",
+            tps_baofa: "爆发",
+            tps_baofa_info: "你可以将同花色的X张牌按下列规则使用或打出：语文当【补作业】，方块当具年级焰扣分的【杀】，科学当【闪】，数学当【我很优秀】（X为你当前的体力值且至少为1）",
+            tps_gaizi: "改字",
+            tps_gaizi_info: "你可以将[发作业]当[刷作业]，或[刷作业]当[发作业]使用或打出",
+            tps_gaile: "改了",
+            tps_gaile_info: "在任意角色的判定牌生效前，你可以打出一张牌代替之",
+            tps_wanji: "完击",
+            tps_wanji_info: "你可以将你的任意一张♠或♣手牌当【我很优秀】使用。",
+            tps_zifu: "自负",
+            tps_zifu_info: "你可以将一张英语花色的手牌当[罚站]使用",
+            tps_yixue: "易学",
+            tps_yixue_info: "所有人都展示角色牌后，你随机获得两张未加入游戏的角色牌，选一张置于你面前并声明该角色的一项技能，你拥有该技能且同时将性别和势力属性变成与该角色相同知道该易学被替换。在你的每个准备阶段和结束后，你可以替换易学牌，你须为新的易学重新声明一项技能（你不可声明限定技、觉醒技或班长技）。",
+            tps_nixue: "逆学",
+            tps_nixue_info: "你每受到1点扣分，可获得一张新易学牌。",
+            tps_jiwei: "纪委",
+            tps_jiwei_info: "出牌阶段限一次，你可以选择一项：将一张英语花色牌当做【罚站】使用；或弃置一张英语花色牌并弃置场上的一张【罚站】。选择完成后，你摸一张牌。",
+            tps_jianguan: "监管",
+            tps_jianguan_info: "你可以将一张英语花色的手牌当[罚站]使用",
+            tps_zuobi: "作弊",
+            tps_zuobi_info: "你的手牌上限+2。",
+            tps_zaoli: "早离",
+            tps_zaoli_info: "锁定技，杀死你的角色立即死亡。",
+            tps_qinxue: "勤学",
+            tps_qinxue_info: "摸牌阶段，你可以额外摸三张牌",
+            tps_tianwen: "偏文",
+            tps_tianwen_info: "锁定技，你的英语牌均视为语文",
+            tps_miaobi: "妙笔",
+            tps_miaobi_info: "你可以将一张文科科手牌当[刷作业]使用或打出",
+            tps_bili: "比离",
+            tps_bili_info: "出牌阶段限一次，你可以与一名其他角色排名，若你赢，则直到回合结束，该角色不能使用或打出手牌且其非锁定技失效，若你没赢，你可令该角色回复一点体力。",
+            tps_wencai: "文采",
+            tps_wencai_info: "当你成为[发作业]的目标时，可以弃置一张牌将其转移给攻击范围内的一名其他角色，此角色不能是[发作业]的使用者",
+            tps_jinye: "敬业",
+            tps_jinye_info: "出牌阶段，你使用[发作业]无数量限制",
+            tps_fanxing: "反省",
+            tps_fanxing_info: "你可以将一张科学花色的手牌当[集体补课]使用",
+            tps_guanban: "管班",
+            tps_guanban_info: "锁定技，你使用的【发作业】或【核对作业】需要两张【刷作业】或【发作业】响应",
+            tps_kuanrong: "宽容",
+            tps_kuanrong_info: "出牌阶段，你可以弃置一张手牌令一名角色回复一点体力，每阶段限一次",
+            tps_chaqin: "查寝",
+            tps_chaqin_info: "你可以将一张任意牌当[查寝]使用",
+            tps_chachu: "查处",
+            tps_chachu_info: "你可以将一张科学花色的手牌当[抽查]使用",
+            tps_laoshou: "老手",
+            tps_laoshou_info: "摸牌阶段，你可以额外摸一张牌",
+            tps_laolian: "老练",
+            tps_laolian_info: "你的手牌上限+1。",
+            tps_huashui: "滑水",
+            tps_huashui_info: "锁定技，当你没有手牌时，不能成为[发作业]或[核对作业]的目标",
+            tps_wudi: "无敌",
+            tps_wudi_info: "锁定技，游戏开始时，你的血量变为无限，且你多摸4张牌。",
+            tps_shoucuo: "受挫",
+            tps_shoucuo_info: "锁定技 每当你失去1点体力后，你弃两张牌。",
+            tps_duoluo: "堕落",
+            tps_duoluo_info: "觉醒技，准备阶段，若你没有手牌，你立即死亡。",
+            tps_yali: "压力",
+            tps_yali_info: "你可以将两张与你本回合以此法转化的花色均不相同的手牌当【上晚自习】使用，然后当一名已受伤的角色因响应此牌而打出【闪】时，该角色摸一张牌",
+            tps_weiwang: "威望",
+            tps_weiwang_info: "班长技，场上每有一名其他文科角色存活，你的手牌上限便+2。",
+            tps_jingxin: "静心",
+            tps_jingxin_info: "锁定技，当你没有手牌时，不能成为[资料漏发]或[罚站]的目标",
+            tps_yifen: "遗愤",
+            tps_yifen_info: "锁定技，杀死你的角色受到3点校级扣分。",
+            tps_bier: "闭耳",
+            tps_bier_info: "锁定技，你不能成【发作业】目标",
+            tps_weigui: "违规",
+            tps_weigui_info: "每当你使用【发作业】指定一名目标角色后，你无视其助刷。",
+            tps_yuanhuo: "怨火",
             tps_yuanhuo_info: "你可以将【发作业】当【年级作业】使用或打出。",
-			tps_tianshi: "天师",
-			tps_tianshi_info: "锁定技，准备阶段，你观看牌堆的X张牌(X为场上存活人数)并且任意移动Y张牌(Y为你当前体力值)",
-			tps_qianshui: "潜水",
-			tps_qianshui_info: "你不能成为理科动作的目标。",
-			tps_renqing: "人情",
-			tps_renqing_info: "锁定技，你每次收到扣分时你只收到1点扣分（防止多余的扣分）。",
-			tps_baohou: "暴吼",
-			tps_baohou_info: "限定技，出牌阶段，可令除你外的所有角色依次对与其距离最近的另一名角色使用一张【发作业】，无法如此做者失去1点体力。",
-			tps_juehou: "绝后",
-			tps_juehou_info: "每当你使用发作业命中目标后，你可以防止扣分，改为令目标旷课状态。",
-			tps_youxiu: "优秀",
-			tps_youxiu_info: "锁定技，理科的发作业对你无效",
-			tps_shigu: "事故",
-			tps_shigu_info: "出牌阶段限一次，你可以弃置一张牌，然后失去1点分数。",
-			tps_zhuangzhuang: "壮壮",
-			tps_zhuangzhuang2: "壮壮",
-			tps_zhuangzhuang_info: "锁定技 每当你失去1点体力后，你摸三张牌。然后若此时是你的出牌阶段，则直到回合结束，你使用文科【发作业】无距离限制且不能被【刷作业】响应，你可以额外使用一张【发作业】。",
-			tps_lumang: "鲁莽",
-			tps_lumang_info: "锁定技，准备阶段，你进行一次判定，若为文科牌，则直到回合结束，你使用文科【发作业】无距离限制且不能被【刷作业】响应，你可以额外使用一张【发作业】；否则直到下回合开始，你的所有文科手牌视为【刷作业】，所有理科手牌视为【发作业】。",
-			tps_lumang1: "鲁莽-攻",
-			tps_lumang1_info: "锁定技，直到回合结束，你使用文科【发作业】无距离限制且不能被【刷作业】响应，你可以额外使用一张【发作业】",
-			tps_lumang3: "鲁莽-文",
-			tps_lumang3_info: "锁定技，直到下回合开始，你的所有文科手牌视为【刷作业】。",
-			tps_lumang2: "鲁莽-理",
-			tps_lumang2_info: "锁定技，直到下回合开始，你的所有理科手牌视为【发作业】。",
-			tps_yinshang: "阴伤",
-			tps_yinshang_info: "每当你使用或打出一张【刷作业】，可令任意一名角色进行一次判定，若结果为科学，其受到一点校级扣分，然后你回复一点分数；若结果为数学，其受到两点校级扣分",
-			tps_wulai: "无赖",
-			tps_wulai_info: "任意一名角色的判定生效前，你可以打出一张理科牌替换之",
-			tps_jianlou: "捡漏",
-			tps_jianlou_info: "其他角色使用或打出一张【刷作业】时，你可在结算完成后弃置一张牌并获得之。",
-			tps_huyou: "忽悠",
-			tps_huyou1: "忽悠",
-			tps_huyou2: "忽悠",
-			tps_huyou_info: "锁定技，【作业来了】、【上晚自习】对你无效；若其他角色使用的【作业来了】、【上晚自习】在结算完时进入弃牌堆，你立即获得它。",
-			tps_songwei:'颂威',
-			tps_songwei2:'颂威',
-			tps_songwei_info:'班长技，其他理势力的角色的判定牌结果为♠或♣且生效后，可以让你摸一张牌。',
-		},
-	};
+            tps_tianshi: "天师",
+            tps_tianshi_info: "锁定技，准备阶段，你观看牌堆的X张牌(X为场上存活人数)并且任意移动Y张牌(Y为你当前体力值)",
+            tps_qianshui: "潜水",
+            tps_qianshui_info: "你不能成为理科动作的目标。",
+            tps_renqing: "人情",
+            tps_renqing_info: "锁定技，你每次收到扣分时你只收到1点扣分（防止多余的扣分）。",
+            tps_baohou: "暴吼",
+            tps_baohou_info: "限定技，出牌阶段，可令除你外的所有角色依次对与其距离最近的另一名角色使用一张【发作业】，无法如此做者失去1点体力。",
+            tps_juehou: "绝后",
+            tps_juehou_info: "每当你使用发作业命中目标后，你可以防止扣分，改为令目标旷课状态。",
+            tps_youxiu: "优秀",
+            tps_youxiu_info: "锁定技，理科的发作业对你无效",
+            tps_shigu: "事故",
+            tps_shigu_info: "出牌阶段限一次，你可以弃置一张牌，然后失去1点分数。",
+            tps_zhuangzhuang: "壮壮",
+            tps_zhuangzhuang2: "壮壮",
+            tps_zhuangzhuang_info: "锁定技 每当你失去1点体力后，你摸三张牌。然后若此时是你的出牌阶段，则直到回合结束，你使用文科【发作业】无距离限制且不能被【刷作业】响应，你可以额外使用一张【发作业】。",
+            tps_lumang: "鲁莽",
+            tps_lumang_info: "锁定技，准备阶段，你进行一次判定，若为文科牌，则直到回合结束，你使用文科【发作业】无距离限制且不能被【刷作业】响应，你可以额外使用一张【发作业】；否则直到下回合开始，你的所有文科手牌视为【刷作业】，所有理科手牌视为【发作业】。",
+            tps_lumang1: "鲁莽-攻",
+            tps_lumang1_info: "锁定技，直到回合结束，你使用文科【发作业】无距离限制且不能被【刷作业】响应，你可以额外使用一张【发作业】",
+            tps_lumang3: "鲁莽-文",
+            tps_lumang3_info: "锁定技，直到下回合开始，你的所有文科手牌视为【刷作业】。",
+            tps_lumang2: "鲁莽-理",
+            tps_lumang2_info: "锁定技，直到下回合开始，你的所有理科手牌视为【发作业】。",
+            tps_yinshang: "阴伤",
+            tps_yinshang_info: "每当你使用或打出一张【刷作业】，可令任意一名角色进行一次判定，若结果为科学，其受到一点校级扣分，然后你回复一点分数；若结果为数学，其受到两点校级扣分",
+            tps_wulai: "无赖",
+            tps_wulai_info: "任意一名角色的判定生效前，你可以打出一张理科牌替换之",
+            tps_jianlou: "捡漏",
+            tps_jianlou_info: "其他角色使用或打出一张【刷作业】时，你可在结算完成后弃置一张牌并获得之。",
+            tps_huyou: "忽悠",
+            tps_huyou1: "忽悠",
+            tps_huyou2: "忽悠",
+            tps_huyou_info: "锁定技，【作业来了】、【上晚自习】对你无效；若其他角色使用的【作业来了】、【上晚自习】在结算完时进入弃牌堆，你立即获得它。",
+            tps_songwei: '颂威',
+            tps_songwei2: '颂威',
+            tps_songwei_info: '班长技，其他理势力的角色的判定牌结果为♠或♣且生效后，可以让你摸一张牌。',
+            tps_fengkuang: '疯狂',
+            tps_fengkuang_info: "限定技，出牌阶段，可令除你外的所有角色受到1点校级伤害。",
+            tps_shikong: '失控',
+            tps_shikong_info: "限定技，出牌阶段，可令除你外的所有角色受到1点年级伤害。",
+            tps_shenghua: '生花',
+            tps_shenghua_info: "你受到伤害时，你可以进行一定判定，若为文科则可以继续判定，直到出现理科。然后你获得所有文科的判定牌。",
+            tps_shenghua_info_alter: "你受到伤害时，你可以进行一定判定，若为文科则可以继续判定，直到出现理科。然后你获得所有文科的判定牌。你通过生花获得的牌，不计入当前回合的手牌上限",
+			tps_xingyun: '幸运',
+			tps_xingyun_info:'你受到伤害时，若判定结果不为语文2~9，则你不受此伤害。',
+			tps_luanma: '乱码',
+			tps_luanma_info:'准备阶段，你可以进行一定判定，（略）',
+			tps_luanma_info_later:'准备阶段，你可以进行一定判定，若为英语A，你与你同阵营的人全部死亡（非身份模式下判定立即失败）；若为英语2，你弃10张牌并跳过摸牌和出牌阶段；若为英语3，你弃5张牌；若为英语4，你立即死亡；若为英语5，你立即翻面；若为科学A，与你不同阵营的人全部死亡（非身份模式下判定立即胜利）；若为科学2，你摸10张牌；若为科学3，你摸5张牌；若为科学4，你可选择一个人令其立即死亡；若为科学5，你可选择一个人令其立即翻面；',
+        },
+    };
 });

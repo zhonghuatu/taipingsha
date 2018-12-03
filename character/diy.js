@@ -53,6 +53,8 @@ game.import('character',
 			//jiangmin: ['female', 'wu', 3, ['tps_shulian']],
 			xiaohong: ['male', 'shen', 3, ['tps_zhuli','tps_zhitiao','tps_tongxiao']],
 			liufangfei: ['female', 'qun', 4, ['tps_gemo']],
+			lujunyu: ['male', 'qun', 4, ['tps_mensao']],
+			hezihang: ['male', 'qun', 4, ['tps_caiyi','tps_fuyou']],
 			chenyimiao: ['female', 'shen', 3, ['tps_qiangpo','tps_zhuanzhu','tps_cangni']],
 		},
 		characterFilter: {},
@@ -2979,9 +2981,8 @@ game.import('character',
 					if (result.suit != 'heart' || result.number == 1 || result.number >= 10) {
 						trigger.cancel();
 						return 1.5;
-					} else {
-						return -1.5;
-					};
+					}
+					return -1.5;
 				},
 				ai: {
 					expose: 0.4
@@ -3249,7 +3250,7 @@ game.import('character',
 				trigger:{source:'damageEnd'},
 				forced:true,
 				filter:function(event,player){
-					return player.isDamaged();
+					return true;
 				},
 				content:function(){
 					player.draw(trigger.num*2);
@@ -3482,6 +3483,136 @@ game.import('character',
 					}
 				}
 			},
+            tps_caiyi: {
+				audio: 2,
+				audioname: ["boss_qinglong"],
+				trigger: {
+					player: "respond",
+				},
+				filter: function (event, player) {
+					return event.card.name == 'shan';
+				},
+				direct: true,
+				content: function () {
+					"step 0";
+					player.chooseTarget(get.prompt('tps_yinshang')).ai = function (target) {
+						if (target.hasSkill('hongyan'))
+							return 0;
+						return get.damageEffect(target, _status.event.player, _status.event.player, 'thunder');
+					};
+					"step 1"
+					if (result.bool) {
+						player.logSkill('tps_yinshang', result.targets, 'thunder');
+						event.target = result.targets[0];
+					} else {
+						event.finish();
+					}
+					"step 2"
+					
+                    var next = player.useCard({
+						name: 'sha'
+					}, event.target, cards);
+					next.animate = false;
+					next.audio = false;
+                    return 0;
+				},
+				ai: {
+					useShan: true,
+					effect: {
+						target: function (card, player, target, current) {
+							if (get.tag(card, 'respondShan')) {
+								var hastarget = game.hasPlayer(function (current) {
+										return get.attitude(target, current) < 0;
+									});
+								var be = target.countCards('e', {
+										color: 'black'
+									});
+								if (target.countCards('h', 'shan') && be) {
+									if (!target.hasSkill('tps_wulai'))
+										return 0;
+									return [0, hastarget ? target.countCards('he') / 2 : 0];
+								}
+								if (target.countCards('h', 'shan') && target.countCards('h') > 2) {
+									if (!target.hasSkill('tps_wulai'))
+										return 0;
+									return [0, hastarget ? target.countCards('h') / 4 : 0];
+								}
+								if (target.countCards('h') > 3 || (be && target.countCards('h') >= 2)) {
+									return [0, 0];
+								}
+								if (target.countCards('h') == 0) {
+									return [1.5, 0];
+								}
+								if (target.countCards('h') == 1 && !be) {
+									return [1.2, 0];
+								}
+								if (!target.hasSkill('tps_wulai'))
+									return [1, 0.05];
+								return [1, Math.min(0.5, (target.countCards('h') + be) / 4)];
+							}
+						},
+					},
+				},
+			},
+			tps_fuyou: {
+				trigger: {
+					source: "damageEnd",
+				},
+				alter: true,
+				filter: function (event, player) {
+					if (event.player == undefined)return false;
+							return event.player.sex=='female';
+				},
+				forced: true,
+				content: function () {
+					if (!trigger.player.storage.tps_fuyou_mark) {
+						trigger.player.storage.tps_fuyou_mark = 0;
+					}
+					trigger.player.storage.tps_fuyou_mark += trigger.num;
+					trigger.player.syncStorage('tps_fuyou_mark');
+					trigger.player.markSkill('tps_fuyou_mark');
+				},
+				global: ["tps_fuyou_mark"],
+				subSkill: {
+					mark: {
+						marktext: "友尽",
+						intro: {
+							content: "mark",
+						},
+						sub: true,
+					},
+				},
+				group: ["tps_fuyou2"],
+			},
+			tps_fuyou2: {
+				audio: 2,
+				forced:true,
+				trigger: {
+					player: 'damageBegin',
+				},
+				filter: function (event, player) {
+					return (event.source.sex=='female' && !event.source.storage.tps_fuyou_mark);
+				},
+				check: function (event, player) {
+					return true;
+				},
+				content: function () {
+					trigger.cancel();
+					return 1.5;
+				},
+				ai: {
+					expose: 0.4
+				}
+			},
+			tps_mensao: {
+				mod: {
+					targetEnabled: function (card, player, target, now) {
+						if (card.name == 'huogong'||card.name == 'guohe'||card.name == 'shunshou'||card.name == 'jiedao'||card.name == 'juedou')
+							return false;
+					},
+				},
+				ai: {},
+			},
 		},
 		translate: {
 			liangyue: "梁越",
@@ -3533,6 +3664,8 @@ game.import('character',
 			xiaohong: "肖泓",
 			liufangfei: "刘芳菲",
 			chenyimiao: "陈轶淼",
+			hezihang: "贺梓航",
+			lujunyu: "卢俊雨",
 
 			tiba: "题霸",
 			tiba_info: "你可以将一张理科手牌当[闪]使用或打出",
@@ -3689,6 +3822,14 @@ game.import('character',
 			tps_qiangpo_info:"当你使用【杀】时，若目标的手牌数大于等于你的体力值，或小于等于你的攻击范围，你可令此【杀】不能闪避",
 			tps_zhuanzhu:"专注",
 			tps_zhuanzhu_info:'在你的回合，除你以外，只有处于将退学状态的角色才能使用【补作业】。',
+			tps_caiyi: "才艺",
+			tps_caiyi_info: "每当你使用或打出一张【刷作业】，可视为对任意一名角色出一张【发作业】",
+			tps_fuyou: "妇友",
+			tps_fuyou2: "妇友",
+			tps_fuyou_info: "每当你对一名女性角色造成一点伤害时，该角色获得一枚“友尽”标记；没有“友尽”标记的女性角色无法对你造成伤害。",
+			tps_fuyou_info_alter: "每当你对一名女性角色造成一点伤害时，该角色获得一枚“友尽”标记；没有“友尽”标记的女性角色无法对你造成伤害。",
+			tps_mensao: "闷骚",
+			tps_mensao_info: "锁定技，【抽查】、【查寝】、【没收】、【代发作业】、【核对作业】无法指定你为目标。",
 			/*
 			debug_lmk1:"乱码-科1",
 			debug_lmk1_info:"乱码-科1",

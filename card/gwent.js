@@ -199,7 +199,8 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 							var enemies=player.getEnemies();
 							var players=game.filterPlayer();
 							var func=function(current){
-								return current.hp;
+								if(current) return current.hp;
+								return 0;
 							};
 							var max1=get.max(enemies,func);
 							for(var i=0;i<players.length;i++){
@@ -241,7 +242,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				enable:true,
 				notarget:true,
 				contentBefore:function(){
-					player.$skill('校级咒术','legend','metal');
+					player.$skill('雷咒术','legend','metal');
 					game.delay(2);
 				},
 				content:function(){
@@ -287,9 +288,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				vanish:true,
 				enable:function(card,player){
 					var enemies=player.getEnemies();
-					return game.hasPlayer(function(current){
-						return enemies.contains(current)&&get.distance(player,current,'pure')==1;
-					});
+					return enemies.length>0;
 				},
 				notarget:true,
 				contentBefore:function(){
@@ -299,10 +298,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				content:function(){
 					'step 0'
 					var enemies=player.getEnemies();
-					var list=game.filterPlayer(function(current){
-						return enemies.contains(current)&&get.distance(player,current,'pure')==1;
-					});
-					event.list=list.sortBySeat();
+					event.list=[enemies.randomGet()];
 					'step 1'
 					if(event.list.length){
 						var target=event.list.shift();
@@ -362,7 +358,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				},
 				notarget:true,
 				contentBefore:function(){
-					player.$skill('暗发作业','legend','metal');
+					player.$skill('暗问','legend','metal');
 					game.delay(2);
 				},
 				content:function(){
@@ -457,7 +453,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 						list.remove(players[i].name1);
 						list.remove(players[i].name2);
 					}
-					var dialog=ui.create.dialog('选择一张角色牌','hidden');
+					var dialog=ui.create.dialog('选择一张武将牌','hidden');
 					dialog.add([list.randomGets(12),'character']);
 					player.chooseButton(dialog,true).ai=function(button){
 						if(get.attitude(player,event.aitarget)>0){
@@ -469,7 +465,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					};
 					'step 1'
 					event.nametarget=result.links[0];
-					player.chooseTarget(true,'使用'+get.translation(event.nametarget)+'替换一名角色的角色牌',function(card,player,target){
+					player.chooseTarget(true,'使用'+get.translation(event.nametarget)+'替换一名角色的武将牌',function(card,player,target){
 						return !target.isUnseen()&&!target.isMin();
 					}).ai=function(target){
 						if(target==event.aitarget){
@@ -879,7 +875,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 						}
 					}
 					'step 3'
-					player.addTempSkill('qianxing',{player:'phaseBegin'});
+					player.tempHide();
 				},
 				contentAfter:function(){
 					var evt=_status.event.getParent('phaseUse');
@@ -1544,7 +1540,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 							}
 						}
 					},
-					order:8,
+					order:2,
 				}
 			},
 			gw_zumoshoukao:{
@@ -1557,9 +1553,9 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					target.addTempSkill('fengyin',{player:'phaseAfter'});
-					if(target.hujia){
-						target.changeHujia(-1);
-					}
+					// if(target.hujia){
+					// 	target.changeHujia(-1);
+					// }
 				},
 				ai:{
 					value:[4.5,1],
@@ -1567,10 +1563,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					result:{
 						target:function(player,target){
 							var threaten=get.threaten(target,player,true);
-							if(target.hujia){
-								threaten*=(target.hujia+1);
-							}
-							else if(target.hasSkill('fengyin')){
+							if(target.hasSkill('fengyin')){
 								return 0;
 							}
 							if(target.hasSkillTag('maixie_hp')){
@@ -1848,7 +1841,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				silent:true,
 				mark:true,
 				intro:{
-					content:'新的一轮开始时，若角色牌正面朝上，则在当前回合结束后进行一个额外回合，否则将角色牌翻回正面'
+					content:'新的一轮开始时，若武将牌正面朝上，则在当前回合结束后进行一个额外回合，否则将武将牌翻回正面'
 				},
 				content:function(){
 					if(player.isTurnedOver()){
@@ -2025,7 +2018,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				mark:true,
 				nopop:true,
 				intro:{
-					content:'不能使用发作业直到下一个出牌阶段结束'
+					content:'不能使用问直到下一个出牌阶段结束'
 				},
 				mod:{
 					cardEnabled:function(card){
@@ -2212,7 +2205,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			'昆特牌':'<ul><li>法术为分金、银、铜三类，金卡和银卡不出现在牌堆中<li>'+
 			'摸牌阶段有一定概率摸到银卡，在16个摸牌阶段中至少会摸到2张银卡<li>'+
 			'摸牌阶段有一定概率摸到金卡，在16个摸牌阶段中至少会摸到1张金卡<li>'+
-			'金卡无视调虎离山、潜行等免疫目标的效果<li>'+
+			'金卡无视因事征用、潜行等免疫目标的效果<li>'+
 			'进行洗牌时金卡、银卡将从弃牌堆中消失，不进入牌堆'
 		},
 		translate:{
@@ -2223,7 +2216,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 
 			gw_youlanzhimeng:'幽蓝之梦',
 			gw_guaiwuchaoxue:'怪物巢穴',
-			gw_guaiwuchaoxue_info:'出牌阶段限用一次，随机获得一个卖血技能直到下一回合开始；令一名随机敌方角色对你造成一点扣分，然后你回复一点分数',
+			gw_guaiwuchaoxue_info:'出牌阶段限用一次，随机获得一个卖血技能直到下一回合开始；令一名随机敌方角色对你造成一点扣分，然后你回复一点体力',
 			gw_baobaoshu:'雹暴术',
 			gw_baobaoshu_info:'天气牌，出牌阶段对至多两名角色使用，目标每使用一张基本牌或动作牌，需弃置一张牌，直到下一回合结束',
 			gw_baishuang:'白霜',
@@ -2232,13 +2225,13 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			gw_nuhaifengbao_bg:'海',
 			gw_nuhaifengbao_info:'天气牌，出牌阶段对一名角色使用，目标在结束阶段随机弃置一张牌，持续2回合',
 			gw_ganhan:'干旱',
-			gw_ganhan_info:'所有角色减少一点分数上限（不触发技能），然后结束出牌阶段',
+			gw_ganhan_info:'所有角色减少一点体力上限（不触发技能），然后结束出牌阶段',
 			gw_huangjiashenpan:'皇家审判',
 			gw_huangjiashenpan_info:'获得任意一张金卡法术（皇家审判除外），然后结束出牌阶段',
 			gw_chongci:'冲刺',
 			gw_chongci_info:'弃置所有牌并随机获得一张非金法术牌，每弃置一张手牌，便随机获得一张类别相同的牌；每弃置一张工具区内的牌，随机工具一件类别相同的工具；获得潜行直到下一回合开始，然后结束出牌阶段',
 			gw_tunshi:'吞噬',
-			gw_tunshi_info:'随机移除一名敌方角色的一个随机技能，你获得此技能并减少一点分数和分数上限，被移除技能的角色增加一点分数和分数上限，然后结束出牌阶段',
+			gw_tunshi_info:'随机移除一名敌方角色的一个随机技能，你获得此技能并减少一点体力和体力上限，被移除技能的角色增加一点体力和体力上限，然后结束出牌阶段',
 			gw_dieyi:'蝶翼',
 			gw_dieyi_equip1:'蝶翼·器',
 			gw_dieyi_equip2:'蝶翼·衣',
@@ -2255,50 +2248,50 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			gw_hudiewu:'蝴蝶舞',
 			gw_hudiewu_info:'将其他角色在场上的所有牌替换为蝶翼（每当你失去一张蝶翼，你获得一枚“蝶翼”标记；在任意角色的结束阶段，你移去所有“蝶翼”标记，并随机弃置等量的牌），然后结束出牌阶段',
 			gw_yigeniyin:'伊格尼印',
-			gw_yigeniyin_info:'对敌方角色中分数值最高的一名随机角色造成一点年级焰扣分，然后对场上分数值最高的所有角色各造成一点年级焰扣分，然后结束出牌阶段',
-			gw_leizhoushu:'校级咒术',
-			gw_leizhoushu_info:'获得技能校级咒术（在每个准备阶段令全场牌数最多的所有其他角色各随机弃置一张牌，若目标不包含敌方角色，将一名随机敌方角色追加为额外目标，结算X次，X为本局获得此技能的次数），然后结束出牌阶段',
+			gw_yigeniyin_info:'对敌方角色中体力值最高的一名随机角色造成一点文竞扣分，然后对场上体力值最高的所有角色各造成一点文竞扣分，然后结束出牌阶段',
+			gw_leizhoushu:'雷咒术',
+			gw_leizhoushu_info:'获得技能雷咒术（在每个准备阶段令全场牌数最多的所有其他角色各随机弃置一张牌，若目标不包含敌方角色，将一名随机敌方角色追加为额外目标，结算X次，X为本局获得此技能的次数），然后结束出牌阶段',
 			gw_aerdeyin:'阿尔德印',
 			gw_aerdeyin_bg:'印',
-			gw_aerdeyin_info:'对相邻的敌方角色造成一点扣分，若目标角色牌正面朝上，则将其旷课；新的一轮开始时，若目标角色牌正面朝上，则在当前回合结束后进行一个额外回合，否则将角色牌翻回正面',
+			gw_aerdeyin_info:'对一名随机敌方角色造成一点扣分，若目标武将牌正面朝上，则将其翻面；新的一轮开始时，若目标武将牌正面朝上，则在当前回合结束后进行一个额外回合，否则将武将牌翻回正面',
 			gw_xinsheng:'新生',
-			gw_xinsheng_info:'选择一名角色，随机观看12张角色牌，选择一张替代其角色牌，并令其增加一点分数，然后结束出牌阶段',
+			gw_xinsheng_info:'选择一名角色，随机观看12张武将牌，选择一张替代其武将牌，并令其增加一点体力，然后结束出牌阶段',
 			gw_zhongmozhizhan:'终末之战',
 			gw_zhongmozhizhan_info:'将所有角色区域内的所有牌置入弃牌堆（不触发技能），然后结束出牌阶段',
 			gw_butianshu:'卜天术',
 			gw_butianshu_info:'出牌阶段对任意角色使用，将任意一张延时动作牌置入其判定区',
 			gw_zhihuanjun:'致幻菌',
-			gw_zhihuanjun_info:'出牌阶段对一名已受伤角色使用，令其减少一点分数上限；若该角色仍处于受伤状态且手牌数小于分数上限，则重复此结算',
+			gw_zhihuanjun_info:'出牌阶段对一名已受伤角色使用，令其减少一点体力上限；若该角色仍处于受伤状态且手牌数小于体力上限，则重复此结算',
 			gw_niuquzhijing:'纽曲之镜',
-			gw_niuquzhijing_info:'令全场分数最多的角色减少一点分数和分数上限，分数最少的角色增加一点分数和分数上限（不触发技能），然后结束出牌阶段',
-			gw_ansha:'暗发作业',
-			gw_ansha_info:'令一名分数为1的随机敌方角立即退学，然后结束出牌阶段',
+			gw_niuquzhijing_info:'令全场体力最多的角色减少一点体力和体力上限，体力最少的角色增加一点体力和体力上限（不触发技能），然后结束出牌阶段',
+			gw_ansha:'暗问',
+			gw_ansha_info:'令一名体力为1的随机敌方角立即退学，然后结束出牌阶段',
 			gw_shizizhaohuan:'十字召唤',
-			gw_shizizhaohuan_info:'从牌堆中获得一张发作业以及核对作业、抽查、年级烧连营、作业来了四张牌中的随机一张',
+			gw_shizizhaohuan_info:'从牌堆中获得一张问以及辩论、抽查、拼写大赛、多想多问四张牌中的随机一张',
 			gw_zuihouyuanwang:'最后愿望',
-			gw_zuihouyuanwang_info:'摸X张牌并弃置X张牌，X为在学角色数',
+			gw_zuihouyuanwang_info:'摸X张牌并弃置X张牌，X为存活角色数',
 			gw_zirankuizeng:'自然馈赠',
 			gw_zirankuizeng_info:'选择任意一张铜卡法术使用',
 			gw_poxiao:'破晓',
 			gw_poxiao_info:'选择一项：解除任意名角色的天气效果并移除其判定区内的牌，或随机获得一张铜卡法术（破晓除外）并展示之',
 			gw_zumoshoukao:'阻魔手铐',
-			gw_zumoshoukao_info:'令一名角色失去一点护甲且非锁定技失效直到下一回合结束',
-			gw_aozuzhilei:'奥祖之校级',
-			gw_aozuzhilei_info:'对一名分数值不小于你的角色造成一点校级属性扣分，然后该角色摸一张牌',
+			gw_zumoshoukao_info:'令一名角色非锁定技失效直到下一回合结束',
+			gw_aozuzhilei:'奥祖之雷',
+			gw_aozuzhilei_info:'对一名体力值不小于你的角色造成一点雷属性扣分，然后该角色摸一张牌',
 			gw_zhuoshao:'灼烧',
-			gw_zhuoshao_info:'对任意名分数值为全场最高的角色使用，造成一点年级属性扣分',
+			gw_zhuoshao_info:'对任意名体力值为全场最高的角色使用，造成一点火属性扣分',
 			gw_fuyuan:'复原',
-			gw_fuyuan_info:'对一名将退学状态角色使用，目标回复一点分数并摸一张牌',
+			gw_fuyuan_info:'对一名将退学状态角色使用，目标回复一点体力并摸一张牌',
 			gw_youer:'诱饵',
 			gw_youer_bg:'饵',
 			gw_youer_info:'将一名其他角色的所有手牌移出游戏，然后摸一张牌，当前回合结束后该角色将以此法失去的牌收回手牌',
 			gw_tongdi:'通敌',
-			gw_tongdi_info:'观看一名其他角色的手牌并获得其中一张，然后令目标获得一张发作业',
+			gw_tongdi_info:'观看一名其他角色的手牌并获得其中一张，然后令目标获得一张问',
 			gw_baoxueyaoshui:'暴雪药水',
 			gw_baoxueyaoshui_info:'令一名角色弃置两张手牌并摸一张牌',
 			gw_birinongwu:'蔽日浓雾',
 			gw_birinongwu_bg:'雾',
-			gw_birinongwu_info:'天气牌，出牌阶段对一名角色及其相邻角色使用，目标不能使用发作业直到下一个出牌阶段结束',
+			gw_birinongwu_info:'天气牌，出牌阶段对一名角色及其相邻角色使用，目标不能使用问直到下一个出牌阶段结束',
 			gw_qinpendayu:'倾盆大雨',
 			gw_qinpendayu_bg:'雨',
 			gw_qinpendayu_info:'天气牌，出牌阶段对一名角色及其相邻角色使用，目标手牌上限-1直到下一个弃牌阶段结束',
@@ -2306,13 +2299,13 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			gw_ciguhanshuang_bg:'霜',
 			gw_ciguhanshuang_info:'天气牌，出牌阶段对一名角色及其相邻角色使用，目标下个摸牌阶段摸牌数-1',
 			gw_wenyi:'瘟疫',
-			gw_wenyi_info:'令所有分数值为全场最少的角色随机弃置一张手牌；若没有手牌，改为失去一点分数',
+			gw_wenyi_info:'令所有体力值为全场最少的角色随机弃置一张手牌；若没有手牌，改为失去一点体力',
 			gw_yanziyaoshui:'燕子药水',
 			gw_yanziyaoshui_info:'令一名角色摸一张牌，若其手牌数为全场最少或之一，改为摸两张',
 			gw_shanbengshu:'山崩术',
 			gw_shanbengshu_info:'出牌阶段对自己使用，随机弃置两件敌方角色场上的工具',
 			gw_kunenfayin:'昆恩法印',
-			gw_kunenfayin_info:'出牌阶段对一名角色使用，目标防止所有非属性扣分，持续X个角色的回合（X为在学角色数且最多为5）',
+			gw_kunenfayin_info:'出牌阶段对一名角色使用，目标防止所有非属性扣分，持续X个角色的回合（X为存活角色数且最多为5）',
 		},
 		cardType:{
 			spell:0.5,

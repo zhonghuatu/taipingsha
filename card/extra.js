@@ -10,7 +10,8 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				type:"basic",
 				toself:true,
 				enable:function(event,player){
-					return !player.hasSkill('jiu');
+					//return !player.hasSkill('jiu');
+					return true;
 				},
 				lianheng:true,
 				logv:false,
@@ -34,6 +35,8 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 						if(cards&&cards.length){
 							card=cards[0];
 						}
+						if(!player.storage.jiu) player.storage.jiu=0;
+						player.storage.jiu++;
 						game.broadcastAll(function(target,card,gain2){
 							target.addSkill('jiu');
 							if(!target.node.jiu&&lib.config.jiu_effect){
@@ -43,8 +46,8 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 							if(gain2&&card.clone&&(card.clone.parentNode==target.parentNode||card.clone.parentNode==ui.arena)){
 								card.clone.moveDelete(target);
 							}
-						},target,card,target==targets[0]);
-						if(target==targets[0]){
+						},target,card,target==targets[0]&&cards.length==1);
+						if(target==targets[0]&&cards.length==1){
 							if(card.clone&&(card.clone.parentNode==target.parentNode||card.clone.parentNode==ui.arena)){
 								game.addVideo('gain2',target,get.cardsInfo([card]));
 							}
@@ -225,7 +228,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				chongzhu:true,
 				ai:{
 					wuxie:function(){
-						if(Math.random()<0.5) return 0;
+						if(_status.event.getRand()<0.5) return 0;
 					},
 					basic:{
 						useful:4,
@@ -347,7 +350,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 						equipValue:3
 					},
 				},
-				skills:['tengjia1','tengjia2']
+				skills:['tengjia1','tengjia2','tengjia3']
 			},
 			baiyin:{
 				fullskin:true,
@@ -379,16 +382,22 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 		skill:{
 			huogong2:{},
 			jiu:{
-				trigger:{source:'damageBegin'},
+				trigger:{player:'useCard'},
 				filter:function(event){
-					return event.card&&event.card.name=='sha'&&event.notLink();
+					return event.card&&event.card.name=='sha';
 				},
 				forced:true,
 				content:function(){
-					trigger.num++;
+					if(!trigger.baseDamage) trigger.baseDamage=1;
+					trigger.baseDamage+=player.storage.jiu;
+					game.broadcastAll(function(player){
+						player.removeSkill('jiu');
+					},player);
 				},
 				temp:true,
 				vanish:true,
+				silent:true,
+				popup:false,
 				onremove:function(player){
 					if(player.node.jiu){
 						player.node.jiu.delete();
@@ -396,6 +405,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 						delete player.node.jiu;
 						delete player.node.jiu2;
 					}
+					delete player.storage.jiu;
 				},
 				ai:{
 					damageBonus:true
@@ -441,7 +451,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				}
 			},
 			tengjia1:{
-				trigger:{target:'useCardToBefore'},
+				trigger:{target:['useCardToBefore']},
 				forced:true,
 				priority:6,
 				audio:true,
@@ -453,7 +463,6 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					})) return false;
 					if(event.card.name=='nanman') return true;
 					if(event.card.name=='wanjian') return true;
-					if(event.card.name=='sha'&&!event.card.nature) return true;
 				},
 				content:function(){
 					trigger.cancel();
@@ -497,6 +506,22 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 						}
 					}
 				}
+			},
+			tengjia3:{
+			    audio:'tengjia1',
+			    trigger:{target:'shaBegin'},
+			    filter:function(event,player){
+			        if(event.player.hasSkillTag('unequip',false,{
+						name:event.card?event.card.name:null,
+						target:player,
+						card:event.card
+					})) return false;
+					if(event.card.name=='sha'&&!event.card.nature) return true;
+					return false;
+			    },
+			    content:function(){
+			        trigger.cancel();
+			    },
 			},
 			baiyin_skill:{
 				trigger:{player:'damageBegin'},
@@ -547,33 +572,34 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			huogon2:{},
 		},
 		translate:{
-			jiu:'辣条',
-			jiu_info:'出牌阶段，对自己使用，令自己的下一张使用的【发作业】造成的扣分+1（每回合限使用1次）；将退学阶段，对自己使用，回复1点分数',
+			jiu:'思',
+			jiu_info:'出牌阶段，对自己使用，令自己的下一张使用的【问】造成的扣分+1（每回合限使用1次）；将退学阶段，对自己使用，回复1点体力',
 			huogong:'抽查',
 			tiesuo:'拉帮结派',
-			tiesuo_info:'出牌阶段使用，选择1至2个角色，分别拉帮或重置这些角色',
-			huogong_bg:'攻',
-			huogong_info:'目标角色展示一张手牌，然后若你能弃掉一张与所展示牌相同花色的手牌，则抽查对该角色造成1点年级焰扣分。',
+			tiesuo_info:'出牌阶段使用，选择1至2个角色，分别横置或重置这些角色',
+			huogong_bg:'抽',
+			huogong_info:'目标角色展示一张手牌，然后若你能弃掉一张与所展示牌相同花色的手牌，则抽查对该角色造成1点文竞扣分。',
 			tiesuo_bg:'派',
 			bingliang:'作业没带',
-			hualiu:'课本山',
-			zhuque:'年级组长',
-			bingliang_bg:'没',
+			hualiu:'长河之梦',
+			zhuque:'朱雀羽扇',
+			bingliang_bg:'落',
 			bingliang_info:'目标角色判定阶段进行判定：若判定结果不为科学，则跳过该角色的摸牌阶段。',
-			hualiu_bg:'掩体',
+			hualiu_bg:'前八',
 			hualiu_info:'你的防御距离+1',
 			zhuque_bg:'组',
-			zhuque_skill:'年级组长',
-			zhuque_info:'你可以将一张普通【发作业】当具年级焰扣分的【发作业】使用。',
+			zhuque_skill:'文竞组长',
+			zhuque_info:'你可以将一张普通【问】当具文竞扣分的【问】使用。',
 			guding:'加急作业',
-			guding_info:'锁定技，当你使用【发作业】对目标角色造成扣分时，若其没有手牌，此扣分+1。',
+			guding_info:'锁定技，当你使用【问】对目标角色造成扣分时，若其没有手牌，此扣分+1。',
 			guding_skill:'加急作业',
 			tengjia:'勺式忽略',
-			tengjia_info:'锁定技，【作业来了】、【上晚自习】和普通【发作业】对你无效。你每次受到年级焰扣分时，该扣分+1。',
+			tengjia_info:'锁定技，【多想多问】、【阶段测验】和普通【问】对你无效。你每次受到文竞扣分时，该扣分+1。',
 			tengjia1:'勺式忽略',
 			tengjia2:'勺式忽略',
+			tengjia3:'勺式忽略',
 			baiyin:'人情珍贵',
-			baiyin_info:'锁定技，你每次受到扣分时，最多承受1点扣分（防止多余的扣分）；当你失去工具区里的【人情珍贵】时，你回复1点分数。',
+			baiyin_info:'锁定技，你每次受到扣分时，最多承受1点扣分（防止多余的扣分）；当你失去工具区里的【人情珍贵】时，你回复1点体力。',
 			baiyin_skill:'人情珍贵',
 		},
 		list:[

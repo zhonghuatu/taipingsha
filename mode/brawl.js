@@ -369,9 +369,9 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 		},
 		brawl:{
 			duzhansanguo:{
-				name:'毒战三国',
+				name:'禁战三国',
 				mode:'identity',
-				intro:'牌堆中额外添加10%的毒',
+				intro:'牌堆中额外添加10%的禁',
 				showcase:function(init){
 					var node=this;
 					var func=function(){
@@ -418,7 +418,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			daozhiyueying:{
 				name:'导师月英',
 				mode:'identity',
-				intro:'牌堆中所有普通锦囊牌数量翻倍；移除拥有集智技能的角色',
+				intro:'牌堆中所有普通动作牌数量翻倍；移除拥有集智技能的角色',
 				showcase:function(init){
 					var node=this;
 					var player1,player2;
@@ -569,10 +569,10 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				name:'唯我独尊',
 				mode:'identity',
 				intro:[
-					'牌堆中杀的数量增加30%',
+					'牌堆中问的数量增加30%',
 					'游戏开始时，班长获得一枚战神标记',
-					'拥有战神标记的角色杀造成的伤害+1',
-					'受到杀造成的伤害后战神印记将移到伤害来源的武将牌上'
+					'拥有战神标记的角色问造成的扣分+1',
+					'受到问造成的扣分后战神印记将移到扣分来源的武将牌上'
 				],
 				showcase:function(init){
 					var node=this;
@@ -649,7 +649,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					lib.skill.weiwoduzun={
 						mark:true,
 						intro:{
-							content:'杀造成的伤害+1'
+							content:'问造成的扣分+1'
 						},
 						group:['weiwoduzun_damage','weiwoduzun_lose'],
 						subSkill:{
@@ -847,7 +847,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				intro:[
 					'班长必选曹操',
 					'其余玩家从曹休、文聘、曹洪、张郃、夏侯渊、徐晃、许褚这些武将中随机选中一个',
-					'游戏开始时将麒麟弓和爪黄飞电各置于每名角色的装备区内，大宛马洗入牌堆，移除其他的武器牌和坐骑牌'
+					'游戏开始时将麒麟弓和爪黄飞电各置于每名角色的工具区内，大宛马洗入牌堆，移除其他的助学牌和梦想牌'
 				],
 				init:function(){
 					game.saveConfig('player_number','8','identity');
@@ -1611,8 +1611,8 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 								var cname=lib.cardPack[lib.config.cards[i]][j];
 								pileaddlist.push([cname,get.translation(cname)]);
 								if(cname=='sha'){
-									pileaddlist.push(['huosha','火杀']);
-									pileaddlist.push(['leisha','雷杀']);
+									pileaddlist.push(['huosha','文竞']);
+									pileaddlist.push(['leisha','理竞']);
 								}
 							}
 						}
@@ -1630,10 +1630,10 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						cardpileaddname.style.width='85px';
 						var cardpileaddsuit=ui.create.selectlist([
 							['random','随机花色'],
-							['heart','红桃'],
-							['diamond','方片'],
-							['club','梅花'],
-							['spade','黑桃'],
+							['heart','语文'],
+							['diamond','英语'],
+							['club','科学'],
+							['spade','数学'],
 						],null,line3);
 						cardpileaddsuit.style.marginLeft='3px';
 						cardpileaddsuit.style.marginRight='3px';
@@ -1677,7 +1677,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 							fakecard([cardpileaddname.value,cardpileaddsuit.value,cardpileaddnumber.value],line6_h,capt_h);
 							capt_h.style.display='block';
 						});
-						var cc_e=ui.create.node('button','加入装备区',line5,function(){
+						var cc_e=ui.create.node('button','加入工具区',line5,function(){
 							if(get.type(cardpileaddname.value)!='equip') return;
 							var subtype=get.subtype(cardpileaddname.value);
 							for(var i=0;i<line6_e.childElementCount;i++){
@@ -1710,7 +1710,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 
 						var capt_h=ui.create.div(style2,'','手牌区',this);
 						var line6_h=ui.create.div(style2,this);
-						var capt_e=ui.create.div(style2,'','装备区',this);
+						var capt_e=ui.create.div(style2,'','工具区',this);
 						var line6_e=ui.create.div(style2,this);
 						var capt_j=ui.create.div(style2,'','判定区',this);
 						var line6_j=ui.create.div(style2,this);

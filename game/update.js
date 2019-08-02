@@ -1,15 +1,20 @@
 window.noname_update={
-	version:'2.0',
-	update:'2.0',
+	version:'1.9.88.4',
+	update:'1.9.88.3',
 	changeLog:[
-		'太平杀离线版出炉！'
+		'修复BUG',
+		'昆特牌，古剑奇谭部分技能调整',
 	],
 	files:[
-		'card/standard.js',
-		'card/extra.js',
-		'card/standard.js',
-		'character/extra.js',
-		'character/diy.js',
-		'character/standard.js',
+		'character/gujian.js',
+		'character/gwent.js',
+		'character/shenhua.js',
+		'character/sp.js',
+		//'character/standard.js',
+		'character/xinghuoliaoyuan.js',
+		'character/yijiang.js',
+		//'game/asset.js',
+		'game/game.js',
+		//'game/package.js'
 	]
 };

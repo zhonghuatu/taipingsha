@@ -37,7 +37,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 					return player.countCards('e')>0;
 				},
 				filterCard:true,
-				prompt:'将要重做的牌置入弃牌堆并摸一张牌',
+				prompt:'将要重铸的牌置入弃牌堆并摸一张牌',
 				discard:false,
 				delay:0.5,
 				check:function(card,player){
@@ -113,11 +113,11 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			xk_shenxiangyun:'沈湘芸',
 			xk_fujianhan:'傅剑寒',
 			zhongzhan:'重斩',
-			zhongzhan_info:'每当你即将造成扣分，你可流失一点体力令扣分+1',
+			zhongzhan_info:'每当你即将造成扣分，你可失去一点体力令扣分+1',
 			gzhenji:'震击',
-			gzhenji_info:'你使用杀造成扣分后，可以摸一张牌，并且本回合内可以额外使用一张杀',
+			gzhenji_info:'你使用问造成扣分后，可以摸一张牌，并且本回合内可以额外使用一张问',
 			rouquan:'柔拳',
-			rouquan_info:'你可以重做工具区内的牌；当你没有助发牌时，你的杀可以指定任意个目标',
+			rouquan_info:'你可以重铸工具区内的牌；当你没有助学牌时，你的问可以指定任意个目标',
 			zitong:'通悟',
 			zitong_info:'当你于自己的回合内使用第三张牌时，你可以将一张传送门置于你的手牌',
 		},

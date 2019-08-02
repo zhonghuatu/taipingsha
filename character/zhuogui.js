@@ -173,7 +173,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 					players.sort(function(a,b){
 						return b.hp-a.hp;
 					});
-					return '枭首：是否对'+get.translation(players[0])+'造成一点年级焰扣分？';
+					return '枭首：是否对'+get.translation(players[0])+'造成一点文竞扣分？';
 				},
 				content:function(){
 					var players=game.players.slice(0);
@@ -309,28 +309,28 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			qixiang:'祺祥',
 			qixiang1:'祺祥',
 			qixiang2:'祺祥',
-			nianrui_info:'准备阶段和结束阶段，你可以进行一次判定，若结果为文科则摸一张牌',
-			qixiang_info:'罚站判定时，你的方块判定牌视为语文；作业没带判定时，你的数学判定牌视为草花',
+			nianrui_info:'准备阶段和结束阶段，你可以进行一次判定，若结果为红色则摸一张牌',
+			qixiang_info:'乐不思蜀判定时，你的英语判定牌视为语文；作业没带判定时，你的数学判定牌视为科学',
 
 			mamian:'马面',
 			lianyu:'炼狱',
-			lianyu_info:'出牌阶段限一次，你可以弃置一张文科手牌令场上所有角色受到一点年级焰扣分',
+			lianyu_info:'出牌阶段限一次，你可以弃置一张红色手牌令场上所有角色受到一点文竞扣分',
 
 			niutou:'牛头',
 			manjia:'蛮甲',
 			manjia1:'蛮甲',
 			manjia2:'蛮甲',
-			manjia_info:'锁定技，若你的工具区内没有助刷牌，则你视为工具了[勺式忽略]',
+			manjia_info:'锁定技，若你的工具区内没有教辅牌，则你视为工具了[藤甲]',
 			xiaoshou:'枭首',
-			xiaoshou_info:'结束阶段，若场上体力值最多的角色只有一个，你可以对其造成一点年级焰扣分',
+			xiaoshou_info:'结束阶段，若场上体力值最多的角色只有一个，你可以对其造成一点文竞扣分',
 			guiji:'诡计',
 			guiji_info:'锁定技，准备阶段结束时，若你的判定区内有牌，你随机弃置其中一张牌',
 
 			baiwuchang:'白无常',
 			qiangzheng:'强征',
 			qiangzheng_info:'锁定技，结束阶段，你获得一名其他角色的一张手牌',
-			zuijiu:'醉辣条',
-			zuijiu_info:'锁定技，你的黑杀造成的扣分+1，造成扣分后须弃置一张手牌',
+			zuijiu:'醉思',
+			zuijiu_info:'锁定技，你的黑问造成的扣分+1，造成扣分后须弃置一张手牌',
 
 			heiwuchang:'黑无常',
 			suoling:'索令',

@@ -151,6 +151,9 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					order:0.5,
 					value:4,
 					useful:2,
+					tag:{
+						norepeat:1
+					},
 					result:{
 						target:function(player,target){
 							if(target.countCards('he')>=2) return 1;
@@ -321,7 +324,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					'step 0'
-					var choiceList=['明置一张角色牌，然后摸一张牌','失去1点分数'];
+					var choiceList=['明置一张武将牌，然后摸一张牌','失去1点体力'];
 					event.nomingzhi=target.hasSkillTag('nomingzhi',false,null,true);
 					if(event.nomingzhi){
 						choiceList.shift();
@@ -329,7 +332,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					if(target.countCards('he',{type:'equip'})){
 						choiceList.push('弃置一张工具牌');
 					}
-					target.chooseControl(lib.card.chiling.chooseai).set('prompt','敕令').set('choiceList',choiceList);
+					target.chooseControl(lib.card.chiling.chooseai).set('prompt','反省大会').set('choiceList',choiceList);
 					'step 1'
 					var index=result.index;
 					if(event.nomingzhi){
@@ -338,7 +341,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					if(index==0){
 						target.chooseControl('主将','副将',function(){
 							return Math.floor(Math.random()*2);
-						}).set('prompt','选择要明置的角色牌');
+						}).set('prompt','选择要明置的武将牌');
 					}
 					else if(index==1){
 						target.loseHp();
@@ -727,7 +730,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					var player=_status.event.player;
 					return [1,player.maxHp];
 				},
-				prompt:'出牌阶段限一次，你可以弃置至多X张牌（X为你的分数上限），然后摸等量的牌'
+				prompt:'出牌阶段限一次，你可以弃置至多X张牌（X为你的体力上限），然后摸等量的牌'
 			},
 			g_dinglanyemingzhu_ai:{
 				ai:{
@@ -984,7 +987,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					'step 0'
-					player.chooseTarget('玉玺：选择知己知彼的目标',function(card,player,target){
+					player.chooseTarget('袁首之脑：选择打探明细的目标',function(card,player,target){
 						return player.canUse({name:'zhibi'},target);
 					},true).set('ai',function(target){
 						var player=_status.event.player;
@@ -1047,7 +1050,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 							cards[i].remove();
 						}
 						_status.chiling=true;
-						player.popup('敕令');
+						player.popup('反省大会');
 					}
 				},
 			},
@@ -1063,7 +1066,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				content:function(){
 					_status.chiling=true;
 					trigger.result.card.remove();
-					player.popup('敕令');
+					player.popup('反省大会');
 				}
 			},
 			_chiling3:{
@@ -1086,11 +1089,11 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					if(event.targets.length){
 						var target=event.targets.shift();
 						event.current=target;
-						var choiceList=['明置一张角色牌，然后摸一张牌','失去1点分数'];
+						var choiceList=['明置一张武将牌，然后摸一张牌','失去1点体力'];
 						if(target.countCards('he',{type:'equip'})){
 							choiceList.push('弃置一张工具牌');
 						}
-						target.chooseControl(lib.card.chiling.chooseai).set('prompt','敕令').set('choiceList',choiceList);
+						target.chooseControl(lib.card.chiling.chooseai).set('prompt','反省大会').set('choiceList',choiceList);
 					}
 					else{
 						event.finish();
@@ -1100,7 +1103,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					if(result.control=='选项一'){
 						target.chooseControl('主将','副将',function(){
 							return Math.floor(Math.random()*2);
-						}).set('prompt','选择要明置的角色牌');
+						}).set('prompt','选择要明置的武将牌');
 					}
 					else if(result.control=='选项二'){
 						target.loseHp();
@@ -1236,64 +1239,64 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			},
 		},
 		translate:{
-			minguangkai:'明光铠',
-			minguangkai_cancel:'明光铠',
-			minguangkai_link:'明光铠',
-			minguangkai_info:'锁定技，当你成为【年级烧连营】、【抽查】或年级【发作业】的目标时，取消之；若你是小势力角色，你不会被拉帮。',
-			dinglanyemingzhu:'定澜夜明珠',
-			dinglanyemingzhu_bg:'珠',
+			minguangkai:'玄武青甲',
+			minguangkai_cancel:'玄武青甲',
+			minguangkai_link:'玄武青甲',
+			minguangkai_info:'锁定技，当你成为【拼写大赛】、【抽查】或火【问】的目标时，取消之；若你是小势力角色，你不会被横置。',
+			dinglanyemingzhu:'明智之猪',
+			dinglanyemingzhu_bg:'猪',
 			dinglanyemingzhu_info:'锁定技，你视为拥有技能“制衡”，若你已经有“制衡”，则改为取消弃置牌数的限制。',
 			dinglanyemingzhu_skill:'制衡',
-			dinglanyemingzhu_skill_info:'出牌阶段限一次，你可以弃置至多X张牌（X为你的分数上限），然后摸等量的牌',
-			feilongduofeng:'飞龙夺凤',
-			feilongduofeng2:'飞龙夺凤',
-			feilongduofeng_info:'当你使用【发作业】指定一名角色为目标后，你可令该角色弃置一张牌。你使用【发作业】发作业死一名角色后，若你所属的势力是全场最少的（或之一），你可令该角色的使用者选择是否从未使用的角色牌中选择一张与你势力相同的角色牌重新加入游戏',
-			taipingyaoshu:'太平要术',
-			taipingyaoshu_info:'锁定技，防止你受到的所有属性扣分；全场每有一名与你势力相同的角色在学，所有此势力角色的手牌上限便+1；当你失去工具区里的【太平要术】时，你失去1点分数，然后摸两张牌',
-			yuxi_skill:'玉玺',
-			yuxi_skill2:'玉玺',
-			yuxi:'玉玺',
-			yuxi_info:'锁定技，若你有明置的角色牌，你的势力视为唯一的大势力；锁定技，摸牌阶段，若你有明置的角色牌，你多摸一张牌；锁定技，出牌阶段开始时，若你有明置的角色牌，你视为使用【知己知彼】',
-			xietianzi:'挟令',
+			dinglanyemingzhu_skill_info:'出牌阶段限一次，你可以弃置至多X张牌（X为你的体力上限），然后摸等量的牌',
+			feilongduofeng:'雄辩之剑',
+			feilongduofeng2:'雄辩之剑',
+			feilongduofeng_info:'当你使用【问】指定一名角色为目标后，你可令该角色弃置一张牌。你使用【问】问死一名角色后，若你所属的势力是全场最少的（或之一），你可令该角色的使用者选择是否从未使用的武将牌中选择一张与你势力相同的武将牌重新加入游戏',
+			taipingyaoshu:'五星级寝室',
+			taipingyaoshu_info:'锁定技，防止你受到的所有属性扣分；全场每有一名与你势力相同的角色存活，所有此势力角色的手牌上限便+1；当你失去工具区里的【五星级寝室】时，你失去1点体力，然后摸两张牌',
+			yuxi_skill:'袁首之脑',
+			yuxi_skill2:'袁首之脑',
+			yuxi:'袁首之脑',
+			yuxi_info:'锁定技，若你有明置的武将牌，你的势力视为唯一的大势力；锁定技，摸牌阶段，若你有明置的武将牌，你多摸一张牌；锁定技，出牌阶段开始时，若你有明置的武将牌，你视为使用【打探明细】',
+			xietianzi:'深思熟虑',
 			xietianzi_info:'出牌阶段，对自己使用。你结束出牌阶段，若如此做，此回合结束时，你可以弃置一张牌，获得一个额外的回合',
 			xietianzi_info_guozhan:'出牌阶段，对为大势力角色的你使用。你结束出牌阶段，若如此做，此回合结束时，你可以弃置一张牌，获得一个额外的回合',
-			shuiyanqijunx:'水淹七军',
-			shuiyanqijunx_info:'出牌阶段，对一名工具区里有牌的其他角色使用。目标角色选择一项：1、弃置工具区里的所有牌；2、受到你造成的1点校级电扣分',
-			lulitongxin:'勠力同心',
-			lulitongxin_info:'出牌阶段，对所有大势力角色或所有小势力角色使用。若目标角色：不处于“结派状态”，其拉帮；处于“结派状态”，其摸一张牌',
-			lianjunshengyan:'联军盛宴',
-			lianjunshengyan_info:'出牌阶段，对你和你选择的除你的势力外的一个势力的所有角色。若目标角色：为你，你摸X张牌（X为该势力的角色数）；不为你，其选择一项：1、回复1点分数；2、摸一张牌，然后重置',
-			chiling:'敕令',
-			chiling_info:'出牌阶段，对所有没有势力的角色使用。目标角色选择一项：1、明置一张角色牌，然后摸一张牌；2、弃置一张工具牌；3、失去1点分数。当【敕令】因判定或弃置而置入弃牌堆时，系统将之移出游戏，然后系统于当前回合结束后视为对所有没有势力的角色使用【敕令】',
-			diaohulishan:'调虎离山',
+			shuiyanqijunx:'晨跑',
+			shuiyanqijunx_info:'出牌阶段，对一名工具区里有牌的其他角色使用。目标角色选择一项：1、弃置工具区里的所有牌；2、受到你造成的1点理竞扣分',
+			lulitongxin:'誓师大会',
+			lulitongxin_info:'出牌阶段，对所有大势力角色或所有小势力角色使用。若目标角色：不处于“结派状态”，其横置；处于“结派状态”，其摸一张牌',
+			lianjunshengyan:'香泡晚宴',
+			lianjunshengyan_info:'出牌阶段，对你和你选择的除你的势力外的一个势力的所有角色。若目标角色：为你，你摸X张牌（X为该势力的角色数）；不为你，其选择一项：1、回复1点体力；2、摸一张牌，然后重置',
+			chiling:'反省大会',
+			chiling_info:'出牌阶段，对所有没有势力的角色使用。目标角色选择一项：1、明置一张武将牌，然后摸一张牌；2、弃置一张工具牌；3、失去1点体力。当【反省大会】因判定或弃置而置入弃牌堆时，系统将之移出游戏，然后系统于当前回合结束后视为对所有没有势力的角色使用【反省大会】',
+			diaohulishan:'因事征用',
 			diaohulishan_info:'出牌阶段，对至多两名其他角色使用。目标角色于此回合结束之前不计入距离的计算且不能使用牌且不是牌的合法目标。此牌结算结束时，你摸一张牌',
-			huoshaolianying:'年级烧连营',
-			huoshaolianying_bg:'烧',
-			huoshaolianying_info_guozhan:'出牌阶段，对你的下家和与其处于同一队列的角色使用，每名角色受到一点年级焰扣分',
-			huoshaolianying_info:'对离你最近的一名拉帮角色使用（若无拉帮角色则改为对距离你最近的所有角色使用），对目标造成一点年级焰扣分',
-			yuanjiao:'远交近攻',
+			huoshaolianying:'拼写大赛',
+			huoshaolianying_bg:'拼',
+			huoshaolianying_info_guozhan:'出牌阶段，对你的下家和与其处于同一队列的角色使用，每名角色受到一点文竞扣分',
+			huoshaolianying_info:'对离你最近的一名横置角色使用（若无横置角色则改为对距离你最近的所有角色使用），对目标造成一点文竞扣分',
+			yuanjiao:'集思广益',
 			yuanjiao_info_guozhan:'对一名不同势力的角色使用，对方摸一张牌，然后你摸3张牌',
 			yuanjiao_info:'对一名其他角色使用，你与其各摸一张牌',
-			yuanjiao_bg:'交',
-			zhibi:'知己知彼',
-			zhibi_info:'出牌阶段对一名其他角色使用，观看其手牌或角色牌',
-			yiyi:'以逸待劳',
+			yuanjiao_bg:'集',
+			zhibi:'打探明细',
+			zhibi_info:'出牌阶段对一名其他角色使用，观看其手牌或武将牌',
+			yiyi:'学习小组',
 			yiyi_info_guozhan:'对与自己势力相同的所有角色使用，摸两张牌然后弃置两张牌',
 			yiyi_info_combat:'对所有友方角色使用，摸两张牌然后弃置两张牌',
 			yiyi_info:'对与任意三名角色使用，摸两张牌然后弃置两张牌',
-			yiyi_bg:'逸',
-			wuliu:'体六剑',
+			yiyi_bg:'组',
+			wuliu:'特长生',
 			wuliu_info:'其他与工具者势力相同的角色攻击范围+1',
-			sanjian:'三尖两刃刀',
-			sanjian_info:'当你使用发作业造成扣分后，可以弃置1张手牌对一名距离受扣分角色1以内的其他角色造成1点扣分',
-			wuliu_skill:'体六剑',
-			sanjian_skill:'三尖两刃刀',
-			jingfanma_bg:'望远镜',
-			jingfanma:'惊帆',
+			sanjian:'一石二鸟',
+			sanjian_info:'当你使用问造成扣分后，可以弃置1张手牌对一名距离受扣分角色1以内的其他角色造成1点扣分',
+			wuliu_skill:'特长生',
+			sanjian_skill:'一石二鸟',
+			jingfanma_bg:'前三',
+			jingfanma:'杭二之梦',
 			jingfanma_info:'你的进攻距离+1',
-			huxinjing_bg:'镜',
-			huxinjing:'护心镜',
-			huxinjing_info:'当你受到扣分时，若扣分值大于或等于你的分数值，则你可以将【护心镜】置入弃牌堆，然后防止此扣分。',
+			huxinjing_bg:'逃',
+			huxinjing:'临阵脱逃',
+			huxinjing_info:'当你受到扣分时，若扣分值大于或等于你的体力值，则你可以将【临阵脱逃】置入弃牌堆，然后防止此扣分。',
 		},
 		list:[
 			['heart',9,'yuanjiao'],

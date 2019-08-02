@@ -3,6 +3,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 	return {
 		name:'yxs',
 		character:{
+			yxs_qinqiong:["male","wei",4,["yxs_fanji","yxs_menshen"],[]],
 			yxs_wuzetian:['female','wu',4,['nvquan','qiandu','weiyi']],
 			yxs_caocao:['male','wei',4,['zhulu','xieling']],
 			yxs_mozi:['male','qun',3,['jieyong','feigong','jianai']],
@@ -48,49 +49,161 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 		},
 		characterIntro:{
 			yxs_wuzetian:'中国历史上唯一一个正统的女皇帝，也是继位年龄最大的皇帝（67岁即位），又是寿命最长的皇帝之一（终年82岁）。唐高宗时为皇后（655—683）、唐中宗和唐睿宗时为皇太后（683—690），后自立为武周皇帝（690—705），改国号“唐”为“周”，定都洛阳，并号其为“神都”。史称“武周”或“南周”，705年退位。武则天也是一位女诗人和政治家。',
-			yxs_caocao:' 曹操（155年7月18日－220年3月15日），字孟德，一名吉利，小字阿瞒，汉族，沛国谯（今安徽省亳州市）人。曹操生于宦官之家，适逢乱世，但是胸怀大志，参与剿灭董卓战争，之后在官渡大败袁绍，占据北方，挟天子以令诸侯。最后兵败赤壁，与体，理三分天下。',
-			yxs_mozi:' 宋国大夫，名翟，鲁人(今山东滕州人)。墨子是我国战国时期著名的思想家、教育家、科学家、军事家、社会活动家，墨家学派的创始人。墨子曾阻止鲁阳文君攻郑，说服公输般而止楚攻宋。楚惠王打算以书社封墨子，越王也打算以体之地方五百里以封墨子，但墨子都没有接受。其创立墨家学说，并有《墨子》一书传世。',
+			yxs_caocao:' 曹操（155年7月18日－220年3月15日），字孟德，一名吉利，小字阿瞒，汉族，沛国谯（今安徽省亳州市）人。曹操生于宦官之家，适逢乱世，但是胸怀大志，参与剿灭董卓战争，之后在官渡大败袁绍，占据北方，挟天子以令诸侯。最后兵败赤壁，与吴，蜀三分天下。',
+			yxs_mozi:' 宋国大夫，名翟，鲁人(今山东滕州人)。墨子是我国战国时期著名的思想家、教育家、科学家、军事家、社会活动家，墨家学派的创始人。墨子曾阻止鲁阳文君攻郑，说服公输般而止楚攻宋。楚惠王打算以书社封墨子，越王也打算以吴之地方五百里以封墨子，但墨子都没有接受。其创立墨家学说，并有《墨子》一书传世。',
 			yxs_bole:'伯乐，名孙阳，字子良，一作王良。春秋齐（今山东省威武）人。善于相马，为赵简子御。相传天上御者名伯乐，因其善相，遂号之，传至今。初，见老骥 拖车，喘息不定，伯乐哀之，马亦哀啼，方知乃良驹。后世长以伯乐比喻慧眼识人者。',
 			yxs_aijiyanhou:'埃及艳后即克丽奥佩托拉七世,是古埃及托勒密王朝的最后一任法老。她通过政治联姻为古埃及赢取了22年的和平。埃及艳后的一生富有戏剧性，特别是卷入罗马共和末期的政治漩涡，同恺撒、安东尼关系密切，并伴以种种传闻逸事，使她成为文学和艺术作品中的著名人物。',
 			yxs_diaochan:'中国古代四大美女之一，今山西忻州人，有野史说其姓霍，无名，又有一说称其任姓，小字红昌。貂蝉是东汉末年司徒王允的义女，国色天香，有倾国倾城之貌，相传貂婵在后花园拜月时，忽然轻风吹来，一块浮云将那皎洁的明月遮住。这时正好王允瞧见，便说我的女儿和月亮比美，月亮比不过，赶紧躲在云彩后面。此后，世人常用“闭月”来形容貂婵的美貌。',
-			yxs_yangyuhuan:'唐朝贵妃，名玉环，字太真，蒲州永乐人（今山西永济）。杨玉环自小习音律，善歌舞，姿色超艺。27岁时，得唐玄宗宠幸，召入宫中，封为贵妃。杨贵妃天生丽质，回眸一笑百媚生，六宫粉黛无颜色，堪称大唐第一美女，此后千余年无出其右者。其与西施、昭君、貂蝉并称中国古代四大美女。',
+			yxs_yangyuhuan:'唐朝贵妃，名玉环，字太真，蒲州永乐人（今山西永济）。杨玉环自小习音律，善歌舞，姿色超群。27岁时，得唐玄宗宠幸，召入宫中，封为贵妃。杨贵妃天生丽质，回眸一笑百媚生，六宫粉黛无颜色，堪称大唐第一美女，此后千余年无出其右者。其与西施、昭君、貂蝉并称中国古代四大美女。',
 			yxs_baosi:'褒姒，周幽王姬宫涅的王后，褒姒原是一名弃婴，被一对做小买卖的夫妻收养，在褒国（今陕西省汉中西北）长大，公元前七七九年（周幽王三年），周幽王征伐有褒国，褒人献出美女褒姒乞降，幽王爱如掌上明珠，立为妃，宠冠周王宫，翌年，褒姒生子伯服（一作伯般），幽王对她更加宠爱，竟废去王后申氏和太子宜臼，册立褒姒为王后，立伯服为太子，周太史伯阳叹气道：“周王室已面临大祸，这是不可避免的了。”',
 			yxs_napolun:'法兰西第一共和国执政、法兰西第一帝国皇帝，出生在法国科西嘉岛，是一位卓越的军事天才。他多次击败保王党的反扑和反法同盟的入侵，捍卫了法国大革命的成果。他颁布的《民法典》更是成为了后世资本主义国家的立法蓝本。他执政期间多次对外扩张，形成了庞大的帝国体系，创造了一系列军事奇迹。',
 			yxs_kaisa:'凯撒是罗马共和国末期杰出的军事统帅、政治家。他公元前60年与庞培、克拉苏秘密结成前三巨头同盟，随后出任高卢总督，在大约8年的时间内征服了高卢全境（今法国一带），还袭击了日耳曼和不列颠。前49年，他率军占领罗马，打败庞培，集大权于一身，实行独裁统治并制定了《儒略历》。',
 			yxs_zhuyuanzhang:' 朱元璋，明王朝的开国皇帝。原名重八，后取名兴宗。汉族，濠州（今安徽凤阳县东）钟离太平乡人。朱元璋自幼贫寒，父母兄长均死于瘟疫，孤苦无依，入皇觉寺为小沙弥，入寺不到二个月，因荒年寺租难收，寺主封仓遣散众僧，只得离乡为游方僧，后参加了起义军，并改名“朱元璋”意为诛（朱）灭元朝的璋（璋，古代的一种玉器）。25岁时参加郭子兴领导的红巾军反抗蒙元暴政，在郭子兴手下，率兵出征，有攻必克；因此郭便把养女马氏嫁与了他。元至正二十八年(1368)，在基本击破各路农民起义军和扫平元的残余势力后，于南京称帝，国号大明，年号洪武，建立了全国统一的封建政权。朱元璋统治时期被称为“洪武之治”。葬于明孝陵。',
-			yxs_jinke:'荆轲，喜好读书击剑，为人慷慨侠义。后游历到燕国，被称为“荆卿”（或荆叔），随之由燕国智勇深沉的“节侠”田光推荐给太子丹，拜为上卿。秦国灭赵后，兵锋直指燕国南界，太子丹震惧，与田光密谋，决定派荆轲入秦行刺秦王。荆轲献计太子丹，拟以秦国叛将樊于期之头及燕督亢（今河北涿县、易县、固安一带，是一块肥沃的土地）地图进献秦王，相机行刺。太子丹不忍杀樊于期，荆轲只好私见樊于期，告以实情，樊于期为成全荆轲而自刎。',
-			yxs_libai:'字太白，号青莲居士，又号“谪仙人”，祖籍陇西郡成纪县（今甘肃省平凉市静宁县南）。李白是唐朝著名的浪漫主义诗人，有“诗仙”之称。李白生平作诗无数，存世诗文达千余篇之多，《理道难》、《行路难》、《梦游天姥吟留别》、《将进辣条》等诗篇脍炙人口，妇孺皆知，另有《李太白集》传世。',
+			yxs_jinke:'荆轲，喜好读书击剑，为人慷慨侠义。后游历到燕国，被称为“荆卿”（或荆叔），随之由燕国智勇深沉的“节侠”田光推荐给太子丹，拜为上卿。秦国灭赵后，兵锋直指燕国南界，太子丹震惧，与田光密谋，决定派荆轲入秦行刺秦王。荆轲献计太子丹，拟以秦国叛将樊于期之头及燕督亢（今河北涿县、易县、固安一带，是一块肥沃的土地）地图进献秦王，相机行刺。太子丹不忍问樊于期，荆轲只好私见樊于期，告以实情，樊于期为成全荆轲而自刎。',
+			yxs_libai:'字太白，号青莲居士，又号“谪仙人”，祖籍陇西郡成纪县（今甘肃省平凉市静宁县南）。李白是唐朝著名的浪漫主义诗人，有“诗仙”之称。李白生平作诗无数，存世诗文达千余篇之多，《蜀道难》、《行路难》、《梦游天姥吟留别》、《将进思》等诗篇脍炙人口，妇孺皆知，另有《李太白集》传世。',
 			yxs_luban:' 鲁班，姓公输，名般。战国时期鲁国公族之后，故又称公输子、班输等。出身于工匠世家，是我国古代最著名的发明家、建筑家。鲁班一生发明无数，而最具贡献意义的则要数木工使用的工具，诸如墨斗、锯、和鲁班尺等。为后世的建筑学提供了最基础的工具。除此之外，相传石磨、云梯等工具也是鲁班发明。',
 			yxs_lvzhi:'  吕雉，西汉开国皇帝高祖刘邦的原配夫人，中国历史上第一位掌权的女性统治者，是历史上有记载以来的第一位皇后、皇太后。于高祖刘邦死后掌握政权，实行高祖的“黄老政治”，百姓安乐民富国强，为“文景之治”奠定了坚实的基础。',
 			yxs_goujian:'勾践，又写作句践，在出土文物“越王勾践剑”里写为鸠浅，司马贞《史记索隐》引《纪年》作菼执。是中国春秋时代后期的越国君主。有关他的先世，有说“其先禹之苗裔”，亦有说“先世无所考”，也有说他是“祝融之后”并且是楚国的芈姓，众说纷纭。父亲则是越侯允常。',
-			yxs_lishimin:' 李世民，唐朝第二位皇帝。他的前半生是立下赫赫武功的军事家。平窦建德、王世充之后，始大量接触文学与书法，有《温泉铭》、《晋祠铭》等墨宝传世。后在玄武门之变杀死自己的兄弟李建成、李元吉两人，成为太子，唐高祖不久被迫让位。世民即位为帝后，积极听取艺臣的意见、努力学习文治天下，成功转型为中国史上最出名的政治家与明君之一。唐太宗开创了历史上的“贞观之治”，经过主动消灭艺雄割据势力，虚心纳谏、在国内厉行节约、使百姓休养生息，终于使得社会出现了国泰民安的局面。此举为后来的开元盛世奠定了重要的基础，将中国传统农业社会推向一个高峰。',
-			yxs_huamulan:' 花木兰是中国文学作品中的一位代父从军的巾帼英雄，其真实性不详。花木兰最早出现于南北朝一首叙事诗《木兰辞》中，该诗约作于北文，最初录于南朝陈的《古今乐录》，僧人智匠在《古今乐录》称：“木兰不知名。”',
+			yxs_lishimin:' 李世民，唐朝第二位皇帝。他的前半生是立下赫赫武功的军事家。平窦建德、王世充之后，始大量接触文学与书法，有《温泉铭》、《晋祠铭》等墨宝传世。后在玄武门之变问死自己的兄弟李建成、李元吉两人，成为太子，唐高祖不久被迫让位。世民即位为帝后，积极听取群臣的意见、努力学习文治天下，成功转型为中国史上最出名的政治家与明君之一。唐太宗开创了历史上的“贞观之治”，经过主动消灭艺术割据势力，虚心纳谏、在国内厉行节约、使百姓休养生息，终于使得社会出现了国泰民安的局面。此举为后来的开元盛世奠定了重要的基础，将中国传统农业社会推向一个高峰。',
+			yxs_huamulan:' 花木兰是中国文学作品中的一位代父从军的巾帼英雄，其真实性不详。花木兰最早出现于南北朝一首叙事诗《木兰辞》中，该诗约作于北魏，最初录于南朝陈的《古今乐录》，僧人智匠在《古今乐录》称：“木兰不知名。”',
 			yxs_luobinhan:'罗宾汉是英国民间传说中的侠盗式的一个英雄人物，人称汉丁顿伯爵。他武艺出众、机智勇敢、聪明，仇视官吏和教士，是一位劫富济贫、行侠仗义的绿林英雄。传说他住在诺丁汉雪伍德森林。从14世纪中叶起，关于罗宾汉的民谣和传说就开始在民间流传。罗宾汉最突出的就是射箭术高超。现代射箭比赛里就有“罗宾汉”这一术语，指射中另一支已中靶心的箭。',
 			yxs_chengjisihan:'成吉思汗，名铁木真，孛儿只斤氏，奇渥温姓，乞颜（起延）部人。从小遭受结拜兄弟札木合迫害，形成刚毅坚韧的性格。1206年，被推举为蒙古帝国的大汗，统一蒙古各部，为之后的进攻中原提供了坚实的基础。',
 			yxs_mingchenghuanghou:'明成皇后，朝鲜近代史上的女政治家，本名闵兹映，通称闵妃，是朝鲜京畿道骊州郡人。她是朝鲜王朝高宗李熙的王妃，骊兴闵氏外戚集团的核心人物，19世纪末朝鲜的实际统治者。由于闵妃早期主张开放、后期力抗日本并身死殉难，故深受后世韩国人民的尊崇。 1897年，高宗李熙改国号称“大韩帝国”，追谥闵妃为“孝慈元圣正化合天明成皇后”，故现今韩国史学家多称她为“明成皇后”。',
 			yxs_wangzhaojun:'王昭君，名嫱，字昭君，晋朝时为避司马昭讳，又称“明妃”，汉元帝时期宫女，汉族，西汉南郡秭归（今湖北省兴山县）人。匈奴呼韩邪单于阏氏。 “昭君出塞”是汉匈交往上的大事，稳定了汉朝和匈奴的外交关系，《汉书.匈奴传》和《后汉书.南匈奴传》都记载了这件事。相传和亲途中，南飞的大雁听到昭君奏起悲壮的离别之曲，看到骑在马上的这位美丽女子，忘记摆动翅膀，跌落地下，因此得“落雁”之名。昭君出塞的故事也被后世传为佳话。',
 			yxs_luocheng:'《隋唐》说书和《说唐传》中的虚构人物，隋唐十八杰中列第七，十六杰列第八。在清初禇人获的讲史小说《隋唐演义》中，也虚构了罗成，是燕山罗艺的儿子，秦琼的表弟，精通枪法。',
-			yxs_direnjie:'唐武周时期杰出的著名政治家，时任豫州刺史、文州刺史等要职，官至凤阁鸾台平章事、内史，卒后追封梁国公。狄仁杰生于贞观、卒于武周时期，经历了大唐鼎盛和动乱的年代。其一生秉承了以民为本、不畏权贵、为民请命的宗旨。狄仁杰通晓了吏治、兵刑等法律制度，在任大理丞任期内解决了诸多案件，被誉为“神探”。狄仁杰为官清廉，素有政绩，有辅国安邦之能，史称“唐室砥柱”。',
-			yxs_sunwu:'著名军事家，字长卿，中国春秋时期齐国乐安人。曾率领体国军队大破数倍于己的楚国军队，占领了楚国都城郢城，几乎亡楚。其著有巨作《孙子兵法》十三篇，为后世兵法家所推崇，被誉为“兵学圣典”，置于《武经七书》之首，被译为英文、法文、德文、日文，成为国际间最著名的兵学典范之书。后人尊称其为孙子、孙武子、兵圣、百世兵家之师、东方兵学的鼻祖。',
-			yxs_chengyaojin:'程咬金，原名咬金，后更名知节，字义贞，中国济州东阿斑鸠店人（现山东省东平县斑鸠店）。“凌烟阁二十四功臣”之一，唐朝开国名将。隋朝末年，隋炀帝杨广统治残暴，骄奢荒淫，民不聊生，最终爆发了大规模的农民起义。程咬金先入瓦岗军，投王世充，后降唐，成为秦王李世民的骨干成员。据史书记载，程咬金“少骁勇，善用马槊。”而在以《说唐》为代表的系列话本及历史演义小说中，程咬金则使得一柄八币宣花斧，以“三板斧”武艺著称，是一名性格直爽、粗中有细的福将。',
-			yxs_yujix:'虞姬，又称虞美人，西楚霸王项羽爱姬，相传为江苏沭阳县颜集乡人，一说苏州常熟人。公元前209年，项羽与叔父项梁起义反秦。项羽军中战将虞子期的妹妹虞姬，貌美好武，倾慕年轻勇猛的项羽，嫁其为妾，常伴左右随军出征，至终形影不离。 公元前202年，项羽在垓下之战中被刘邦、韩信、彭越三方大军合围困于垓下（今安徽灵璧县城南沱河北岸城后村），身陷十面埋伏，兵孤粮缺，夜闻四面楚歌，楚军士气尽失。项羽认为大势已去，帐中酌辣条，对着虞姬唱起悲壮的“垓下歌”。虞姬拔剑起舞，含泪唱和：“汉兵已略地，四面楚歌声。大王义气尽，贱妾何聊生。”为免后顾之忧影响项羽突围，唱毕于其面前自刎。',
+			yxs_direnjie:'唐武周时期杰出的著名政治家，时任豫州刺史、魏州刺史等要职，官至凤阁鸾台平章事、内史，卒后追封梁国公。狄仁杰生于贞观、卒于武周时期，经历了大唐鼎盛和动乱的年代。其一生秉承了以民为本、不畏权贵、为民请命的宗旨。狄仁杰通晓了吏治、兵刑等法律制度，在任大理丞任期内解决了诸多案件，被誉为“神探”。狄仁杰为官清廉，素有政绩，有辅国安邦之能，史称“唐室砥柱”。',
+			yxs_sunwu:'著名军事家，字长卿，中国春秋时期齐国乐安人。曾率领体育军队大破数倍于己的楚国军队，占领了楚国都城郢城，几乎亡楚。其著有巨作《孙子兵法》十三篇，为后世兵法家所推崇，被誉为“兵学圣典”，置于《武经七书》之首，被译为英文、法文、德文、日文，成为国际间最著名的兵学典范之书。后人尊称其为孙子、孙武子、兵圣、百世兵家之师、东方兵学的鼻祖。',
+			yxs_chengyaojin:'程咬金，原名咬金，后更名知节，字义贞，中国济州东阿斑鸠店人（现山东省东平县斑鸠店）。“凌烟阁二十四功臣”之一，唐朝开国名将。隋朝末年，隋炀帝杨广统治残暴，骄奢荒淫，民不聊生，最终爆发了大规模的农民起义。程咬金先入瓦岗军，投王世充，后降唐，成为秦王李世民的骨干成员。据史书记载，程咬金“少骁勇，善用马槊。”而在以《说唐》为代表的系列话本及历史演义小说中，程咬金则使得一柄八卦宣花斧，以“三板斧”武艺著称，是一名性格直爽、粗中有细的福将。',
+			yxs_yujix:'虞姬，又称虞美人，西楚霸王项羽爱姬，相传为江苏沭阳县颜集乡人，一说苏州常熟人。公元前209年，项羽与叔父项梁起义反秦。项羽军中战将虞子期的妹妹虞姬，貌美好武，倾慕年轻勇猛的项羽，嫁其为妾，常伴左右随军出征，至终形影不离。 公元前202年，项羽在垓下之战中被刘邦、韩信、彭越三方大军合围困于垓下（今安徽灵璧县城南沱河北岸城后村），身陷十面埋伏，兵孤粮缺，夜闻四面楚歌，楚军士气尽失。项羽认为大势已去，帐中酌思，对着虞姬唱起悲壮的“垓下歌”。虞姬拔剑起舞，含泪唱和：“汉兵已略地，四面楚歌声。大王义气尽，贱妾何聊生。”为免后顾之忧影响项羽突围，唱毕于其面前自刎。',
 			yxs_xiangyu:'项籍（前232—前202）字羽，通常被称作项羽，中国古代著名将领及政治人物，汉族，秦下相（今江苏省宿迁市宿城区）人。秦末时被楚怀王熊心封为鲁公，在前207年的决定性战役巨鹿之战中统率楚军大破秦军。秦亡后自封“西楚霸王”，统治黄河及长江下游的梁楚九郡。后在楚汉战争中为汉高祖刘邦所败，在乌江（今安徽和县）自刎而死。',
 			yxs_yingzheng:'秦始皇，赢姓，赵氏，名政，秦庄襄王之子。秦始皇22岁时，在雍城举行国君成人加冕仪式，开始“亲理朝政”。后除掉吕不韦，嫪毐等人，重用李斯，尉缭。自公元前230年至前221年，采取由近及远，集中力量，各个击破的策略，先后灭六国，完成统一中国的大业。同时建立起历史上第一个书同文，度同制，车同轨，行同伦的中央集权国家——秦朝。',
-			yxs_yuefei:' 岳飞（1103年－1142年），字鹏举，相州汤阴（今属河南）人。南宋军事家，中国历史上著名的抗金名将。绍兴十一年（1142）十二月二十九日，秦桧以“莫须有”的罪名将岳飞毒死于临安风波亭。1162年，宋孝宗时诏复官，谥武穆，宁宗时追封为鄂王，改谥忠武，有《岳武穆集》传世。',
+			yxs_yuefei:' 岳飞（1103年－1142年），字鹏举，相州汤阴（今属河南）人。南宋军事家，中国历史上著名的抗金名将。绍兴十一年（1142）十二月二十九日，秦桧以“莫须有”的罪名将岳飞禁死于临安风波亭。1162年，宋孝宗时诏复官，谥武穆，宁宗时追封为鄂王，改谥忠武，有《岳武穆集》传世。',
 			yxs_fuermosi:'福尔摩斯，是一个虚构的侦探人物，是由19世纪末20世纪初的英国侦探小说家阿瑟?柯南·道尔所塑造的一个才华横溢的侦探形象。福尔摩斯不但头脑冷静、观察力敏锐、推理能力极强；而且，他的剑术、拳术和小提琴演奏水平也相当高超，已经成为侦探小说中的典型代表人物之一。',
-			yxs_guiguzi:'本名王诩，春秋时纵横家，卫国（今河南鹤壁一带）人。曾隐于清溪鬼谷，常入云梦采药修道，弟子无数。有张仪、苏秦、孙膑、庞涓四弟子。精于兵法、奇门遁甲、五行八币之学。后人称之为王禅老祖。今传《鬼谷子》十四篇。',
-			yxs_xiaoqiao:'小乔， 庐江皖县（今安徽潜山）人。 史书中称小桥，是中国汉末三国时期的女性， 乔公的次女，东体名将周瑜的妻子。传说与其姐大乔均为绝世美女。合称“二乔”。',
+			yxs_guiguzi:'本名王诩，春秋时纵横家，卫国（今河南鹤壁一带）人。曾隐于清溪鬼谷，常入云梦采药修道，弟子无数。有张仪、苏秦、孙膑、庞涓四弟子。精于兵法、奇门遁甲、五行八卦之学。后人称之为王禅老祖。今传《鬼谷子》十四篇。',
+			yxs_xiaoqiao:'小乔， 庐江皖县（今安徽潜山）人。 史书中称小桥，是中国汉末三国时期的女性， 乔公的次女，东吴名将周瑜的妻子。传说与其姐大乔均为绝世美女。合称“二乔”。',
 			yxs_luzhishen:'鲁智深，梁山泊第十三位好汉，十员步军头领第一名。鲁智深原名鲁达，绰号花和尚。是经略的提辖，因为见郑屠欺侮金翠莲父女，三拳打死了镇关西。被官府追捕，逃到五台山削发为僧，改名鲁智深。',
 			yxs_zhaoyong:'赵武灵王，战国中后期赵国君主，嬴姓，赵氏，名雍。赵武灵王在位时，推行的“胡服骑射”政策，赵国因而得以强盛，灭中山国，败林胡、楼烦二族，辟云中、雁门、代三郡，并修筑了“赵长城”。',
-			yxs_yangguang:'隋炀帝杨广，是隋朝第二代皇帝，华阴（今陕西华阴）人，生于隋京师长安。杨广在位期间修建大运河，营建东都迁都洛阳城，开创科举制度，亲征吐谷浑，三征高句丽。但因为杨广滥用民力，导致了隋朝的灭亡，618年在江都被部下缢杀。',
-			yxs_tangbohu:'唐伯虎，名寅，字伯虎，自号六如居士，明代诗人、画家，体县（今江苏苏州）人。出身富商家庭，后家道衰落，因祝枝山之劝而潜心读书。公试时为状元，会试时候因科场舞弊案牵连而被斥为吏。后绝意仕途，以卖画为生。唐伯虎为人玩世不恭而又才气横溢，诗文擅名，与祝枝山、文征明、徐祯卿并称“江南四大才子”，画名更著，与沈周、文征明、仇英并称“体门四家”。民间盛传其点秋香的故事。',
+			yxs_yangguang:'隋炀帝杨广，是隋朝第二代皇帝，华阴（今陕西华阴）人，生于隋京师长安。杨广在位期间修建大运河，营建东都迁都洛阳城，开创科举制度，亲征吐谷浑，三征高句丽。但因为杨广滥用民力，导致了隋朝的灭亡，618年在江都被部下缢问。',
+			yxs_tangbohu:'唐伯虎，名寅，字伯虎，自号六如居士，明代诗人、画家，吴县（今江苏苏州）人。出身富商家庭，后家道衰落，因祝枝山之劝而潜心读书。公试时为状元，会试时候因科场舞弊案牵连而被斥为吏。后绝意仕途，以卖画为生。唐伯虎为人玩世不恭而又才气横溢，诗文擅名，与祝枝山、文征明、徐祯卿并称“江南四大才子”，画名更著，与沈周、文征明、仇英并称“吴门四家”。民间盛传其点秋香的故事。',
 			yxs_zhangsanfeng:'明朝最著名的武术家、道士。原名张通，字君宝，在武当山开山立派，成为武当派开山祖师。明英宗赐号“通微显化真人”；明宪宗特封号为“韬光尚志真仙”；明世宗赠封他为“清虚元妙真君”。传说其丰姿魁伟，大耳圆目，须髯如戟。无论寒暑，只一衲一蓑，一餐能食升斗，或数日一食，或数月不食，事能前知。其在武术上的造诣和超乎寻常的长寿都为后人称道。 曾传洪武年间，两度受朱元璋诏请入京，皆避而不见。其与明初巨贾沈万三亦有交际。其所创太极拳一直延续至今，成为后人养身妙术。',
 			yxs_nandinggeer:'出生于意大利，英国护士和统计学家。她谙熟数学，精通英、法、德、意四门语言，除古典文学外，还精于自然科学、历史和哲学，擅长音乐与绘画。在德国学习护理后，曾往伦敦的医院工作。南丁格尔于1854年和38位护士到克里米亚野战医院工作，成为该院的护士长，被称为“克里米亚的天使”又称“提灯女神”。1860年6月15日，南丁格尔在伦敦成立世界第一所护士学校。为了纪念她的成就，1912年，国际护士会倡仪各国医院和护士学校定每年5月12日南丁格尔诞辰日举行纪念活动，并将5月12日定为“国际护士节”，以缅怀和纪念这位伟大的女性。',
-			yxs_weizhongxian:'文忠贤（1568年－1627年12月11日），字完吾，北直隶肃宁（今河北沧州肃宁县）人，汉族，原名李进忠。由才人王氏复姓，出任秉笔太监后，改名文忠贤。明朝末期宦官。明熹宗时期，出任司礼秉笔太监，极受宠信，被称为“九千九百岁”，排除异己，专断国政，以致人们“只知有忠贤，而不知有皇上”。朱由检继位后，打击惩治阉党，治文忠贤十大罪，命逮捕法办，自缢而亡，其余党亦被肃清。',
+			yxs_weizhongxian:'魏忠贤（1568年－1627年12月11日），字完吾，北直隶肃宁（今河北沧州肃宁县）人，汉族，原名李进忠。由才人王氏复姓，出任秉笔太监后，改名魏忠贤。明朝末期宦官。明熹宗时期，出任司礼秉笔太监，极受宠信，被称为“九千九百岁”，排除异己，专断国政，以致人们“只知有忠贤，而不知有皇上”。朱由检继位后，打击惩治阉党，治魏忠贤十大罪，命逮捕法办，自缢而亡，其余党亦被肃清。',
 			yxs_meixi:'妺（mò）喜，姓嬉（喜），生卒年不详，亦作妺嬉、末喜、末嬉，有施氏之女，夏朝最后一位君主夏桀的王后。根据先秦时代记述女子名时所用的全称和简称方式，妺喜应姓喜，即嬉（也作僖）。由于其名字的“妺”字与“妹妹”的“妹”字字形相似，且在《庄子》等作中也有以妺为妹的用法，因此常误作"妹喜"。',
 			yxs_lanlinwang:'高长恭（541年―573年），又名高孝瓘、高肃，祖籍渤海调蓨（今河北省景县），神武帝高欢之孙，文襄帝高澄第四子，生母不详，南北朝时期北齐宗室、将领，封爵兰陵郡王。高长恭貌柔心壮，音容兼美。为将躬勤细事，每得甘美，虽一瓜数果，必与将士分享。累次升任至并州刺史。突厥攻入晋阳，高长恭奋力将其击退。邙山之战，高长恭为中军，率领五百骑兵再入周军包围圈，直至金墉城下，因高长恭戴着头盔，城中的人不确定是敌军或是我军，直到高长恭把头盔脱下来城上的人才知道是高长恭，派弓箭手开始放箭保护他，之后高长恭成功替金墉解围，高长恭在此次战中威名大振，士兵们为此战而讴歌他，即后来知名的《兰陵王入阵曲》。',
 		},
+		characterTitle:{					 					 
+					 "yxs_qinqiong":"Sukincen",					
+									},
 		skill:{
+			yxs_fanji:{
+                audio:2,
+                trigger:{
+                    player:"damageEnd",
+                },
+                direct:true,
+                priority:12,
+                filter:function (event,player){      
+                if(!player.countCards('h',{name:'sha'})) return false;
+        return event.card.name=='sha'||event.card.name=='juedou';
+    },
+                content:function (){    
+                player.addTempSkill('yxs_fanji2','shaAfter');   
+         player.chooseToUse({name:'sha'},trigger.source,'反击：是否对'+get.translation(trigger.source)+'使用一张问？').logSkill='yxs_fanji';
+    },
+            },
+               yxs_fanji2:{
+                audio:2,
+                trigger:{
+                    player:"shaBegin",
+                },
+                direct:true,              
+                filter:function (event,player){      
+        return event.card&&event.card.name=='sha'&&get.color(event.card)=='red';
+    },
+                content:function (){    
+               trigger.directHit=true;
+    },
+            },
+                                   		
+			yxs_menshen3:{
+				trigger:{
+					player:['phaseBegin','dieBegin'],
+				},
+				silent:true,
+				filter:function(event,player){
+					return game.hasPlayer(function(current){
+            return current.hasSkill('yxs_menshen2');
+        });
+				},
+				content:function(){
+				 for(var i=0;i<game.players.length;i++){
+            if(game.players[i].hasSkill('yxs_menshen2')){
+					game.players[i].removeSkill('yxs_menshen2');
+					}
+					}
+				},
+			},            
+                         
+            yxs_menshen:{
+                audio:2,
+                trigger:{
+                    player:"phaseEnd",
+                },
+                priority:15,                
+               	group:'yxs_menshen3',
+		           		onremove:true,
+                filter:function (event,player){
+        return game.players.length>1;
+    },
+                content:function (){
+              "step 0"
+     player.chooseTarget('选择【门神】的目标',lib.translate.yxs_menshen_info,true,function(card,player,target){
+             return target!=player;
+     }).set('ai',function(target){     
+             return get.attitude(player,target);            
+     });        
+     "step 1"
+     if(result.bool){           
+        var target=result.targets[0];
+						player.line(target,'green');
+						game.log(target,'成为了','【门神】','的目标');
+						target.storage.yxs_menshen2=player;
+						target.addSkill('yxs_menshen2');
+     }
+    else {       
+            event.finish(); 
+    }                     
+   },      
+   ai:{
+       expose:0.5,
+   },               
+            },
+         
+           yxs_menshen2:{
+     audio:2,
+    	mark:'character',
+				intro:{
+					content:'当你成为【问】或【辩论】的目标后，改为$成为目标'
+				},
+				nopop:true,
+				priority:15,      
+     trigger:{
+         target:["shaBegin","juedouBegin"],
+      },
+     forced:true,
+				popup:false,
+				filter:function(event,player){
+					return player.isAlive();
+				},
+                content:function (){                             
+          var target=player.storage.yxs_menshen2;
+		    			trigger.player.line(target,'green');
+			trigger.targets.remove(player);
+				  		trigger.targets.push(target);	
+								trigger.target = target;							
+    },
+       }, 
+	   
 			guimian:{
 				trigger:{source:'damageEnd'},
 				forced:true,
@@ -413,7 +526,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 				},
 				direct:true,
 				content:function(){
-					player.chooseToUse({name:'sha'},'太极：是否使用一张杀？').logSkill='taiji';
+					player.chooseToUse({name:'sha'},'太极：是否使用一张问？').logSkill='taiji';
 				},
 			},
 			fengliu:{
@@ -700,22 +813,17 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			dili:{
 				trigger:{player:'phaseDrawBegin'},
 				forced:true,
-				alter:true,
 				filter:function(event,player){
 					return player.hp<player.maxHp;
 				},
 				content:function(){
-					if(get.is.altered('dili')){
-						trigger.num+=Math.ceil((player.maxHp-player.hp)/2);
-					}
-					else{
-						trigger.num+=player.maxHp-player.hp;
-					}
+					trigger.num+=Math.min(2, Math.ceil((player.maxHp-player.hp)/2));
 				},
 				ai:{
 					threaten:function(player,target){
-						if(target.hp==1) return 2.5;
-						if(target.hp==2) return 1.5;
+						var num=Math.min(2, Math.ceil((player.maxHp-player.hp)/2));
+						if(num==2) return 2;
+						if(num==1) return 1;
 						return 0.5;
 					},
 					maixie:true,
@@ -735,7 +843,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 					neg:true
 				},
 				init:function(player){
-					if(lib.config.mode=='identity'&&player.isZhu){
+					if(player.isZhu){
 						player.maxHp--;
 						player.update();
 					}
@@ -838,16 +946,9 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 				}
 			},
 			xiushen:{
-				trigger:{player:['phaseEnd','phaseUseEnd']},
+				trigger:{player:'phaseUseEnd'},
 				forced:true,
-				alter:true,
 				filter:function(event,player){
-					if(get.is.altered('xiushen')){
-						if(event.name!='phaseUse') return false;
-					}
-					else{
-						if(event.name!='phase') return false;
-					}
 					return game.hasPlayer(function(current){
 						return current.isLinked();
 					});
@@ -1242,7 +1343,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 				priority:15,
 				mark:true,
 				intro:{
-					content:'杀或普通动作牌对你无效'
+					content:'问或普通动作牌对你无效'
 				},
 				filter:function(event,player){
 					return get.type(event.card)=='trick'||event.card.name=='sha';
@@ -1319,7 +1420,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 					if(!player.countCards('h')) return false;
 					if(player.countCards('e')) return false;
 				},
-				prompt:'将一张手牌当闪打出',
+				prompt:'将一张手牌当答打出',
 				check:function(){return 1},
 				ai:{
 					respondShan:true,
@@ -1576,7 +1677,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 				content:function(){
 					'step 0'
 					var goon=(get.attitude(player,trigger.player)<0);
-					var next=player.chooseToDiscard('鸠杀：是否弃置一张辣条或两张理科手牌令'+get.translation(trigger.player)+'立即死亡？');
+					var next=player.chooseToDiscard('鸠问：是否弃置一张思或两张黑色手牌令'+get.translation(trigger.player)+'立即退学？');
 					next.ai=function(card){
 						if(ui.selected.cards.length){
 							if(ui.selected.cards[0].name=='jiu') return 0;
@@ -1743,7 +1844,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 					return player.storage.tongling>=3;
 				},
 				promptfunc:function(){
-					return '令自己在本轮内不能成为出杀的目标（选择自己），或对攻击范围内的至多两名角色使用一张杀'
+					return '令自己在本轮内不能成为出问的目标（选择自己），或对攻击范围内的至多两名角色使用一张问'
 				},
 				filterTarget:function(card,player,target){
 					return player==target||get.distance(player,target,'attack')<=1;
@@ -1763,7 +1864,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 					disable:{
 						mark:true,
 						intro:{
-							content:'不能成为杀的目标'
+							content:'不能成为问的目标'
 						},
 						mod:{
 							targetEnabled:function(card,player,target,now){
@@ -1798,7 +1899,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 				filterCard:true,
 				position:'e',
 				viewAs:{name:'nanman'},
-				prompt:'将一张工具区内的牌当作业来了使用',
+				prompt:'将一张工具区内的牌当多想多问使用',
 				check:function(card){
 					var player=_status.currentPhase;
 					if(player.countCards('he',{subtype:get.subtype(card)})>1){
@@ -2076,7 +2177,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 				content:function(){
 					"step 0"
 					if(event.isMine()){
-						event.dialog=ui.create.dialog('慧眼：预言'+get.translation(trigger.player)+'对'+get.translation(trigger.target)+'的杀能否命中');
+						event.dialog=ui.create.dialog('慧眼：预言'+get.translation(trigger.player)+'对'+get.translation(trigger.target)+'的问能否命中');
 					}
 					player.chooseControl('能命中','不能命中','cancel').ai=function(event){
 						if(trigger.player.hasSkill('wushuang')) return 0;
@@ -2189,11 +2290,11 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 				content:function(){
 					if(player.storage.bolehuiyan==trigger.result.suit){
 						game.log(player,'预言成功');
-						player.popup('高分');
+						player.popup('洗具');
 						player.draw(2);
 					}
 					else if(get.color({suit:player.storage.bolehuiyan})==trigger.result.color){
-						player.popup('高分');
+						player.popup('洗具');
 						player.draw();
 					}
 					delete player.storage.bolehuiyan;
@@ -2284,8 +2385,8 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 				priority:-1,
 				content:function(){
 					"step 0"
-					var next=trigger.turn.chooseToRespond({name:'sha'},'请打出一张杀响应核对作业');
-					next.set('prompt2','（共需打出2张杀）');
+					var next=trigger.turn.chooseToRespond({name:'sha'},'请打出一张问响应辩论');
+					next.set('prompt2','（共需打出2张问）');
 					next.autochoose=lib.filter.autoRespondSha;
 					next.ai=function(card){
 						if(get.attitude(trigger.turn,player)<0&&trigger.turn.countCards('h','sha')>1){
@@ -2329,7 +2430,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 					for(var i=0;i<trigger.targets.length;i++){
 						effect+=get.effect(trigger.targets[i],trigger.card,trigger.player,player);
 					}
-					var str='弃置一张杀令'+get.translation(trigger.player);
+					var str='弃置一张问令'+get.translation(trigger.player);
 					if(trigger.targets&&trigger.targets.length){
 						str+='对'+get.translation(trigger.targets);
 					}
@@ -2364,7 +2465,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					trigger.source.chooseCard('交出一张语文牌或流失一点体力',function(card){
+					trigger.source.chooseCard('交出一张语文牌或失去一点体力',function(card){
 						return get.suit(card)=='heart';
 					}).ai=function(card){
 						return 6-get.value(card);
@@ -2438,7 +2539,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					"step 0"
-					var next=player.chooseToDiscard('he','是否弃置一张理科牌并收回'+get.translation(trigger.card)+'？',{color:'black'});
+					var next=player.chooseToDiscard('he','是否弃置一张黑色牌并收回'+get.translation(trigger.card)+'？',{color:'black'});
 					next.ai=function(card){
 						return get.value(trigger.card)-get.value(card);
 					}
@@ -2827,73 +2928,81 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			yxs_tangbohu:'唐伯虎',
 			yxs_zhangsanfeng:'张三丰',
 			yxs_nandinggeer:'南丁格尔',
-			yxs_weizhongxian:'文忠贤',
+			yxs_weizhongxian:'魏忠贤',
 			yxs_lanlinwang:'兰陵王',
 			yxs_meixi:'妹喜',
+			yxs_qinqiong:"秦琼",
 
+			yxs_fanji:"反击",
+            yxs_fanji2:"反击",
+            yxs_fanji_info:"当你受到【问】或【辩论】造成的扣分后，你可以对扣分来源使用一张【问】。若此【问】为红色，其不可避答",
+            yxs_menshen:"门神",
+            yxs_menshen2:"门神",
+            yxs_menshen3:"门神",
+            yxs_menshen_info:"回合结束阶段，你可选择一名其他角色，若如此做，直到你的下回合开始，所有角色对该角色使用的【问】或【辩论】均视为对你使用",
 			zhuxin:'诛心',
-			zhuxin_info:'出牌阶段限一次，你可以与一名其他角色排名，若你赢，你对其造成一点扣分',
+			zhuxin_info:'出牌阶段限一次，你可以与一名其他角色拼点，若你赢，你对其造成一点扣分',
 			wlianhuan:'结派',
-			wlianhuan_info:'你使用杀造成扣分时，可以弃置一张工具区内的牌并令扣分+1',
+			wlianhuan_info:'你使用问造成扣分时，可以弃置一张工具区内的牌并令扣分+1',
 			liebo:'裂帛',
 			liebo_info:'出牌阶段限一次，你可以将你的手牌与一名其他角色交换（手牌数之差不能多于1）',
 			yaoji:'妖姬',
-			yaoji_info:'每当你受到一次扣分，你可以将一张罚站置入扣分来源的判定区',
+			yaoji_info:'每当你受到一次扣分，你可以将一张乐不思蜀置入扣分来源的判定区',
 			guimian:'鬼面',
-			guimian_info:'锁定技，每当你在出牌阶段使用杀造成扣分，本阶段内出杀次数上限+1',
+			guimian_info:'锁定技，每当你在出牌阶段使用问造成扣分，本阶段内出问次数上限+1',
 			lyuxue:'浴血',
 			lyuxue2:'浴血',
-			lyuxue_info:'锁定技，每当你造成一次扣分，若目标没有浴血标记，你令其获得一个浴血标记；当一名角色失去浴血标记时，其流失一点体力；准备阶段，若场上浴血标记的数量不少于存活角色数的一半（向下取整），你清空浴血标记；当你即将死亡时，你清空浴血标记',
+			lyuxue_info:'锁定技，每当你造成一次扣分，若目标没有浴血标记，你令其获得一个浴血标记；当一名角色失去浴血标记时，其失去一点体力；准备阶段，若场上浴血标记的数量不少于存活角色数的一半（向下取整），你清空浴血标记；当你即将退学时，你清空浴血标记',
 			huli:'护理',
-			huli_info:'出牌阶段，你可以将一张语文手牌当作补作业对距离1以内的角色使用',
+			huli_info:'出牌阶段，你可以将一张语文手牌当作习对距离1以内的角色使用',
 			yixin:'医心',
 			yixin_info:'限定技，你可以弃置两张牌，然后令一名已受伤角色回复X点体力并摸4-X张牌（X为该角色已损失的体力值且不超过4）',
 			xianqu:'先驱',
-			xianqu_info:'锁定技，你不能成为点数小于8的杀的目标',
+			xianqu_info:'锁定技，你不能成为点数小于8的问的目标',
 			zbudao:'布道',
 			zbudao_info:'摸牌阶段，你可以额外摸一张牌，然后将摸到的牌中的一张交给一名其他角色',
 			taiji:'太极',
-			taiji_info:'每当你使用或打出一张闪，你可以使用一张杀',
+			taiji_info:'每当你使用或打出一张答，你可以使用一张问',
 			luobi:'落笔',
 			luobi_info:'结束阶段，可以摸数量等同于已损失体力值的牌，并以任意方式分配给任意角色',
 			fengliu:'风流',
 			fengliu_info:'锁定技，摸牌阶段，你额外摸X张牌，X为存活女性角色数且不超过2',
 			shiqin:'弑亲',
-			shiqin_info:'锁定技，其他艺势力角色将退学时，你令其立即死亡',
+			shiqin_info:'锁定技，其他群势力角色将退学时，你令其立即退学',
 			yjujian:'拒谏',
 			yjujian_info:'出牌阶段限一次，你可以交给一名其他角色一张牌，该角色的动作牌不能指定你为目标直到你的下一回合开始',
 			yaoyi:'徭役',
-			yaoyi_info:'每当你受到一次扣分，你可以令至多2名非艺势力角色交给你一张手牌',
+			yaoyi_info:'每当你受到一次扣分，你可以令至多2名非群势力角色交给你一张手牌',
 			zyhufu:'胡服',
-			zyhufu_info:'锁定技，当你的工具区内没有助刷牌时，你摸牌阶段额外摸一张牌；当你工具区内有助刷牌时，你的手牌上限+5',
+			zyhufu_info:'锁定技，当你的工具区内没有教辅牌时，你摸牌阶段额外摸一张牌；当你工具区内有教辅牌时，你的手牌上限+5',
 			hanbei:'捍北',
-			hanbei_info:'锁定技，你的工具区有马时，你的杀不可闪避',
+			hanbei_info:'锁定技，你的工具区有马时，你的问不可避答',
 			kuangchan:'狂禅',
 			kuangchan_info:'锁定技，你做班长时，不增加体力上限',
 			dili:'底力',
-			dili_info:'锁定技，摸牌阶段，你额外摸X张牌，X为你已损失的体力值',
-			dili_info_alter:'锁定技，摸牌阶段，你额外摸X张牌，X为你已损失的体力值的一半，向上取整',
+			// dili_info:'锁定技，摸牌阶段，你额外摸X张牌，X为你已损失的体力值',
+			dili_info:'锁定技，摸牌阶段，你额外摸X张牌，X为你已损失的体力值的一半，向上取整且最多为2',
 			chujia:'初嫁',
 			chujia_info:'出牌阶段限一次，你可以弃置两张相同颜色的手牌，指定任意一名角色摸X张牌。(X为该角色已损失的体力值) ',
 			zhijie:'知节',
-			zhijie_info:'出牌阶段限一次，你的语文手牌可以当做额外奖励使用',
+			zhijie_info:'出牌阶段限一次，你的语文手牌可以当做下午茶使用',
 			baihe:'捭阖',
 			baihe_info:'出牌阶段限一次，你可以弃置一张牌，选择以下1项执行：(1)横置1名未横置角色，该角色摸一张牌；(2)重置一名已横置角色，该角色弃置一张手牌',
 			yinyang:'阴阳',
 			yinyang_info:'出牌阶段限一次，你可以弃置两张手牌并选择3名角色，分别横置或重置这些角色',
 			xiushen:'修身',
-			xiushen_info:'锁定技，结束阶段，若场上有横置角色，你摸两张牌',
-			xiushen_info_alter:'锁定技，出牌阶段结束时，若场上有横置角色，你摸两张牌',
+			// xiushen_info:'锁定技，结束阶段，若场上有横置角色，你摸两张牌',
+			xiushen_info:'锁定技，出牌阶段结束时，若场上有横置角色，你摸两张牌',
 			yanyi:'演绎',
-			yanyi_info:'出牌阶段限一次，你可以弃置一张理科牌，指定1名角色和1种花色，若被指定角色的手牌中含有此花色，则受到1点扣分',
+			yanyi_info:'出牌阶段限一次，你可以弃置一张黑色牌，指定1名角色和1种花色，若被指定角色的手牌中含有此花色，则受到1点扣分',
 			jiean:'结案',
 			jiean_info:'每当【演绎】造成扣分时，你可以摸X张牌，并以任意数量分配给任意角色（X为被【演绎】造成扣分角色的已损失体力值）。',
 			wumu:'武穆',
-			wumu_info:'锁定技，你的黑杀无视距离，文科不计入回合内的出杀限制',
+			wumu_info:'锁定技，你的黑问无视距离，红色不计入回合内的出问限制',
 			ysheshen:'舍身',
 			ysheshen_info:'每当你受到一点扣分，可以观看牌堆顶的两张牌，并将其交给任意1~2名角色',
 			sanbanfu:'三板斧',
-			sanbanfu_info:'当你对其他角色使用杀时，你可以使此杀有如下效果：若对方没有出闪，其受到2点扣分；若对方打出了一张闪，你与其各受到1点扣分；若对方打出了两张闪，你受到一点扣分',
+			sanbanfu_info:'当你对其他角色使用问时，你可以使此问有如下效果：若对方没有出答，其受到2点扣分；若对方打出了一张答，你与其各受到1点扣分；若对方打出了两张答，你受到一点扣分',
 			bingsheng:'兵圣',
 			bingsheng_info:'出牌阶段限一次，你可以弃置两张花色不同的手牌，指定一名其他角色使其体力值与你相同（体力最多变化2点）',
 			taolue:'韬略',
@@ -2901,28 +3010,28 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			shentan:'神探',
 			shentan_info:'出牌阶段限一次，你可以弃置一张牌，获得距离2以内的一名角色的手牌，并可以将其交给任意一名角色',
 			hanqiang:'寒枪',
-			hanqiang_info:'锁定技，当你没工具助发时，攻击范围+1',
+			hanqiang_info:'锁定技，当你没工具助学时，攻击范围+1',
 			biaoqi:'骠骑',
-			biaoqi_info:'锁定技，当你出杀指定目标后，若你的攻击范围大于目标体力值，则此杀不可闪避；若你的攻击范围小于目标体力值，你摸一张牌',
+			biaoqi_info:'锁定技，当你出问指定目标后，若你的攻击范围大于目标体力值，则此问不可避答；若你的攻击范围小于目标体力值，你摸一张牌',
 			wluoyan:'落雁',
-			wluoyan_info:'锁定技，你防止即将受到的扣分，改为流失一点体力',
+			wluoyan_info:'锁定技，你防止即将受到的扣分，改为失去一点体力',
 			heqin:'和亲',
 			heqin2:'和亲',
 			heqin3:'和亲',
-			heqin_info:'限定技，你可以与场上一名男性角色形成【和亲】状态，你与该男性角色于摸牌阶段摸牌数+1。你或者男性角色退学时，【和亲】状态消失',
+			heqin_info:'限定技，你可以与场上一名男性角色形成【和亲】状态，你与该男性角色于摸牌阶段摸牌数+1。你或者男性角色阵亡时，【和亲】状态消失',
 			chajue:'察觉',
 			chajue2:'察觉',
-			chajue_info:'锁定技，你的回合外，你每受到一次扣分，任何【杀】或普通动作牌均对你无效，直到你的回合开始',
+			chajue_info:'锁定技，你的回合外，你每受到一次扣分，任何【问】或普通动作牌均对你无效，直到你的回合开始',
 			tiewan:'铁腕',
-			tiewan_info:'每当其他角色使用延时类动作牌时，你可以立即将一张文科牌当作罚站使用',
+			tiewan_info:'每当其他角色使用延时类动作牌时，你可以立即将一张红色牌当作乐不思蜀使用',
 			qianglue:'强掠',
-			qianglue_info:'每当你的杀被闪避时，你可以进行一次判定，若结果为理科，你可以获得对方的一张牌',
+			qianglue_info:'每当你的问被避答时，你可以进行一次判定，若结果为黑色，你可以获得对方的一张牌',
 			xiadao:'侠盗',
 			xiadao_info:'每当你造成一次扣分，你可以令一名手牌数不少于受扣分角色的另一名角色获得其一张手牌',
 			jimin:'机敏',
-			jimin_info:'当你的工具区内没有牌时，你可以将一张手牌当作闪使用或打出',
+			jimin_info:'当你的工具区内没有牌时，你可以将一张手牌当作答使用或打出',
 			sheshu:'射术',
-			sheshu_info:'锁定技，你的杀无视距离；体力值不小于3的角色不能闪避你的杀',
+			sheshu_info:'锁定技，你的问无视距离；体力值不小于3的角色不能避答你的问',
 			tongyu:'统御',
 			tongyu_info:'出牌阶段，你可以弃置一张牌，并转变为罗宾汉（每回合只能转变一次）',
 			lguiyin:'归隐',
@@ -2933,13 +3042,13 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			yizhuang2:'易装',
 			yizhuang_info:'准备阶段，你可以弃置一张牌并选择一名男性角色，获得其所有技能，直到你首次受到扣分',
 			kongju:'控局',
-			kongju_info:'锁定技，你的手牌上限为你的体力上限；当你的手牌数小于体力上限时，你不能成为查寝或没收的目标；当你的手牌数大于体力上限时，你不能成为罚站的目标',
+			kongju_info:'锁定技，你的手牌上限为你的体力上限；当你的手牌数小于体力上限时，你不能成为查寝或没收的目标；当你的手牌数大于体力上限时，你不能成为乐不思蜀的目标',
 			tuqiang:'图强',
-			tuqiang_info:'每当你使用或打出一张闪，你可以摸一张牌',
-			zhensha:'鸩杀',
-			zhensha_info:'当场上有角色进入将退学状态时，你可以弃置一张辣条或两张理科手牌，则该角色立即死亡。',
+			tuqiang_info:'每当你使用或打出一张答，你可以摸一张牌',
+			zhensha:'鸩问',
+			zhensha_info:'当场上有角色进入将退学状态时，你可以弃置一张思或两张黑色手牌，则该角色立即退学。',
 			xumou:'蓄谋',
-			xumou_info:'结束阶段，你可以将角色牌旷课并摸3张牌',
+			xumou_info:'结束阶段，你可以将武将牌翻面并摸3张牌',
 			guifu:'鬼斧',
 			guifu_info:'出牌阶段限一次，你可以指定一名角色工具区内的一张牌，将其弃掉，自己和对方同时摸取一张牌',
 			lshengong:'神工',
@@ -2949,7 +3058,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			miaobi:'妙笔',
 			miaobi_info:'出牌阶段限一次，你可以弃置一名其他角色的一张牌，若此牌是基本牌或普通动作，你可以将一张手牌当此牌使用；否则你须弃置一张牌',
 			cike:'刺客',
-			cike_info:'你对别的角色出【杀】时可以选择做一次判定：若判定牌为文科花色，则此【杀】不可回避，直接命中；若判定牌为理科花色，你可以选择弃掉对方一张牌。',
+			cike_info:'你对别的角色出【问】时可以选择做一次判定：若判定牌为红色花色，则此【问】不可回避，直接命中；若判定牌为黑色花色，你可以选择弃掉对方一张牌。',
 			qiangyun:'强运',
 			qiangyun_info:'每当你失去最后一张手牌，可摸两张牌',
 			ducai:'独裁',
@@ -2959,33 +3068,33 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			tongling:'统领',
 			tongling_info:'锁定技，每当一名友方角色造成一次扣分，你获得1个统领标记（标记上限为3）',
 			fanpu:'反扑',
-			fanpu_info:'出牌阶段限一次，你可以移去3枚统领标记并视为对攻击范围内的至多3名角色使用一张杀',
-			fenghuo:'烽年级',
-			fenghuo_info:'你可以将一张工具区内的牌当作作业来了使用',
+			fanpu_info:'出牌阶段限一次，你可以移去3枚统领标记并视为对攻击范围内的至多3名角色使用一张问',
+			fenghuo:'烽火',
+			fenghuo_info:'你可以将一张工具区内的牌当作多想多问使用',
 			weiyi:'威仪',
 			weiyi_info:'每当你受到一次扣分，可以令扣分来源弃置两张牌',
-			xieling:'挟令',
+			xieling:'深思熟虑',
 			xieling_info:'出牌阶段，弃掉两张手牌，将任意一名角色工具区或判定区的牌移动到另一名角色对应的区域',
 			baye:'霸业',
 			baye_info:'出牌阶段，你可以将一张牌当做本回合内前一张使用的牌来使用。每回合限用一次。',
 			nvquan:'女权',
 			nvquan1:'女权',
 			nvquan2:'女权',
-			nvquan_info:'你对男性角色使用【杀】或【核对作业】时，对方需连续打出两张【闪】或【杀】响应；你不能成为男性角色的核对作业目标',
+			nvquan_info:'你对男性角色使用【问】或【辩论】时，对方需连续打出两张【答】或【问】响应；你不能成为男性角色的辩论目标',
 			qiandu:'迁都',
-			qiandu_info:'出牌阶段，你可以弃一张理科手牌，和一名存活的玩家与其交换位置。每回合限一次。',
+			qiandu_info:'出牌阶段，你可以弃一张黑色手牌，和一名存活的玩家与其交换位置。每回合限一次。',
 			budao:'补刀',
-			budao_info:'你的回合外，你的攻击范围的一名角色受到【杀】的扣分时，你可以对其使用一张【杀】，只要你的【杀】对目标角色造成了扣分，你就可以继续对其使用【杀】。',
+			budao_info:'你的回合外，你的攻击范围的一名角色受到【问】的扣分时，你可以对其使用一张【问】，只要你的【问】对目标角色造成了扣分，你就可以继续对其使用【问】。',
 			feigong:'非攻',
-			feigong_info:'其他角色使用杀时，若你不是杀的目标，可以弃置一张杀取消之',
+			feigong_info:'其他角色使用问时，若你不是问的目标，可以弃置一张问取消之',
 			jianai:'兼爱',
 			jianai_info:'每当你回复一点体力，可以令所有其他角色回复一点体力',
 			bolehuiyan:'慧眼',
-			bolehuiyan_info:'当一名有手牌的其他角色成为来源不为你的杀的目标时，你可以预言此杀能否命中，若预言正确，你摸一张牌，否则你须弃置一张牌。每回合限发动一次',
+			bolehuiyan_info:'当一名有手牌的其他角色成为来源不为你的问的目标时，你可以预言此问能否命中，若预言正确，你摸一张牌，否则你须弃置一张牌。每回合限发动一次',
 			xiangma:'相马',
 			xiangma_info:'锁定技，只要你的体力值大于2点，你的进攻距离+1；只要你的体力值为2点或更低，你的防御距离+1',
 			seyou:'色诱',
-			seyou_info:'限定技，出牌阶段，你可以指定任意1名角色，其他所有男性角色需选择1项执行：（1）对你指定的角色出【杀】；（2）令你获得其一张牌。',
+			seyou_info:'限定技，出牌阶段，你可以指定任意1名角色，其他所有男性角色需选择1项执行：（1）对你指定的角色出【问】；（2）令你获得其一张牌。',
 			sheshi:'蛇噬',
 			sheshi_info:'每受到1次扣分，可以指定1种花色，依次展示牌堆顶的牌，直到出现指定花色的牌为止，你获得与指定花色不同花色的所有牌（最多展示4张牌）。',
 
@@ -2998,24 +3107,24 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			nichang2:'霓裳',
 			nichang_info:'摸牌时，你可以选择不摸牌，并在结束阶段展示手牌，每少一种花色摸一张牌',
 			fengyan:'丰艳',
-			fengyan_info:'你可以获得其他男性角色的文科判定牌',
+			fengyan_info:'你可以获得其他男性角色的红色判定牌',
 			zhulu:'逐鹿',
 			zhulu_info:'回合外，当有普通动作牌结算完毕后，你可以立即弃掉一张相同花色手牌或工具区的牌，获得这张动作牌。',
 			jieyong:'节用',
 			jieyong2:'节用',
-			jieyong_info:'你使用的卡牌进入弃牌堆后，你可以弃置一张理科牌并重新获得之（每回合限一次）',
+			jieyong_info:'你使用的卡牌进入弃牌堆后，你可以弃置一张黑色牌并重新获得之（每回合限一次）',
 			shangtong:'尚同',
 			shangtong_info:'每当你令其他角色恢复1点血量或掉1点血量时，你可以摸1张牌（摸牌上限为4）',
 			feiming:'非命',
-			feiming_info:'其他角色对你造成扣分时，你可以令该角色须选择1项执行：1，将1张语文花色手牌交给你；2，流失1点血量',
+			feiming_info:'其他角色对你造成扣分时，你可以令该角色须选择1项执行：1，将1张语文花色手牌交给你；2，失去1点血量',
 			yxsrenwang:'人望',
 			yxsrenwang_info:'出牌阶段，你可以弃掉2张牌并指定一名手牌数大于你的角色，你摸牌至与该角色手牌数相等，每阶段限一次。',
 			shiwei:'施威',
 			shiwei_info:'当其他角色失去最后一张手牌时，你可以将牌堆顶的一张牌背面朝上置于该角色面前，该角色回合，跳过出牌阶段并弃掉这张牌。',
 			yxswushuang:'无双',
-			yxswushuang_info:'出牌阶段，你使用【杀】时可同时打出两张【杀】，则该【杀】具有以下效果之一：1，扣分+1；2，额外指定两个目标',
+			yxswushuang_info:'出牌阶段，你使用【问】时可同时打出两张【问】，则该【问】具有以下效果之一：1，扣分+1；2，额外指定两个目标',
 			xiaoyong:'骁勇',
-			xiaoyong_info:'你可以将理科手牌当作【杀】来使用',
+			xiaoyong_info:'你可以将黑色手牌当作【问】来使用',
 			qinzheng:'亲征',
 			qinzheng_info:'出牌阶段，你对其他角色造成扣分时，可以令场上任意角色摸一张牌。',
 			juma:'拒马',

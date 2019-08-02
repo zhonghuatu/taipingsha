@@ -75,6 +75,14 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					if(typeof event.shanRequired!='number'||!event.shanRequired||event.shanRequired<0){
 						event.shanRequired=1;
 					}
+					var evt=event.getParent('useCard')
+					if(evt&&(typeof evt.baseDamage=='number'&&evt.baseDamage>0)){
+					   event.baseDamage=evt.baseDamage;
+					}
+					else event.baseDamage=1;
+					if(typeof event.extraDamage!='number'){
+						event.extraDamage=0;
+					}
 					"step 1"
 					if(event.directHit){
 						event._result={bool:false};
@@ -85,7 +93,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					else{
 						var next=target.chooseToRespond({name:'shan'});
 						if(event.shanRequired>1){
-							next.set('prompt2','（共需打出张'+event.shanRequired+'刷作业）');
+							next.set('prompt2','（共需打出张'+event.shanRequired+'答）');
 						}
 						next.set('ai',function(card){
 							var target=_status.event.player;
@@ -120,7 +128,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					}
 					"step 3"
 					if(result.bool==false&&!event.unhurt){
-						target.damage(get.nature(event.card));
+						target.damage(get.nature(event.card),event.baseDamage+event.extraDamage);
 						event.result={bool:true}
 						event.trigger('shaDamage');
 					}
@@ -652,7 +660,8 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				cardcolor:'red',
 				reverseOrder:true,
 				filterTarget:function(card,player,target){
-					return target.hp<target.maxHp;
+					//return target.hp<target.maxHp;
+					return true;
 				},
 				content:function(){
 					target.recover();
@@ -845,6 +854,11 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				content:function(){
 					"step 0"
 					if(event.turn==undefined) event.turn=target;
+					var evt=event.getParent('useCard')
+					if(typeof event.baseDamage!='number'||!evt.baseDamage){
+					    evt.baseDamage=1;
+					    event.evt=evt;
+					}
 					"step 1"
 					event.trigger('juedou');
 					"step 2"
@@ -895,11 +909,13 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 							event.goto(1);
 						}
 						else{
+						var num=1;
+					    if(event.evt&&event.evt.baseDamage) num=event.evt.baseDamage;
 							if(event.turn==target){
-								target.damage();
+								target.damage(num);
 							}
 							else{
-								player.damage(target);
+								player.damage(target,num);
 							}
 						}
 					}
@@ -1076,7 +1092,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				selectTarget:2,
 				singleCard:true,
 				multitarget:true,
-				targetprompt:['被借刀','出发作业目标'],
+				targetprompt:['被借刀','出问目标'],
 				complexTarget:true,
 				multicheck:function(){
 					return game.hasPlayer(function(current){
@@ -1101,7 +1117,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 						event.directfalse=true;
 					}
 					else{
-						target.chooseToUse('对'+get.translation(event.addedTarget)+'使用一张发作业，或令'+get.translation(player)+'获得你的助发牌',
+						target.chooseToUse('对'+get.translation(event.addedTarget)+'使用一张问，或令'+get.translation(player)+'获得你的助学牌',
 							{name:'sha'},event.addedTarget,-1).set('targetRequired',true);
 					}
 					"step 1"
@@ -1318,14 +1334,14 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			qinglong_guozhan:{
 				trigger:{player:'useCard'},
 				forced:true,
-				filter:function(){
-					return get.mode()=='guozhan';
+				filter:function(event,player){
+					return get.mode()=='guozhan'&&event.card.name=='sha';
 				},
 				content:function(){
-					var players=game.filterPlayer();
+					var players=trigger.targets;
 					for(var i=0;i<players.length;i++){
-						game.players[i].addTempSkill('qinglong_guozhan_mingzhi');
-						game.players[i].storage.qinglong_guozhan_mingzhi.add(trigger.card);
+						players[i].addTempSkill('qinglong_guozhan_mingzhi');
+						players[i].storage.qinglong_guozhan_mingzhi.add(trigger.card);
 					}
 				}
 			},
@@ -1353,42 +1369,50 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				}
 			},
 			hanbing_skill:{
-				trigger:{player:'shaHit'},
-				direct:true,
+				trigger:{source:'damageBefore'},
+				//direct:true,
 				audio:true,
 				filter:function(event){
-					return event.target.getCards('he').length>0;
+					return event.card&&event.card.name=='sha'&&event.notLink()&&event.player.getCards('he').length>0;
 				},
+				check:function(event,player){
+				    var target=event.player;
+						var eff=get.damageEffect(target,player,player);
+						if(get.attitude(player,target)>0){
+							if(eff>=0) return false;
+							return true;
+						}
+						if(eff<=0) return true;
+						if(target.hp==1) return false;
+						if(player.hasSkill('jiu')||player.hasSkill('tianxianjiu')||
+						player.hasSkill('luoyi2')||player.hasSkill('reluoyi2')) return false;
+						if(target.countCards('he')<2) return -1;
+						var num=0;
+						var cards=target.getCards('he');
+						for(var i=0;i<cards.length;i++){
+							if(get.value(cards[i])>6) num++;
+						}
+						if(num>=2) return true;
+						return false;
+					},
+					logTarget:"player",
 				content:function(){
 					"step 0"
-					player.discardPlayerCard(get.prompt('hanbing'),'he',trigger.target,Math.min(2,trigger.target.countCards('he')),function(button){
-						var trigger=_status.event.getTrigger();
-						var player=_status.event.player;
-						var eff=get.damageEffect(trigger.target,player,player);
-						if(get.attitude(player,trigger.target)>0){
-							if(eff>=0) return false;
-							return 10-get.buttonValue(button);
-						}
-						if(eff<=0) return get.buttonValue(button);
-						if(trigger.target.hp==1) return false;
-						if(player.hasSkill('jiu')||player.hasSkill('tianxianjiu')||
-						player.hasSkill('luoyi2')||player.hasSkill('reluoyi2')) return -1;
-						if(_status.event.dialog.buttons.length<2) return -1;
-						var num=0;
-						for(var i=0;i<_status.event.dialog.buttons.length;i++){
-							if(get.buttonValue(_status.event.dialog.buttons[i])>1.5) num++;
-						}
-						if(num>=2) return get.buttonValue(button)-1.5;
-					}).set('logSkill','hanbing_skill');
+						trigger.cancel();
 					"step 1"
-					if(result.bool){
-						trigger.untrigger();
-						trigger.unhurt=true;
+					if(trigger.player.countDiscardableCards(player,'he')){
+					    player.line(trigger.player);
+						player.discardPlayerCard('he',trigger.player,true);
+					}
+					"step 2"
+					if(trigger.player.countDiscardableCards(player,'he')){
+					player.line(trigger.player);
+						player.discardPlayerCard('he',trigger.player,true);
 					}
 				}
 			},
 			renwang_skill:{
-				trigger:{target:'shaBefore'},
+				trigger:{target:'shaBegin'},
 				forced:true,
 				priority:6,
 				audio:true,
@@ -1430,7 +1454,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			},
 			cixiong_skill:{
 				trigger:{player:'shaBegin'},
-				priority:5,
+				priority:7,
 				audio:true,
 				logTarget:'target',
 				filter:function(event,player){
@@ -1490,7 +1514,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					return player.countCards('h')>=2;
 				},
 				audio:true,
-				prompt:'将两张手牌当发作业使用或打出',
+				prompt:'将两张手牌当问使用或打出',
 				check:function(card){
 					if(card.name=='sha') return 0;
 					return 6-get.useful(card)
@@ -1599,26 +1623,26 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				}
 			},
 			qilin_skill:{
-				trigger:{player:'shaHit'},
+				trigger:{source:'damageBegin'},
 				filter:function(event,player){
-					return event.target.getCards('e',{subtype:['equip3','equip4']}).length>0
+					return event.card&&event.card.name=='sha'&&event.notLink()&&event.player.getCards('e',{subtype:['equip3','equip4']}).length>0
 				},
 				direct:true,
 				audio:true,
 				content:function(){
 					"step 0"
-					var att=(get.attitude(player,trigger.target)<=0);
+					var att=(get.attitude(player,trigger.player)<=0);
 					var next=player.chooseButton();
 					next.set('att',att);
-					next.set('createDialog',['选择要弃置的马',trigger.target.getCards('e',{subtype:['equip3','equip4']})]);
+					next.set('createDialog',['是否发动【失败打击】，弃置'+get.translation(trigger.player)+'的一张梦想牌？',trigger.player.getCards('e',{subtype:['equip3','equip4']})]);
 					next.set('ai',function(button){
 						if(_status.event.att) return get.buttonValue(button);
 						return 0;
 					});
 					"step 1"
 					if(result.bool){
-						player.logSkill('qilin_skill');
-						trigger.target.discard(result.links[0]);
+						player.logSkill('qilin_skill',trigger.player);
+						trigger.player.discard(result.links[0]);
 					}
 				}
 			},
@@ -1722,14 +1746,14 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 						if((targets||target)&&!isJudge){
 							str+='对'+get.translation(targets||target);
 						}
-						str+='将'+(state>0?'生效':'失效')+'，是否我很优秀？';
+						str+='将'+(state>0?'生效':'失效')+'，是否无懈？';
 
 						if(player.isUnderControl(true)&&!_status.auto&&!ui.tempnowuxie&&tempnowuxie){
 							var translation=get.translation(card.name);
 							if(translation.length>=4){
 								translation=lib.translate[card.name+'_ab']||translation.slice(0,2);
 							}
-							ui.tempnowuxie=ui.create.control('不我很优秀'+translation,ui.click.tempnowuxie,'stayleft');
+							ui.tempnowuxie=ui.create.control('不无懈'+translation,ui.click.tempnowuxie,'stayleft');
 							ui.tempnowuxie._origin=id2;
 						}
 						var next=player.chooseToUse({
@@ -1965,120 +1989,120 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			},
 		},
 		translate:{
-			sha:'发作业',
-			huosha:'年级作业',
-			leisha:'校级作业',
-			shan:'刷作业',
-			tao:'补作业',
+			sha:'问',
+			huosha:'文竞',
+			leisha:'理竞',
+			shan:'答',
+			tao:'习',
 			bagua:'硬币',
-			bagua_bg:'币',
+			bagua_bg:'卦',
 			bagua_skill:'硬币',
-			jueying:'绝影',
-			dilu:'城堡',
-			zhuahuang:'宫殿',
-			jueying_bg:'掩体',
-			dilu_bg:'掩体',
-			zhuahuang_bg:'掩体',
-			chitu:'赤兔',
-			chitu_bg:'望远镜',
-			dawan:'大宛',
-			dawan_bg:'望远镜',
-			zixin:'紫骍',
-			zixin_bg:'望远镜',
-			zhuge:'狂发机',
-			cixiong:'扯CP',
-			zhuge_bg:'狂',
-			cixiong_bg:'CP',
+			jueying:'杭四之梦',
+			dilu:'浙附之梦',
+			zhuahuang:'师附之梦',
+			jueying_bg:'前八',
+			dilu_bg:'前八',
+			zhuahuang_bg:'前八',
+			chitu:'杭高之梦',
+			chitu_bg:'前四',
+			dawan:'十四之梦',
+			dawan_bg:'前四',
+			zixin:'学军之梦',
+			zixin_bg:'前四',
+			zhuge:'连珠炮',
+			cixiong:'八卦消息',
+			zhuge_bg:'炮',
+			cixiong_bg:'卦',
 			qinggang:'防小动作',
-			qinglong:'一唱一和',
-			zhangba:'印刷机',
-			qinglong_bg:'和',
-			zhangba_bg:'印',
-			guanshi:'退回重写',
+			qinglong:'刨根问底',
+			zhangba:'牛角尖',
+			qinglong_bg:'刨',
+			zhangba_bg:'尖',
+			guanshi:'吹毛求疵',
 			fangtian:'一起作业',
-			qilin:'消除伪装',
-			qilin_bg:'除',
-			zhuge_skill:'狂发机',
+			qilin:'失败打击',
+			qilin_bg:'疵',
+			zhuge_skill:'连珠炮',
 			cixiong_skill:'八卦消息',
 			qinggang_skill:'防小动作',
-			qinglong_skill:'一唱一和',
-			zhangba_skill:'印刷机',
-			guanshi_skill:'退回重写',
+			qinglong_skill:'刨根问底',
+			zhangba_skill:'牛角尖',
+			guanshi_skill:'吹毛求疵',
 			fangtian_skill:'一起作业',
-			qilin_skill:'消除伪装',
+			qilin_skill:'失败打击',
 			wugu:'画出重点',
 			taoyuan:'集体补课',
-			nanman:'作业来了',
-			wanjian:'上晚自习',
-			wuzhong:'额外奖励',
-			juedou:'核对作业',
+			nanman:'多想多问',
+			wanjian:'阶段测验',
+			wuzhong:'下午茶',
+			juedou:'辩论',
 			wugu_bg:'画',
 			taoyuan_bg:'补',
-			nanman_bg:'来',
-			wanjian_bg:'习',
-			wuzhong_bg:'奖',
-			juedou_bg:'核',
+			nanman_bg:'问',
+			wanjian_bg:'测',
+			wuzhong_bg:'想',
+			juedou_bg:'辩',
 			shunshou:'没收',
 			guohe:'查寝',
 			guohe_bg:'查',
-			jiedao:'代发作业',
+			jiedao:'抛转引玉',
 			wuxie:'我很优秀',
 			wuxie_bg:'秀',
-			lebu:'罚站',
-			shandian:'午休讲话',
+			lebu:'乐不思蜀',
+			shandian:'就寝讲话',
 			shandian_bg:'讲',
-			hanbing:'收保护费',
+			hanbing:'愿赌服输',
 			renwang:'免作业卡',
-			hanbing_bg:'费',
+			hanbing_bg:'赌',
 			renwang_bg:'免',
-			hanbing_skill:'收保护费',
+			hanbing_skill:'愿赌服输',
 			renwang_skill:'免作业卡',
-			hanbing_info:'每当你使用发作业命中目标后，你可以防止扣分，改为弃置目标两张牌',
-			hanbing_skill_info:'每当你使用发作业命中目标后，你可以防止扣分，改为弃置目标两张牌',
-			renwang_info:'理科的发作业对你无效',
-			renwang_skill_info:'理科的发作业对你无效',
-			sha_info:'出牌阶段，对攻击范围内的一名角色使用，令其打出一张【刷作业】或受到一点扣分。',
-			shan_info:'刷作业避一张发作业',
-			tao_info:'出牌阶段，对自己使用，回复一点分数。',
-			bagua_info:'每当你需要使用或打出一张【刷作业】时，你可以进行一次判定，若判定结果为文科，视为你使用或打出了一张【刷作业】。',
-			bagua_skill_info:'每当你需要使用或打出一张【刷作业】时，你可以进行一次判定，若判定结果为文科，视为你使用或打出了一张【刷作业】。',
+			hanbing_info:'当你使用问造成扣分时，你可以防止此扣分，改为依次弃置目标两张牌',
+			hanbing_skill_info:'当你使用问造成扣分时，你可以防止此扣分，改为依次弃置目标两张牌',
+			renwang_info:'黑色的问对你无效',
+			renwang_skill_info:'黑色的问对你无效',
+			sha_info:'出牌阶段，对攻击范围内的一名角色使用，令其打出一张【答】或受到一点扣分。',
+			shan_info:'避答一张问',
+			tao_info:'出牌阶段，对自己使用，回复一点体力。',
+			bagua_info:'每当你需要使用或打出一张【答】时，你可以进行一次判定，若判定结果为红色，视为你使用或打出了一张【答】。',
+			bagua_skill_info:'每当你需要使用或打出一张【答】时，你可以进行一次判定，若判定结果为红色，视为你使用或打出了一张【答】。',
 			jueying_info:'你的防御距离+1',
 			dilu_info:'你的防御距离+1',
 			zhuahuang_info:'你的防御距离+1',
 			chitu_info:'你的进攻距离+1',
 			dawan_info:'你的进攻距离+1',
 			zixin_info:'你的进攻距离+1',
-			zhuge_skill_info:'你于出牌阶段内使用【发作业】无次数限制。',
-			zhuge_info:'你于出牌阶段内使用【发作业】无次数限制。',
-			cixiong_skill_info:'每当你使用【发作业】指定一名异性的目标角色后，你可以令其选择一项：1.弃置一张手牌；2.令你摸一张牌。',
-			cixiong_info:'每当你使用【发作业】指定一名异性的目标角色后，你可以令其选择一项：1.弃置一张手牌；2.令你摸一张牌。',
-			qinggang_skill_info:'每当你使用【发作业】指定一名目标角色后，你无视其助刷。',
-			qinggang_info:'每当你使用【发作业】指定一名目标角色后，你无视其助刷。',
-			qinglong_skill_info:'每当你使用的【发作业】被目标角色使用的【刷作业】抵消时，你可以对其使用一张【发作业】（无距离限制）。',
-			qinglong_guozhan_info:'锁定技，当你使用【发作业】指定目标时，所有目标角色不能明置角色牌直到此【发作业】结算完毕为止。',
-			qinglong_info:'每当你使用的【发作业】被目标角色使用的【刷作业】抵消时，你可以对其使用一张【发作业】（无距离限制）。',
-			qinglong_info_guozhan:'锁定技，当你使用【发作业】指定目标时，所有目标角色不能明置角色牌直到此【发作业】结算完毕为止。',
-			zhangba_skill_info:'你可以将两张手牌当【发作业】使用或打出。',
-			zhangba_info:'你可以将两张手牌当【发作业】使用或打出。',
-			guanshi_skill_info:'每当你使用的【发作业】被目标角色使用的【刷作业】抵消时，你可以弃置两张牌，令此【发作业】依然对其造成扣分。',
-			guanshi_info:'每当你使用的【发作业】被目标角色使用的【刷作业】抵消时，你可以弃置两张牌，令此【发作业】依然对其造成扣分。',
-			fangtian_skill_info:'你使用的【发作业】若是你最后的手牌，你可以额外选择至多两个目标。',
-			fangtian_info:'你使用的【发作业】若是你最后的手牌，你可以额外选择至多两个目标。',
-			fangtian_info_guozhan:'你使用【发作业】可以指定任意名角色为目标（不能包含势力相同的角色），若任意一名目标角色使用【刷作业】抵消了此【发作业】，则此【发作业】对剩余的目标角色无效。',
-			qilin_skill_info:'每当你使用【发作业】对目标角色造成扣分时，你可以弃置其工具区里的一张附加工具牌。',
-			qilin_info:'每当你使用【发作业】对目标角色造成扣分时，你可以弃置其工具区里的一张附加工具牌。',
+			zhuge_skill_info:'你于出牌阶段内使用【问】无次数限制。',
+			zhuge_info:'你于出牌阶段内使用【问】无次数限制。',
+			cixiong_skill_info:'每当你使用【问】指定一名异性的目标角色后，你可以令其选择一项：1.弃置一张手牌；2.令你摸一张牌。',
+			cixiong_info:'每当你使用【问】指定一名异性的目标角色后，你可以令其选择一项：1.弃置一张手牌；2.令你摸一张牌。',
+			qinggang_skill_info:'每当你使用【问】指定一名目标角色后，你无视其教辅。',
+			qinggang_info:'每当你使用【问】指定一名目标角色后，你无视其教辅。',
+			qinglong_skill_info:'每当你使用的【问】被目标角色使用的【答】抵消时，你可以对其使用一张【问】（无距离限制）。',
+			qinglong_guozhan_info:'锁定技，当你使用【问】指定目标时，所有目标角色不能明置武将牌直到此【问】结算完毕为止。',
+			qinglong_info:'每当你使用的【问】被目标角色使用的【答】抵消时，你可以对其使用一张【问】（无距离限制）。',
+			qinglong_info_guozhan:'锁定技，当你使用【问】指定目标时，所有目标角色不能明置武将牌直到此【问】结算完毕为止。',
+			zhangba_skill_info:'你可以将两张手牌当【问】使用或打出。',
+			zhangba_info:'你可以将两张手牌当【问】使用或打出。',
+			guanshi_skill_info:'每当你使用的【问】被目标角色使用的【答】抵消时，你可以弃置两张牌，令此【问】依然对其造成扣分。',
+			guanshi_info:'每当你使用的【问】被目标角色使用的【答】抵消时，你可以弃置两张牌，令此【问】依然对其造成扣分。',
+			fangtian_skill_info:'你使用的【问】若是你最后的手牌，你可以额外选择至多两个目标。',
+			fangtian_info:'你使用的【问】若是你最后的手牌，你可以额外选择至多两个目标。',
+			fangtian_info_guozhan:'你使用【问】可以指定任意名角色为目标（不能包含势力相同的角色），若任意一名目标角色使用【答】抵消了此【问】，则此【问】对剩余的目标角色无效。',
+			qilin_skill_info:'每当你使用【问】对目标角色造成扣分时，你可以弃置其工具区里的一张梦想牌。',
+			qilin_info:'每当你使用【问】对目标角色造成扣分时，你可以弃置其工具区里的一张梦想牌。',
 			wugu_info:'出牌阶段，对所有角色使用。（选择目标后）你从牌堆顶亮出等同于目标数量的牌，每名目标角色获得这些牌中（剩余的）的任意一张。',
-			taoyuan_info:'出牌阶段，对所有角色使用。每名目标角色回复1点分数。',
-			nanman_info:'出牌阶段，对所有其他角色使用。每名目标角色需打出一张【发作业】，否则受到1点扣分。',
-			wanjian_info:'出牌阶段，对所有其他角色使用。每名目标角色需打出一张【刷作业】，否则受到1点扣分。',
+			taoyuan_info:'出牌阶段，对所有角色使用。每名目标角色回复1点体力。',
+			nanman_info:'出牌阶段，对所有其他角色使用。每名目标角色需打出一张【问】，否则受到1点扣分。',
+			wanjian_info:'出牌阶段，对所有其他角色使用。每名目标角色需打出一张【答】，否则受到1点扣分。',
 			wuzhong_info:'出牌阶段，对你使用。你摸两张牌。',
-			juedou_info:'出牌阶段，对一名其他角色使用。由其开始，其与你轮流打出一张【发作业】，直到其中一方未打出【发作业】为止。未打出【发作业】的一方受到另一方对其造成的1点扣分。',
+			juedou_info:'出牌阶段，对一名其他角色使用。由其开始，其与你轮流打出一张【问】，直到其中一方未打出【问】为止。未打出【问】的一方受到另一方对其造成的1点扣分。',
 			shunshou_info:'出牌阶段，对距离为1且区域里有牌的一名其他角色使用。你获得其区域里的一张牌。',
 			guohe_info:'出牌阶段，对区域里有牌的一名其他角色使用。你弃置其区域里的一张牌。',
-			jiedao_info:'出牌阶段，对工具区里有助发牌且有使用【发作业】的目标的一名其他角色使用。令其对你指定的一名角色使用一张【发作业】，否则将其工具区里的助发牌交给你。',
+			jiedao_info:'出牌阶段，对工具区里有助学牌且有使用【问】的目标的一名其他角色使用。令其对你指定的一名角色使用一张【问】，否则将其工具区里的助学牌交给你。',
 			wuxie_info:'一张动作牌生效前，对此牌使用。抵消此牌对一名角色产生的效果，或抵消另一张【我很优秀】产生的效果。',
-			lebu_info:'出牌阶段，对一名其他角色使用。若判定结果不为文补作业，跳过其出牌阶段。',
-			shandian_info:'出牌阶段，对自己使用。若判定结果为理补作业2~9，则目标角色受到3点校级电扣分。若判定不为理补作业2~9，将之移动到下家的判定区里。',
+			lebu_info:'出牌阶段，对一名其他角色使用。若判定结果不为语文，跳过其出牌阶段。',
+			shandian_info:'出牌阶段，对自己使用。若判定结果为数学2~9，则目标角色受到3点理竞扣分。若判定不为数学2~9，将之移动到下家的判定区里。',
 		},
 		list:[
 			["spade",7,"sha"],

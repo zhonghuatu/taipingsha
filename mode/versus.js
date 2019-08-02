@@ -100,7 +100,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			else if(_status.mode=='three'){
 				if(!get.config('enable_all_cards')){
 					lib.translate.wuzhong_info+='若对方存活角色多于己方，则额外摸一张牌';
-					lib.translate.zhuge_info='锁定技，出牌阶段，你使用杀的次数上限+3';
+					lib.translate.zhuge_info='锁定技，出牌阶段，你使用问的次数上限+3';
 					lib.card.list=lib.cardsThree;
 					game.fixedPile=true;
 				}
@@ -442,7 +442,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 							lib.setPopped(ui.versushs,game.versusHoverHandcards,220);
 						}
 					}
-					_status.enemyCount=ui.create.system('杀敌: '+get.cnNumber(0,true),null,true);
+					_status.enemyCount=ui.create.system('问倒: '+get.cnNumber(0,true),null,true);
 					_status.friendCount=ui.create.system('阵亡: '+get.cnNumber(0,true),null,true);
 
 					lib.setPopped(_status.friendCount,game.versusHoverFriend);
@@ -2678,7 +2678,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						_status.friend=[];
 						_status.enemy=[];
 
-						_status.enemyCount=ui.create.system('杀敌: '+get.cnNumber(0,true),null,true);
+						_status.enemyCount=ui.create.system('问倒: '+get.cnNumber(0,true),null,true);
 						_status.friendCount=ui.create.system('阵亡: '+get.cnNumber(0,true),null,true);
 
 						lib.setPopped(_status.friendCount,func1);
@@ -2712,7 +2712,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						_status.friend=list3;
 						_status.enemy=list4;
 
-						_status.enemyCount=ui.create.system('杀敌: '+get.cnNumber(_status.enemyDied.length,true),null,true);
+						_status.enemyCount=ui.create.system('问倒: '+get.cnNumber(_status.enemyDied.length,true),null,true);
 						_status.friendCount=ui.create.system('阵亡: '+get.cnNumber(_status.friendDied.length,true),null,true);
 
 						lib.setPopped(_status.friendCount,func1);
@@ -2913,7 +2913,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					delete game.players[0].storage.versuslist;
 					delete game.players[1].versuslist;
 
-					_status.enemyCount=ui.create.system('杀敌: '+get.cnNumber(0,true),null,true);
+					_status.enemyCount=ui.create.system('问倒: '+get.cnNumber(0,true),null,true);
 					_status.friendCount=ui.create.system('阵亡: '+get.cnNumber(0,true),null,true);
 
 					lib.setPopped(_status.friendCount,game.versusHoverFriend);
@@ -2948,7 +2948,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 							_status.enemy=list4;
 						}
 
-						_status.enemyCount=ui.create.system('杀敌: '+get.cnNumber(_status.enemyDied.length,true),null,true);
+						_status.enemyCount=ui.create.system('问倒: '+get.cnNumber(_status.enemyDied.length,true),null,true);
 						_status.friendCount=ui.create.system('阵亡: '+get.cnNumber(_status.friendDied.length,true),null,true);
 
 						lib.setPopped(_status.friendCount,func1);
@@ -3813,7 +3813,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			falseColor:"wei",
 			versus_zhu_config:'启用主将',
 			versus_only_zhu_config:'只当主将',
-			versus_main_zhu_config:'主将死亡后结束',
+			versus_main_zhu_config:'主将退学后结束',
 			versus_assign_enemy_config:'指定对手',
 			versus_cross_seat_config:'交叉座位',
 			versus_random_seat_config:'随机座位',
@@ -3821,8 +3821,8 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			versus_single_control_config:'单人控制',
 			seat_order_config:'座位排列',
 			versus_first_less_config:'先手少摸牌',
-			versus_reward_config:'杀敌摸牌',
-			versus_punish_config:'杀死队友',
+			versus_reward_config:'问倒摸牌',
+			versus_punish_config:'问死队友',
 			versus_number_config:'对阵人数',
 			replace_number_config:'替补人数',
 			choice_config:'候选人数',
@@ -3834,14 +3834,14 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 
 			wenji:'问计',
 			wenji2:'问计',
-			wenji_info:'队友的出牌阶段开始时，你可令其交给你一张手牌，若此牌为锦囊牌，则非队友角色计算与你的距离+1直到你的下个回合开始',
+			wenji_info:'队友的出牌阶段开始时，你可令其交给你一张手牌，若此牌为动作牌，则非队友角色计算与你的距离+1直到你的下个回合开始',
 			qunjiang:'屯江',
-			qunjiang_info:'结束阶段开始时，若你于本回合的出牌阶段使用过至少两张牌且未造成过伤害，你可以选择一项：1.你摸两张牌；2.队友摸两张牌',
+			qunjiang_info:'结束阶段开始时，若你于本回合的出牌阶段使用过至少两张牌且未造成过扣分，你可以选择一项：1.你摸两张牌；2.队友摸两张牌',
 			xingzhao:'兴棹',
 			xingzhao2:'兴棹',
 			xingzhao3:'兴棹',
 			xingzhao_bg:'棹',
-			xingzhao_info:'锁定技，若你和队友持有的龙船至宝数合计为：1个以上，你具有技能“恂恂”；2个以上，当你或队友使用装备牌时，其摸一张牌；3个以上，你和队友跳过判定阶段',
+			xingzhao_info:'锁定技，若你和队友持有的龙船至宝数合计为：1个以上，你具有技能“恂恂”；2个以上，当你或队友使用工具牌时，其摸一张牌；3个以上，你和队友跳过判定阶段',
 
 			boss_liedixuande:'烈帝玄德',
 			boss_gongshenyueying:'工神月英',
@@ -3862,45 +3862,45 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			boss_lieshiyazi:'裂石睚眦',
 
 			boss_lianyujg:'炼狱',
-			boss_lianyujg_info:'结束阶段，你可以对所有敌方角色造成1点火焰伤害',
+			boss_lianyujg_info:'结束阶段，你可以对所有敌方角色造成1点文竞扣分',
 			boss_didongjg:'地动',
 			boss_didongjg_info:'结束阶段，你可以选择一名敌方角色将其武将牌翻面',
 			boss_mojianjg:'魔箭',
-			boss_mojianjg_info:'出牌阶段开始时，你可以对所有敌方角色使用一张万箭齐发',
+			boss_mojianjg_info:'出牌阶段开始时，你可以对所有敌方角色使用一张阶段测验',
 			boss_jiguan:'机关',
 			boss_jiguan_info:'锁定技，你不能成为【乐不思蜀】的目标',
 			boss_lingyu:'灵愈',
-			boss_lingyu_info:'结束阶段，你可以将自己的武将牌翻面，然后令所有已受伤的己方其他角色回复1点体力',
+			boss_lingyu_info:'结束阶段，你可以将自己的武将牌翻面，然后令所有已受伤的己方其他角色回复1点分数',
 			boss_tianyun:'天陨',
-			boss_tianyun_info:'结束阶段，你可以失去1点体力，然后令一名敌方角色受到2点火焰伤害并弃置其装备区里的所有牌',
+			boss_tianyun_info:'结束阶段，你可以失去1点分数，然后令一名敌方角色受到2点文竞扣分并弃置其工具区里的所有牌',
 			boss_zhenwei:'镇卫',
 			boss_zhenwei_info:'锁定技，其他己方角色的防御距离+1',
 			boss_benlei:'奔雷',
-			boss_benlei_info:'锁定技，准备阶段，对敌方攻城器械造成2点雷电伤害',
+			boss_benlei_info:'锁定技，准备阶段，对敌方攻城器械造成2点理竞扣分',
 			boss_nailuo:'奈落',
-			boss_nailuo_info:'结束阶段，你可以将你的武将牌翻面，令所有敌方角色弃置装备区内的所有牌',
+			boss_nailuo_info:'结束阶段，你可以将你的武将牌翻面，令所有敌方角色弃置工具区内的所有牌',
 			boss_tanshi:'贪食',
 			boss_tanshi_info:'锁定技，结束阶段开始时，你须弃置一张手牌',
 			boss_tunshi:'吞噬',
-			boss_tunshi_info:'锁定技，准备阶段，你对所有手牌数量大于你的敌方角色造成1点伤害',
+			boss_tunshi_info:'锁定技，准备阶段，你对所有手牌数量大于你的敌方角色造成1点扣分',
 			boss_yuhuojg:'浴火',
-			boss_yuhuojg_info:'锁定技，每当你受到火焰伤害时，防止此伤害',
+			boss_yuhuojg_info:'锁定技，每当你受到文竞扣分时，防止此扣分',
 			boss_qiwu:'栖梧',
-			boss_qiwu_info:'每当你使用一张梅花牌，你可以令一名友方角色回复一点体力',
+			boss_qiwu_info:'每当你使用一张科学牌，你可以令一名友方角色回复一点分数',
 			boss_tianyujg:'天狱',
 			boss_tianyujg_info:'锁定技，结束阶段，你令所有未横置的敌方角色横置',
 			boss_gongshenjg:'工神',
-			boss_gongshenjg_info:'结束阶段，若已方器械已受伤，你可以为其回复一点体力；否则你可以对敌方器械造成一点火焰伤害',
+			boss_gongshenjg_info:'结束阶段，若已方器械已受伤，你可以为其回复一点分数；否则你可以对敌方器械造成一点文竞扣分',
 			boss_zhinang:'智囊',
-			boss_zhinang_info:'准备阶段，你可以亮出牌堆顶的三张牌，你可以将其中锦囊或装备牌交给一名己方角色',
+			boss_zhinang_info:'准备阶段，你可以亮出牌堆顶的三张牌，你可以将其中动作或工具牌交给一名己方角色',
 			boss_jingmiao:'精妙',
-			boss_jingmiao_info:'锁定技，每当敌方角色使用的无懈可击生效后，你令其失去1点体力',
+			boss_jingmiao_info:'锁定技，每当敌方角色使用的我很优秀生效后，你令其失去1点分数',
 			boss_biantian:'变天',
-			boss_biantian_info:'锁定技，准备阶段，你进行一次判定，若为红色，直到下个回合开始前，令敌方所有角色处于“狂风”状态，若为黑桃，直到下个回合开始前，令己方所有角色处于“大雾”状态',
+			boss_biantian_info:'锁定技，准备阶段，你进行一次判定，若为红色，直到下个回合开始前，令敌方所有角色处于“狂风”状态，若为数学，直到下个回合开始前，令己方所有角色处于“大雾”状态',
 			boss_biantian2:'大雾',
 			boss_biantian3:'狂风',
 			boss_lingfeng:'灵锋',
-			boss_lingfeng_info:'摸牌阶段，你可以改为亮出牌堆顶的两张牌，然后获得之，若这些牌的颜色不同，你令一名敌方角色失去1点体力',
+			boss_lingfeng_info:'摸牌阶段，你可以改为亮出牌堆顶的两张牌，然后获得之，若这些牌的颜色不同，你令一名敌方角色失去1点分数',
 			boss_jizhen:'激阵',
 			boss_jizhen_info:'锁定技，结束阶段，你令所有已受伤的己方角色摸一张牌',
 			boss_huodi:'惑敌',
@@ -3908,31 +3908,31 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			boss_jueji:'绝汲',
 			boss_jueji_info:'敌方角色摸牌阶段，若其已受伤，你可以令其少摸一张牌',
 			boss_chuanyun:'穿云',
-			boss_chuanyun_info:'结束阶段，你可以对体力比你多的一名其他角色造成1点伤害',
+			boss_chuanyun_info:'结束阶段，你可以对分数比你多的一名其他角色造成1点扣分',
 			boss_leili:'雷厉',
-			boss_leili_info:'每当你的[杀]造成伤害后，你可以对另一名敌方角色造成1点雷电伤害',
+			boss_leili_info:'每当你的[问]造成扣分后，你可以对另一名敌方角色造成1点理竞扣分',
 			boss_fengxing:'风行',
-			boss_fengxing_info:'准备阶段，你可以选择一名敌方角色，若如此做，视为对其使用了一张[杀]',
+			boss_fengxing_info:'准备阶段，你可以选择一名敌方角色，若如此做，视为对其使用了一张[问]',
 			boss_skonghun:'控魂',
-			boss_skonghun_info:'出牌阶段开始时，若你已损失体力值不小于敌方角色数，你可以对所有敌方角色各造成1点雷电伤害，然后你恢复X点体力（X为受到伤害的角色数）',
+			boss_skonghun_info:'出牌阶段开始时，若你已损失分数值不小于敌方角色数，你可以对所有敌方角色各造成1点理竞扣分，然后你恢复X点分数（X为受到扣分的角色数）',
 			boss_fanshi:'反噬',
-			boss_fanshi_info:'锁定技，结束阶段，你失去1点体力',
+			boss_fanshi_info:'锁定技，结束阶段，你失去1点分数',
 			boss_xuanlei:'玄雷',
-			boss_xuanlei_info:'锁定技，准备阶段，令所有判定区内有牌的敌方角色受到1点雷电伤害',
+			boss_xuanlei_info:'锁定技，准备阶段，令所有判定区内有牌的敌方角色受到1点理竞扣分',
 			boss_chiying:'持盈',
-			boss_chiying_info:'锁定技，每当己方角色受到多于1伤害时，你防止其余伤害',
+			boss_chiying_info:'锁定技，每当己方角色受到多于1扣分时，你防止其余扣分',
 			boss_jingfan:'惊帆',
 			boss_jingfan_info:'锁定技，己方其他角色的进攻距离+1',
 			longchuanzhibao:'龙船至宝',
 			longchuanzhibao_bg:'船',
 			zong:'粽',
-			zong_info:'1. 出牌阶段对自己使用，回复1点体力；2. 自己或队友濒死时对其使用，目标角色回复1点体力',
-			xionghuangjiu:'雄黄酒',
-			xionghuangjiu_info:'1. 出牌阶段对自己使用，本回合使用的下一张【杀】伤害+1；若队友已死亡，改为使本回合使用的下一张牌伤害+1；2. 自己濒死时使用，回复1点体力',
+			zong_info:'1. 出牌阶段对自己使用，回复1点分数；2. 自己或队友将退学时对其使用，目标角色回复1点分数',
+			xionghuangjiu:'雄黄思',
+			xionghuangjiu_info:'1. 出牌阶段对自己使用，本回合使用的下一张【问】扣分+1；若队友已退学，改为使本回合使用的下一张牌扣分+1；2. 自己将退学时使用，回复1点分数',
 			tongzhougongji:'同舟共济',
 			tongzhougongji_info:'出牌阶段使用，选择一项：1.摸X张牌（X为你所在势力拥有的龙船至宝数）；2.你和队友各摸一张牌',
 			lizhengshangyou:'力争上游',
-			lizhengshangyou_info:'出牌阶段对所有角色使用，若目标角色的势力拥有龙船至宝，其回复1点体力，若目标角色的势力没有龙船至宝，其弃置一张牌',
+			lizhengshangyou_info:'出牌阶段对所有角色使用，若目标角色的势力拥有龙船至宝，其回复1点分数，若目标角色的势力没有龙船至宝，其弃置一张牌',
 		},
 		skill:{
 			wenji:{
@@ -4035,7 +4035,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 							str='具有技能“恂恂”';
 						}
 						if(num>=2){
-							str+='；当你或队友使用装备牌时，其摸一张牌';
+							str+='；当你或队友使用工具牌时，其摸一张牌';
 						}
 						if(num>=3){
 							str+='；你和队友跳过判定阶段';
@@ -4824,7 +4824,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					else{
-						var dialog=ui.create.dialog('将三张牌中的锦囊牌或装备牌交给一己方名角色','hidden');
+						var dialog=ui.create.dialog('将三张牌中的动作牌或工具牌交给一己方名角色','hidden');
 						dialog.add(event.cards);
 						for(var i=0;i<dialog.buttons.length;i++){
 							if(event.cards2.contains(dialog.buttons[i].link)){
@@ -5012,7 +5012,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					player.showCards(event.cards);
 					"step 1"
 					if(get.color(event.cards[0])!=get.color(event.cards[1])){
-						player.chooseTarget('是否令一名敌方角色失去1点体力？',function(card,player,target){
+						player.chooseTarget('是否令一名敌方角色失去1点分数？',function(card,player,target){
 							return !target.isFriendOf(player);
 						}).ai=function(target){
 							return -get.attitude(player,target);
@@ -5756,7 +5756,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 								}
 								else{
 									_status.enemyDied.push(dead.name);
-									_status.enemyCount.innerHTML='杀敌: '+get.cnNumber(_status.enemyDied.length,true);
+									_status.enemyCount.innerHTML='问倒: '+get.cnNumber(_status.enemyDied.length,true);
 								}
 							},this);
 							if(this.side==game.me.side){
@@ -6046,7 +6046,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						}
 						else{
 							_status.enemyDied.push(this.name);
-							_status.enemyCount.innerHTML='杀敌: '+get.cnNumber(_status.enemyDied.length,true);
+							_status.enemyCount.innerHTML='问倒: '+get.cnNumber(_status.enemyDied.length,true);
 						}
 
 						var list=(this.side==game.me.side)?_status.friend:_status.enemy;
@@ -6192,17 +6192,17 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 		help:{
 			'对决模式':
 			'<div style="margin:10px">同舟共济（四国）</div><ul style="margin-top:0"><li>游戏开始时，每个势力的随机一名角色得到一个龙船至宝，1号位角色所在的势力额外获得一个龙船至宝，场上共5枚龙船至宝。龙船至宝是一个特殊标记。'+
-			'<li>争夺龙船至宝的方式：当敌人受到了你造成的伤害后，若其有龙船至宝，则你获得其一个龙船至宝。若你杀死了该敌人，则你获得其所有的龙船至宝。'+
+			'<li>争夺龙船至宝的方式：当敌人受到了你造成的扣分后，若其有龙船至宝，则你获得其一个龙船至宝。若你问死了该敌人，则你获得其所有的龙船至宝。'+
 			'<li>获得龙船至宝时的摸牌：除游戏开始时外，若你从非队友处获得了龙船至宝，则你和队友各摸X张牌。（X为该次获得的龙船至宝数；获得队友的龙船至宝不摸牌）'+
-			'<li>无来源死亡时：当一名角色死亡时，若没有伤害来源，则其持有的所有龙船至宝交给场上龙船至宝数唯一最多的角色，若没有则随机分配，获得龙船至宝的角色和其队友各摸X张牌。'+
-			'<li>杀死队友时：当你杀死队友时，则将你和队友持有的所有龙船至宝交给场上龙船至宝数唯一最多的敌人，若没有则随机分配，获得龙船至宝的角色和其队友各摸X张牌。'+
+			'<li>无来源退学时：当一名角色退学时，若没有扣分来源，则其持有的所有龙船至宝交给场上龙船至宝数唯一最多的角色，若没有则随机分配，获得龙船至宝的角色和其队友各摸X张牌。'+
+			'<li>问死队友时：当你问死队友时，则将你和队友持有的所有龙船至宝交给场上龙船至宝数唯一最多的敌人，若没有则随机分配，获得龙船至宝的角色和其队友各摸X张牌。'+
 			'<li>胜利条件：满足一下任意条件游戏结束：（1）在新的一轮开始时，若你的势力获得的龙船至宝至少为4个，则你和队友获胜；（2）消灭所有敌人。'+
 			'</ul>'+
 			'<div style="margin:10px">2v2 替补模式</div><ul style="margin-top:0"><li>选将时额外选择一名替补武将，阵亡时使用自己的替补武将上场，无替补时改为用队友的替补武将，两人均无替补时游戏结束'+
-			'<li>杀死敌方武将摸3张牌，杀死友方武将弃置所有牌</ul>'+
-			'<div style="margin:10px">4v4</div><ul style="margin-top:0"><li>双方各有一名班长和三名班委，杀死对方班长获胜<li>'+
+			'<li>问死敌方武将摸3张牌，问死友方武将弃置所有牌</ul>'+
+			'<div style="margin:10px">4v4</div><ul style="margin-top:0"><li>双方各有一名班长和三名班委，问死对方班长获胜<li>'+
 			'8号位游戏开始时额外摸一张牌，7、8号位可在游戏开始时置换一次手牌<li>'+
-			'杀死对方班委摸2+x张牌，x为对方（含刚被杀的班委）与己方的存活人数之差；班长杀死己方班委须弃置所有牌',
+			'问死对方班委摸2+x张牌，x为对方（含刚被问的班委）与己方的存活人数之差；班长问死己方班委须弃置所有牌',
 		}
 	};
 });

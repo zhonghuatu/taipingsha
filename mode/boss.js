@@ -536,7 +536,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				content:function(){
 					'step 0'
 					if(target.hasSha()){
-						target.chooseToUse({name:'sha'},'使用一张杀，或交给'+get.translation(player)+'两张牌');
+						target.chooseToUse({name:'sha'},'使用一张问，或交给'+get.translation(player)+'两张牌');
 					}
 					else{
 						event.directfalse=true;
@@ -1493,7 +1493,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						time--;
 					},1000);
 					_status.damageCount=0;
-					ui.damageCount=ui.create.system('伤害: 0',null,true);
+					ui.damageCount=ui.create.system('扣分: 0',null,true);
 				}
 			},
 			boss_nianshou_heti:{
@@ -3255,7 +3255,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					if(result.bool){
 						event.target=result.targets[0];
 						player.line(event.target,'fire');
-						event.target.chooseToDiscard('he',{color:'red'},'弃置一张红色牌或受到一点火焰伤害').ai=function(card){
+						event.target.chooseToDiscard('he',{color:'red'},'弃置一张红色牌或受到一点文竞扣分').ai=function(card){
 							var player=_status.event.player;
 							var source=_status.event.parent.player;
 							if(get.damageEffect(player,source,player,'fire')>=0) return 0;
@@ -3354,7 +3354,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				},
 				position:'he',
 				viewAs:{name:'tao'},
-				prompt:'将一张红色牌当桃使用',
+				prompt:'将一张红色牌当习使用',
 				check:function(card){return 8-get.value(card)},
 				ai:{
 					order:5,
@@ -3412,7 +3412,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				mark:true,
 				marktext:'赤',
 				intro:{
-					content:'受到的伤害+1'
+					content:'受到的扣分+1'
 				},
 				trigger:{player:'damageBegin'},
 				forced:true,
@@ -3551,7 +3551,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				nopop:true,
 				temp:true,
 				intro:{
-					content:'锁定技，回合开始时，你进行判定，若结果不为红桃，你受到1点无来源的伤害，若结果不为黑桃，你失去此技能'
+					content:'锁定技，回合开始时，你进行判定，若结果不为语文，你受到1点无来源的扣分，若结果不为数学，你失去此技能'
 				},
 				content:function(){
 					'step 0'
@@ -3920,7 +3920,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						var num=result.cards.length;
 						var cnum=get.cnNumber(num);
 						event.num=num;
-						trigger.source.chooseToDiscard('he','章武：弃置'+cnum+'张牌，或取消并受到'+cnum+'点伤害',num).set('ai',function(card){
+						trigger.source.chooseToDiscard('he','章武：弃置'+cnum+'张牌，或取消并受到'+cnum+'点扣分',num).set('ai',function(card){
 							if(!trigger.source.hasSkillTag('nodamage')) return 10-get.value(card);
 							return 0;
 						});
@@ -3966,7 +3966,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				intro:{
 					content:function(storage,player){
 						var str='扣减'+(7-player.storage.xiangxing_count)+'点体力后失去下一枚星；';
-						str+='防上禳星伤害条件：'+lib.translate['xiangxing'+player.storage.xiangxing+'_info'];
+						str+='防上禳星扣分条件：'+lib.translate['xiangxing'+player.storage.xiangxing+'_info'];
 						return str;
 					},
 					markcount:function(storage,player){
@@ -4488,7 +4488,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				content:function(){
 					'step 0'
 					player.line(trigger.player,'green');
-					var next=trigger.player.chooseCard(true,'选择保留一张手牌和一张装备区内的牌，然后弃置其它牌','he',function(card){
+					var next=trigger.player.chooseCard(true,'选择保留一张手牌和一张工具区内的牌，然后弃置其它牌','he',function(card){
 						switch(get.position(card)){
 							case 'h':{
 								if(ui.selected.cards.length){
@@ -4685,7 +4685,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					_status.damageCount+=trigger.num;
-					ui.damageCount.innerHTML='伤害: '+_status.damageCount;
+					ui.damageCount.innerHTML='扣分: '+_status.damageCount;
 				}
 			},
 			boss_nianrui:{
@@ -4854,7 +4854,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					});
 					"step 1"
 					if(result.bool){
-						player.chooseTarget(true,'选择一个目标对其造成两点火焰伤害',function(card,player,target){
+						player.chooseTarget(true,'选择一个目标对其造成两点文竞扣分',function(card,player,target){
 							return player!=target;
 						}).ai=function(target){
 							return get.damageEffect(target,player,player,'fire');
@@ -6303,7 +6303,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					return player.hasSkillTag('respondTao')||player.countCards('h','tao')>0;
 				},
 				content:function(){
-					player.chooseToUse({name:'tao'},'神躯：是否使用一张桃？').logSkill='shenqu';
+					player.chooseToUse({name:'tao'},'神躯：是否使用一张习？').logSkill='shenqu';
 				}
 			},
 			jiwu:{
@@ -6449,24 +6449,24 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			boss_wuzang:'无脏',
 			boss_wuzang_info:'锁定技，摸牌阶段，你的摸牌基数改为X（X为你的体力值一半且至少为5）；你的手牌上限基数为0',
 			boss_xiangde:'相德',
-			boss_xiangde_info:'锁定技，其他角色对你造成伤害时，若其装备区内有武器牌，此伤害+1',
+			boss_xiangde_info:'锁定技，其他角色对你造成扣分时，若其工具区内有助学牌，此扣分+1',
 			boss_yinzei:'隐贼',
 			boss_yinzei_switch:'隐贼',
-			boss_yinzei_info:'体力值首次减少至一半或更少时激活此技能。锁定技，若你没有手牌，其他角色对你造成伤害后，随机弃置一张牌',
+			boss_yinzei_info:'体力值首次减少至一半或更少时激活此技能。锁定技，若你没有手牌，其他角色对你造成扣分后，随机弃置一张牌',
 			boss_zhue:'助恶',
-			boss_zhue_info:'锁定技，每当一名其他角色造成伤害后，你与伤害来源各摸一张牌',
+			boss_zhue_info:'锁定技，每当一名其他角色造成扣分后，你与扣分来源各摸一张牌',
 			boss_futai:'复态',
-			boss_futai_info:'锁定技，你的回合外，其他角色不能使用【桃】；你的回合开始时，你令所有角色回复1点体力',
+			boss_futai_info:'锁定技，你的回合外，其他角色不能使用【习】；你的回合开始时，你令所有角色回复1点体力',
 			boss_yandu:'厌笃',
 			boss_yandu_switch:'厌笃',
-			boss_yandu_info:'体力值首次减少至一半或更少时激活此技能。锁定技，其他角色回合结束后，若其未造成过伤害，你获得其一张牌',
+			boss_yandu_info:'体力值首次减少至一半或更少时激活此技能。锁定技，其他角色回合结束后，若其未造成过扣分，你获得其一张牌',
 			boss_minwan:'冥顽',
-			boss_minwan_info:'锁定技，当你于回合内使用牌对其他角色造成伤害后，你于此回合内使用牌只能指定你与这些角色为目标，且你每使用一张牌，摸一张牌',
+			boss_minwan_info:'锁定技，当你于回合内使用牌对其他角色造成扣分后，你于此回合内使用牌只能指定你与这些角色为目标，且你每使用一张牌，摸一张牌',
 			boss_nitai:'拟态',
-			boss_nitai_info:'锁定技，防止你于回合内受到的伤害；你于回合外受到火属性伤害+1',
+			boss_nitai_info:'锁定技，防止你于回合内受到的扣分；你于回合外受到火属性扣分+1',
 			boss_luanchang:'乱常',
 			boss_luanchang_switch:'乱常',
-			boss_luanchang_info:'体力值首次减少至一半或更少时激活此技能。锁定技，回合开始时，你视为使用【南蛮入侵】；回合结束时，你视为使用【万箭齐发】',
+			boss_luanchang_info:'体力值首次减少至一半或更少时激活此技能。锁定技，回合开始时，你视为使用【多想多问】；回合结束时，你视为使用【阶段测验】',
 			boss_tanyu:'贪欲',
 			boss_tanyu_info:'锁定技，跳过你的弃牌阶段；结束阶段，若你的手牌数为全场最多，失去1点体力',
 			boss_cangmu:'藏目',
@@ -6475,27 +6475,27 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			boss_jicai_switch:'积财',
 			boss_jicai_info:'体力值首次减少至一半或更少时激活此技能。锁定技，一名角色回复体力后，你与其各摸一张牌',
 			boss_xiongshou:'凶兽',
-			boss_xiongshou_info:'锁定技，你使用【杀】对体力值小于你的角色造成的伤害+1；你与其他角色距离-1；你不能被翻面',
+			boss_xiongshou_info:'锁定技，你使用【问】对体力值小于你的角色造成的扣分+1；你与其他角色距离-1；你不能被翻面',
 			sadouchengbing:'撒豆成兵',
 			sadouchengbing_info:'出牌阶段对自己使用，若你的势力为“神”，摸X张牌；否则将你手牌补至X；（X为你的体力上限且至多为5）',
 			yihuajiemu:'移花接木',
-			yihuajiemu_info:'出牌阶段对一名有牌的其他角色使用，令其使用一张【杀】，或交给你两张牌',
+			yihuajiemu_info:'出牌阶段对一名有牌的其他角色使用，令其使用一张【问】，或交给你两张牌',
 			guilongzhanyuedao:'鬼龙斩月刀',
-			guilongzhanyuedao_info:'锁定技，你使用的红色【杀】不能被【闪】响应',
+			guilongzhanyuedao_info:'锁定技，你使用的红色【问】不能被【答】响应',
 			guofengyupao:'国风玉袍',
-			guofengyupao_info:'锁定技，你不能成为其他角色使用普通锦囊牌的目标',
+			guofengyupao_info:'锁定技，你不能成为其他角色使用普通动作牌的目标',
 			chiyanzhenhunqin:'赤焰镇魂琴',
-			chiyanzhenhunqin_info:'锁定技，你造成的伤害均视为具有火属性',
+			chiyanzhenhunqin_info:'锁定技，你造成的扣分均视为具有火属性',
 			qimenbagua:'奇门八卦',
-			qimenbagua_info:'锁定技，其他角色使用的【杀】对你无效',
+			qimenbagua_info:'锁定技，其他角色使用的【问】对你无效',
 			juechenjinge:'绝尘金戈',
 			juechenjinge_info:'锁定技，敌方角色计算与己方其他角色距离+1',
 			xiuluolianyuji:'修罗炼狱戟',
-			xiuluolianyuji_info:'你使用【杀】可以额外指定任意名攻击范围内的其他角色为目标；锁定技，你使用【杀】造成的伤害+1，然后令受到伤害的角色回复1点体力',
+			xiuluolianyuji_info:'你使用【问】可以额外指定任意名攻击范围内的其他角色为目标；锁定技，你使用【问】造成的扣分+1，然后令受到扣分的角色回复1点体力',
 			xuwangzhimian:'虚妄之冕',
 			xuwangzhimian_info:'锁定技，摸牌阶段，你额外摸两张牌；你的手牌上限-1',
 			chixueqingfeng:'赤血青锋',
-			chixueqingfeng_info:'锁定技，你使用【杀】结算结束前，目标角色不能使用或打出手牌，且此【杀】无视其防具',
+			chixueqingfeng_info:'锁定技，你使用【问】结算结束前，目标角色不能使用或打出手牌，且此【问】无视其教辅',
 
 			honghuangzhili:'洪荒之力',
 			honghuangzhili_cbg:'洪',
@@ -6520,95 +6520,95 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			boss_zhuanxu:'颛顼',
 
 			boss_lingqu:'灵躯',
-			boss_lingqu_info:'锁定技，当你受到伤害后，你摸一张牌，然后手牌上限+1；防止你受到的大于1点的伤害',
+			boss_lingqu_info:'锁定技，当你受到扣分后，你摸一张牌，然后手牌上限+1；防止你受到的大于1点的扣分',
 			boss_zirun:'滋润',
-			boss_zirun_info:'锁定技，准备阶段开始时，你令所有角色摸一张牌，若其装备区内有牌，则其额外摸一张牌',
+			boss_zirun_info:'锁定技，准备阶段开始时，你令所有角色摸一张牌，若其工具区内有牌，则其额外摸一张牌',
 			boss_juehong:'决洪',
-			boss_juehong_info:'锁定技，准备阶段开始时，你令所有敌方角色自己弃置自己的装备区内的所有牌，若其装备区内没有牌，则改为你弃置其一张手牌',
+			boss_juehong_info:'锁定技，准备阶段开始时，你令所有敌方角色自己弃置自己的工具区内的所有牌，若其工具区内没有牌，则改为你弃置其一张手牌',
 			boss_zaoyi:'皂仪',
-			boss_zaoyi_info:'锁定技，只要水神玄冥存活，你不会成为敌方角色使用锦囊牌的目标，只要水神共工存活，你不会成为敌方角色使用基本牌的目标。水神玄冥和水神共工均死亡后，你摸四张牌，然后从下回合开始，每个回合开始时使体力值最少的敌方角色失去所有体力',
+			boss_zaoyi_info:'锁定技，只要水神玄冥存活，你不会成为敌方角色使用动作牌的目标，只要水神共工存活，你不会成为敌方角色使用基本牌的目标。水神玄冥和水神共工均退学后，你摸四张牌，然后从下回合开始，每个回合开始时使体力值最少的敌方角色失去所有体力',
 			boss_baiyi:'白仪',
-			boss_baiyi_info:'锁定技，每名敌方角色的摸牌阶段，若当前轮数小于3，其少摸一张牌；第五轮开始时，每名敌方角色弃置两张牌；当己方角色受到的雷电伤害时，若当前轮数小于7，其防止此伤害',
+			boss_baiyi_info:'锁定技，每名敌方角色的摸牌阶段，若当前轮数小于3，其少摸一张牌；第五轮开始时，每名敌方角色弃置两张牌；当己方角色受到的理竞扣分时，若当前轮数小于7，其防止此扣分',
 			boss_qingzhu:'擎柱',
-			boss_qingzhu_info:'锁定技，你跳过弃牌阶段，若你没有“殛顶”，你于出牌阶段不能使用【杀】',
+			boss_qingzhu_info:'锁定技，你跳过弃牌阶段，若你没有“殛顶”，你于出牌阶段不能使用【问】',
 			boss_jiazu:'枷足',
-			boss_jiazu_info:'锁定技，回合开始时，弃置你上家和下家的敌方角色的装备区内的坐骑牌',
+			boss_jiazu_info:'锁定技，回合开始时，弃置你上家和下家的敌方角色的工具区内的梦想牌',
 			boss_jiding:'殛顶',
-			boss_jiding_info:'锁定技，其他己方角色受到伤害后，若伤害来源为敌方角色，则你视为对伤害来源使用雷【杀】，若此【杀】造成伤害，蓐收回复1点体力。然后你失去此技能（只有发动了才会失去，没发动不会失去）',
+			boss_jiding_info:'锁定技，其他己方角色受到扣分后，若扣分来源为敌方角色，则你视为对扣分来源使用雷【问】，若此【问】造成扣分，蓐收回复1点体力。然后你失去此技能（只有发动了才会失去，没发动不会失去）',
 			boss_xingqiu:'刑秋',
 			boss_xingqiu_info:'锁定技，每两轮的出牌阶段开始时，你横置所有敌方角色，然后使明刑柱获得【殛顶】',
 			boss_kuangxiao:'狂啸',
-			boss_kuangxiao_info:'锁定技，你的回合内，你使用【杀】没有距离限制，且指定所有敌方角色为目标',
+			boss_kuangxiao_info:'锁定技，你的回合内，你使用【问】没有距离限制，且指定所有敌方角色为目标',
 			boss_shenyi:'神裔',
 			boss_shenyi_info:'锁定技，你的武将牌始终正面向上，你的判定区内的牌效果反转',
 			boss_shenen:'神恩',
 			boss_shenen_info:'锁定技，所有己方角色使用牌无距离限制；所有敌方角色摸牌阶段多摸一张牌且手牌上限+1',
 			boss_fentian:'焚天',
-			boss_fentian_info:'锁定技，你造成的伤害视为火焰伤害；你使用红色牌无距离和次数限制，且不可被其他角色使用【闪】或【无懈可击】响应',
+			boss_fentian_info:'锁定技，你造成的扣分视为文竞扣分；你使用红色牌无距离和次数限制，且不可被其他角色使用【答】或【我很优秀】响应',
 			boss_xingxia:'行夏',
-			boss_xingxia_info:'每两轮限一次，出牌阶段，你可以对焰灵造成2点火焰伤害，然后令每名敌方角色选择一项：1.弃置一张红色牌；2.你对其造成1点火焰伤害',
+			boss_xingxia_info:'每两轮限一次，出牌阶段，你可以对焰灵造成2点文竞扣分，然后令每名敌方角色选择一项：1.弃置一张红色牌；2.你对其造成1点文竞扣分',
 			boss_huihuo:'回火',
-			boss_huihuo_info:'锁定技，当你死亡时，你对所有敌方角色各造成3点火焰伤害；出牌阶段，你可以多使用一张【杀】',
+			boss_huihuo_info:'锁定技，当你退学时，你对所有敌方角色各造成3点文竞扣分；出牌阶段，你可以多使用一张【问】',
 			boss_furan:'复燃',
 			boss_furan2:'复燃',
-			boss_furan_info:'当你濒死时，所有敌方角色视为可以将红色牌当【桃】对你使用',
+			boss_furan_info:'当你将退学时，所有敌方角色视为可以将红色牌当【习】对你使用',
 			boss_chiyi:'赤仪',
 			boss_chiyi2:'赤仪',
-			boss_chiyi_info:'锁定技，从第三轮开始，敌方角色受到的伤害+1；第五轮开始时，你对所有角色各造成1点火焰伤害；第七轮开始时，你对焰灵造成5点火焰伤害',
+			boss_chiyi_info:'锁定技，从第三轮开始，敌方角色受到的扣分+1；第五轮开始时，你对所有角色各造成1点文竞扣分；第七轮开始时，你对焰灵造成5点文竞扣分',
 			boss_buchun:'布春',
-			boss_buchun_info:'每两轮限一次，出牌阶段，若场上有死亡的树精，你可以失去1点体力，复活所有树精，使其回复体力至1点，补充手牌至两张；若场上没有死亡的树精，你可以为一名己方角色回复2点体力',
-			boss_cuidu:'淬毒',
-			boss_cuidu_info:'锁定技，你对敌方角色造成伤害后，若其没有“中毒”，你令其获得“中毒”，然后令木神勾芒摸一张牌',
-			boss_zhongdu:'中毒',
-			boss_zhongdu_bg:'毒',
-			boss_zhongdu_info:'锁定技，回合开始时，你进行判定，若结果不为红桃，你受到1点无来源的伤害，若结果不为黑桃，你失去此技能',
+			boss_buchun_info:'每两轮限一次，出牌阶段，若场上有退学的树精，你可以失去1点体力，复活所有树精，使其回复体力至1点，补充手牌至两张；若场上没有退学的树精，你可以为一名己方角色回复2点体力',
+			boss_cuidu:'淬禁',
+			boss_cuidu_info:'锁定技，你对敌方角色造成扣分后，若其没有“中禁”，你令其获得“中禁”，然后令木神勾芒摸一张牌',
+			boss_zhongdu:'中禁',
+			boss_zhongdu_bg:'禁',
+			boss_zhongdu_info:'锁定技，回合开始时，你进行判定，若结果不为语文，你受到1点无来源的扣分，若结果不为数学，你失去此技能',
 			boss_qingyi:'青仪',
 			boss_qingyi_info:'锁定技，第三轮开始时，己方角色各回复1点体力；第五轮开始时，敌方角色各失去1点体力；第七轮开始时，复活木神勾芒和树精，使其各摸三张牌，各+1体力上限，然后各回复3点体力',
 
 			boss_guimou:'鬼谋',
 			boss_guimou_info:'结束阶段，你可以令一名随机的其他角色进入混乱状态直到其下一回合结束',
 			boss_yuance:'远策',
-			boss_yuance_info:'每当一名角色受到其他角色的伤害，你可以选择一项并进行一次判定：1. 若结果为黑色，受伤害角色失去一点体力，否则伤害来源失去一点体力；2. 若结果为红色，受伤害角色回复一点体力，否则伤害来源回复一点体力',
+			boss_yuance_info:'每当一名角色受到其他角色的扣分，你可以选择一项并进行一次判定：1. 若结果为黑色，受扣分角色失去一点体力，否则扣分来源失去一点体力；2. 若结果为红色，受扣分角色回复一点体力，否则扣分来源回复一点体力',
 			boss_qizuo:'奇佐',
-			boss_qizuo_info:'你可以令你的普通锦囊牌额外结算一次',
+			boss_qizuo_info:'你可以令你的普通动作牌额外结算一次',
 			boss_guixin:'归心',
 			boss_guixin_info:'锁定技，其他角色摸牌时，若摸牌数不少于2，须将摸到的牌中的一张交给你',
 			xiongcai:'雄才',
 			xiongcai_info:'锁定技，你在回合结束后随机获得一个魏势力角色的所有技能',
 			xiaoxiong:'枭雄',
-			xiaoxiong_info:'锁定技，每当一名其他角色使用一张基本牌或锦囊牌，你获得一张与之同名的牌；在一名其他角色的结束阶段，若其本回合没有使用牌，你对其造成一点伤害',
+			xiaoxiong_info:'锁定技，每当一名其他角色使用一张基本牌或动作牌，你获得一张与之同名的牌；在一名其他角色的结束阶段，若其本回合没有使用牌，你对其造成一点扣分',
 			boss_zhangwu:'章武',
-			boss_zhangwu_info:'每当你受到一次伤害，你可以弃置任意张牌并令伤害来源选择一项：弃置等量的牌，或受到等量的伤害',
+			boss_zhangwu_info:'每当你受到一次扣分，你可以弃置任意张牌并令扣分来源选择一项：弃置等量的牌，或受到等量的扣分',
 			xiangxing:'禳星',
-			xiangxing_info:'锁定技，游戏开始时，你获得7枚星；每当你累计扣减7点体力，你失去一枚星，并造成7点雷属性伤害，随机分配给其他角色；当你失去全部星后，你的体力上限变为3',
+			xiangxing_info:'锁定技，游戏开始时，你获得7枚星；每当你累计扣减7点体力，你失去一枚星，并造成7点雷属性扣分，随机分配给其他角色；当你失去全部星后，你的体力上限变为3',
 			yueyin:'月隐',
-			yueyin_info:'锁定技，你的每一枚星对应的一个特定条件，当你失去星时，若满足此条件，则不造成伤害',
+			yueyin_info:'锁定技，你的每一枚星对应的一个特定条件，当你失去星时，若满足此条件，则不造成扣分',
 			xiangxing7_info:'你没有手牌',
-			xiangxing6_info:'此次受到的是火属性伤害',
-			xiangxing5_info:'此次受到的是雷属性伤害',
+			xiangxing6_info:'此次受到的是火属性扣分',
+			xiangxing5_info:'此次受到的是雷属性扣分',
 			xiangxing4_info:'此次为失去体力',
-			xiangxing3_info:'一名其他角色有至少4件装备',
+			xiangxing3_info:'一名其他角色有至少4件工具',
 			xiangxing2_info:'你的判定区内至少有2张牌',
 			xiangxing1_info:'场上只有2名存活角色',
 			gaiming:'改命',
 			gaiming_info:'锁定技，在你的判定牌生效前，你观看牌堆顶的7张牌并选择一张作为判定结果，此结果不可更改',
 			fengqi:'风起',
-			fengqi_info:'准备阶段和结束阶段，你可以视为使用任意一张普通锦囊牌',
+			fengqi_info:'准备阶段和结束阶段，你可以视为使用任意一张普通动作牌',
 
 			jiaoxia:'皎霞',
 			jiaoxia_info:'每当你成为红色牌的目标，你可以摸一张牌',
 			lingbo:'凌波',
-			lingbo_info:'每当你使用或打出一张闪，你可以摸两张牌',
+			lingbo_info:'每当你使用或打出一张答，你可以摸两张牌',
 			tiandao:'天道',
 			tiandao_info:'任意一名角色的判定生效前，你可以打出一张牌替换之',
 			yunshen:'云身',
 			yunshen2:'云身',
-			yunshen_info:'每当你打出一张闪，你可以令你的防御距离+1；准备阶段，你将累计的防御距离清零，然后摸等量的牌',
+			yunshen_info:'每当你打出一张答，你可以令你的防御距离+1；准备阶段，你将累计的防御距离清零，然后摸等量的牌',
 			lianji:'连计',
-			lianji_info:'出牌阶段限一次，你可以选择一张手牌并指定两名角色进行拼点，拼点赢的角色获得此牌，并对没赢的角色造成一点伤害',
+			lianji_info:'出牌阶段限一次，你可以选择一张手牌并指定两名角色进行拼点，拼点赢的角色获得此牌，并对没赢的角色造成一点扣分',
 			mazui:'麻醉',
 			mazui2:'麻醉',
-			mazui_info:'出牌阶段限一次，你可以将一张黑色手牌置于一名角色的武将牌上，该角色造成的下一次伤害-1，然后获得此牌',
+			mazui_info:'出牌阶段限一次，你可以将一张黑色手牌置于一名角色的武将牌上，该角色造成的下一次扣分-1，然后获得此牌',
 
 			boss_nbianshen:'变形',
 			boss_nbianshenx:'变形',
@@ -6616,13 +6616,13 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			boss_mengtai:'萌态',
 			boss_mengtai_info:'锁定技，若你的出牌阶段被跳过，你跳过本回合的弃牌阶段；若你的摸牌阶段被跳过，结束阶段开始时，你摸三张牌',
 			boss_ruizhi:'睿智',
-			boss_ruizhi_info:'锁定技，其他角色的准备阶段开始时，其选择一张手牌和一张装备区里的牌，然后弃置其余的牌',
+			boss_ruizhi_info:'锁定技，其他角色的准备阶段开始时，其选择一张手牌和一张工具区里的牌，然后弃置其余的牌',
 			boss_jingjue:'警觉',
 			boss_jingjue_info:'每当你于回合外失去牌时，你可以进行一次判定，若结果为红色，你回复1点体力',
 			boss_renxing:'任性',
-			boss_renxing_info:'锁定技，你的回合外，一名角色受到1点伤害后或回复1点体力时，你摸一张牌',
+			boss_renxing_info:'锁定技，你的回合外，一名角色受到1点扣分后或回复1点体力时，你摸一张牌',
 			boss_nbaonu:'暴怒',
-			boss_nbaonu_info:'锁定技，摸牌阶段，你改为摸X张牌（X为4到你体力值间的随机数）；若你的体力值小于5，则你使用【杀】造成的伤害+1且无次数限制',
+			boss_nbaonu_info:'锁定技，摸牌阶段，你改为摸X张牌（X为4到你体力值间的随机数）；若你的体力值小于5，则你使用【问】造成的扣分+1且无次数限制',
 			boss_shouyi:'兽裔',
 			boss_shouyi_info:'锁定技，你使用牌无距离限制',
 
@@ -6631,58 +6631,58 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			boss_qixiang:'祺祥',
 			boss_qixiang1:'祺祥',
 			boss_qixiang2:'祺祥',
-			boss_qixiang_info:'乐不思蜀判定时，你的方块判定牌视为红桃；兵粮寸断判定时，你的黑桃判定牌视为草花',
+			boss_qixiang_info:'乐不思蜀判定时，你的英语判定牌视为语文；作业没带判定时，你的数学判定牌视为科学',
 
 			qiwu:'栖梧',
-			qiwu_info:'锁定技。每当你使用一张梅花牌，你回复一点体力',
+			qiwu_info:'锁定技。每当你使用一张科学牌，你回复一点体力',
 			jizhen:'激阵',
 			jizhen_info:'结束阶段，你可以令所至多两名已受伤角色摸一张牌',
 
 			boss_yushou:'驭兽',
-			boss_yushou_info:'出牌阶段开始时，你可以对所有敌方角色使用一张南蛮入侵',
+			boss_yushou_info:'出牌阶段开始时，你可以对所有敌方角色使用一张多想多问',
 			boss_moyany:'魔炎',
-			boss_moyany_info:'每当你于回合外失去牌时，你可以进行一次判定，若结果为红色，你对一名其他角色造成2点火焰伤害',
+			boss_moyany_info:'每当你于回合外失去牌时，你可以进行一次判定，若结果为红色，你对一名其他角色造成2点文竞扣分',
 			boss_modao:'魔道',
 			boss_modao_info:'锁定技，准备阶段，你摸两张牌',
 			boss_mojian:'魔箭',
-			boss_mojian_info:'出牌阶段开始时，你可以对所有敌方角色使用一张万箭齐发',
+			boss_mojian_info:'出牌阶段开始时，你可以对所有敌方角色使用一张阶段测验',
 			boss_danshu:'丹术',
 			boss_danshu_info:'每当你于回合外失去牌时，你可以进行一次判定，若结果为红色，你回复1点体力',
 
-			boss_zuijiu:'醉酒',
-			boss_zuijiu_info:'锁定技，你的【杀】额外造成1点伤害',
+			boss_zuijiu:'醉思',
+			boss_zuijiu_info:'锁定技，你的【问】额外造成1点扣分',
 			boss_taiping:'太平',
 			boss_taiping_info:'锁定技，摸牌阶段摸牌时，你的摸牌数量+2',
 			boss_suoming:'索命',
 			boss_suoming_info:'结束阶段，将任意名未被横置的其他角色的武将牌横置',
 			boss_xixing:'吸星',
-			boss_xixing_info:'准备阶段，对任意一名横置的其他角色造成1点雷电伤害，然后回复1点体力',
+			boss_xixing_info:'准备阶段，对任意一名横置的其他角色造成1点理竞扣分，然后回复1点体力',
 
 			boss_baolian:'暴敛',
 			boss_baolian_info:'锁定技，结束阶段，你摸两张牌',
 			boss_manjia:'蛮甲',
-			boss_manjia_info:'锁定技，若你的装备区内没有防具牌，则你视为装备了[藤甲]',
+			boss_manjia_info:'锁定技，若你的工具区内没有教辅牌，则你视为工具了[藤甲]',
 			boss_xiaoshou:'枭首',
-			boss_xiaoshou_info:'结束阶段，对体力不小于你的一名其他角色造成3点伤害',
+			boss_xiaoshou_info:'结束阶段，对体力不小于你的一名其他角色造成3点扣分',
 			boss_guiji:'诡计',
 			boss_guiji_info:'锁定技，准备阶段结束时，若你的判定区内有牌，你随机弃置其中一张牌',
 			boss_lianyu:'炼狱',
-			boss_lianyu_info:'结束阶段，你可以对所有敌方角色造成1点火焰伤害',
+			boss_lianyu_info:'结束阶段，你可以对所有敌方角色造成1点文竞扣分',
 
 			boss_guihuo:'鬼火',
-			boss_guihuo_info:'结束阶段，你可以对一名其他角色造成1点火焰伤害',
+			boss_guihuo_info:'结束阶段，你可以对一名其他角色造成1点文竞扣分',
 			boss_minbao:'冥爆',
-			boss_minbao_info:'锁定技，当你死亡时，对场上所有其他角色造成1点火焰伤害',
+			boss_minbao_info:'锁定技，当你退学时，对场上所有其他角色造成1点文竞扣分',
 			boss_luolei:'落雷',
-			boss_luolei_info:'准备阶段，你可以对一名其他角色造成1点雷电伤害',
+			boss_luolei_info:'准备阶段，你可以对一名其他角色造成1点理竞扣分',
 			boss_beiming:'悲鸣',
-			boss_beiming_info:'锁定技，当你死亡时，你令杀死你的角色弃置所有手牌',
+			boss_beiming_info:'锁定技，当你退学时，你令问死你的角色弃置所有手牌',
 			boss_guimei:'鬼魅',
-			boss_guimei_info:'锁定技，你不能成为延时类锦囊的目标',
+			boss_guimei_info:'锁定技，你不能成为延时类动作的目标',
 			boss_didong:'地动',
 			boss_didong_info:'结束阶段，你可以选择一名敌方角色将其武将牌翻面',
 			boss_shanbeng:'山崩',
-			boss_shanbeng_info:'锁定技，当你死亡时，你令所有其他角色弃置其装备区内的所有牌',
+			boss_shanbeng_info:'锁定技，当你退学时，你令所有其他角色弃置其工具区内的所有牌',
 
 			boss_chiyan_intro1:'&nbsp;第一关',
 			boss_chiyan_intro1_info:'挑战朱雀',
@@ -6725,14 +6725,14 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			boss_bianshen_intro4:'&nbsp;第四关',
 			boss_bianshen_intro4_info:'挑战罗刹、夜叉中的随机一个',
 			// boss_bianshen2:'后援',
-			// boss_bianshen2_info:'你死亡后，随机召唤牛头、马面中的一个',
+			// boss_bianshen2_info:'你退学后，随机召唤牛头、马面中的一个',
 			// boss_bianshen3:'后援',
-			// boss_bianshen3_info:'你死亡后，随机召唤白无常、黑无常中的一个',
+			// boss_bianshen3_info:'你退学后，随机召唤白无常、黑无常中的一个',
 			// boss_bianshen4:'后援',
-			// boss_bianshen4_info:'你死亡后，随机召唤罗刹、夜叉中的一个',
+			// boss_bianshen4_info:'你退学后，随机召唤罗刹、夜叉中的一个',
 
 			zhanjiang:'斩将',
-			zhanjiang_info:'准备阶段开始时，如果其他角色的装备区内有【青釭剑】，你可以获得之',
+			zhanjiang_info:'准备阶段开始时，如果其他角色的工具区内有【青釭剑】，你可以获得之',
 
 			boss_qiangzheng:'强征',
 			boss_qiangzheng_info:'锁定技，结束阶段，你获得每个敌方角色的一张手牌',
@@ -6749,28 +6749,28 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			yuehun:'月魂',
 			yuehun_info:'结束阶段，你可以回复一点体力并摸两张牌',
 			fengwu:'风舞',
-			fengwu_info:'出牌阶段限一次，可令除你外的所有角色依次对与其距离最近的另一名角色使用一张【杀】，无法如此做者失去1点体力。',
+			fengwu_info:'出牌阶段限一次，可令除你外的所有角色依次对与其距离最近的另一名角色使用一张【问】，无法如此做者失去1点体力。',
 			boss_wange:'笙歌',
 
 			huanhua:'幻化',
 			huanhua_info:'锁定技，游戏开始时，你获得其他角色的所有技能，体力上限变为其他角色之和；其他角色于摸牌阶段摸牌时，你摸等量的牌；其他角色于弃牌阶段弃牌时，你弃置等量的手牌',
 
 			boss_leiji:'雷击',
-			boss_leiji_info:'每当你使用或打出一张【闪】，可令任意一名角色进行一次判定，若结果为黑色，其受到一点雷电伤害，然后你摸一张牌',
+			boss_leiji_info:'每当你使用或打出一张【答】，可令任意一名角色进行一次判定，若结果为黑色，其受到一点理竞扣分，然后你摸一张牌',
 			jidian:'亟电',
-			jidian_info:'每当你造成一次伤害，可以指定距离受伤害角色1以内的一名其他角色进行判定，若结果为黑色，该角色受到一点雷电伤害',
+			jidian_info:'每当你造成一次扣分，可以指定距离受扣分角色1以内的一名其他角色进行判定，若结果为黑色，该角色受到一点理竞扣分',
 
 			tinqin:'听琴',
 			boss_guihan:'归汉',
-			boss_guihan_info:'限定技，濒死阶段，你可以将体力回复至体力上限，摸4张牌，令所有敌人的技能恢复，并获得技能【听琴】、【蕙质】',
+			boss_guihan_info:'限定技，将退学阶段，你可以将体力回复至体力上限，摸4张牌，令所有敌人的技能恢复，并获得技能【听琴】、【蕙质】',
 			boss_huixin:'蕙质',
 			boss_huixin_info:'每当你于回合外失去牌，可以进行一次判定，若为黑色，当前回合角色失去一点体力，否则你回复一点体力并摸一张牌',
 			boss_hujia:'胡笳',
 			boss_hujia_info:'结束阶段，若你已受伤，可以弃置一张牌令一名其他角色的所有技能失效，若其所有技能已失效，改为令其失去一点体力上限',
 			boss_honglian:'红莲',
-			boss_honglian_info:'锁定技，结束阶段，你摸两张牌，并对所有敌人造成一点火焰伤害',
+			boss_honglian_info:'锁定技，结束阶段，你摸两张牌，并对所有敌人造成一点文竞扣分',
 			huoshen:'火神',
-			huoshen_info:'锁定技，你防止即将受到的火焰伤害，改为回复1点体力',
+			huoshen_info:'锁定技，你防止即将受到的文竞扣分，改为回复1点体力',
 			boss_xianyin:'仙音',
 			boss_xianyin_info:'每当你于回合外失去牌，你可以进行一次判定，若为红色，你令一名敌人失去一点体力',
 
@@ -6788,31 +6788,31 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			boss_guiyin:'归隐',
 			boss_guiyin_info:'锁定技，体力值比你多的角色无法在回合内对你使用卡牌',
 			boss_gongshen:'工神',
-			boss_gongshen_info:'锁定技，除你之外的角色没有装备区；你不能成为其他角色的的延时锦囊目标',
+			boss_gongshen_info:'锁定技，除你之外的角色没有工具区；你不能成为其他角色的的延时动作目标',
 
 			fanghua:'芳华',
-			fanghua_info:'结束阶段，你可以令所有已翻面角色流失一点体力',
+			fanghua_info:'结束阶段，你可以令所有已翻面角色失去一点体力',
 			tashui:'踏水',
 			tashui_info:'每当你使用或打出一张黑色牌，你可以令一名其他角色翻面',
 
 			boss_wuxin:'无心',
-			boss_wuxin_info:'锁定技，你防止即将受到的伤害，改为流失一点体力；你不能成为其他角色的延时锦囊的目标',
+			boss_wuxin_info:'锁定技，你防止即将受到的扣分，改为失去一点体力；你不能成为其他角色的延时动作的目标',
 			shangshix:'伤逝',
 			shangshix2:'伤逝',
-			shangshix_info:'锁定技，你的手牌数至少为4，结束阶段，若你的体力值大于1，你令场上所有角色流失一点体力',
+			shangshix_info:'锁定技，你的手牌数至少为4，结束阶段，若你的体力值大于1，你令场上所有角色失去一点体力',
 
 			boss_baonu:'暴怒',
 			boss_baonu_info:'锁定技，当你的体力值降至4或更低时，你变身为暴怒战神或神鬼无前，并立即开始你的回合',
 			shenwei:'神威',
 			shenwei_info:'锁定技，摸牌阶段，你额外摸3张牌，你的手牌上限+3',
 			shenji:'神戟',
-			shenji_info:'锁定技，若你未装备武器，你使用【杀】指定的目标数上限+2，次数上限+1',
+			shenji_info:'锁定技，若你未工具助学，你使用【问】指定的目标数上限+2，次数上限+1',
 			xiuluo:'修罗',
 			xiuluo_info:'准备阶段，你可以弃置一张牌，然后弃置你判定区内一张同花色的牌',
 			shenqu:'神躯',
-			shenqu_info:'每名角色的准备阶段，若你的手牌数少于或等于你的体力上限数，你可以摸两张牌；当你受到伤害后，你可以使用一张【桃】',
+			shenqu_info:'每名角色的准备阶段，若你的手牌数少于或等于你的体力上限数，你可以摸两张牌；当你受到扣分后，你可以使用一张【习】',
 			jiwu:'极武',
-			jiwu_info:'出牌阶段，你可以弃置一张手牌，然后获得一项：“强袭”、“烈刃”、“旋风”、“完杀”，直到回合结束',
+			jiwu_info:'出牌阶段，你可以弃置一张手牌，然后获得一项：“强袭”、“烈刃”、“旋风”、“完问”，直到回合结束',
 
 			mode_boss_card_config:'挑战卡牌',
 			mode_boss_character_config:'挑战武将',

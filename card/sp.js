@@ -242,7 +242,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				},
 				onLose:function(){
 					player.unmarkSkill('muniu_skill6');
-					if(event.parent.type!='equip'&&card&&card.cards&&card.cards.length){
+					if((event.getParent(2)&&event.getParent(2).name!='swapEquip')&&event.parent.type!='equip'&&card&&card.cards&&card.cards.length){
 						player.$throw(card.cards,1000);
 						player.popup('muniu');
 						game.log(card,'掉落了',card.cards);
@@ -382,14 +382,14 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					target.draw(3);
 					'step 1'
 					if(target.countCards('he',{type:'basic'})<target.countCards('he')){
-						target.chooseToDiscard('弃置一张非基本牌（或取消并弃置两张牌）','he',function(card){
+						target.chooseToDiscard('考前复习','he',function(card){
 							return get.type(card)!='basic';
 						}).set('ai',function(card){
 							if(_status.event.goon) return 8-get.value(card);
 							return 11-get.value(card);
 						}).set('goon',target.countCards('h',function(card){
 							return get.value(card,target,'raw')<8;
-						})>1);
+						})>1).set('prompt2','弃置一张非基本牌，或取消并弃置两张牌');
 						event.more=true;
 					}
 					else{
@@ -473,7 +473,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				viewAsFilter:function(player){
 					if(!player.countCards('h')) return false;
 				},
-				prompt:'将一张手牌当刷作业打出',
+				prompt:'将一张手牌当答打出',
 				check:function(card){
 					return 6-get.value(card);
 				},
@@ -566,7 +566,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				},
 				content:function(){
 					'step 0'
-					player.chooseToUse({name:'jinchan'},'是否对'+get.translation(trigger.card)+'使用【金蝉脱壳】？').set('ai1',function(card){
+					player.chooseToUse({name:'jinchan'},'是否对'+get.translation(trigger.card)+'使用【走为上计】？').set('ai1',function(card){
 						return _status.event.bool;
 					}).set('bool',-get.effect(player,trigger.card,trigger.player,player)).set('respondTo',[trigger.player,trigger.card]);
 					trigger.jinchan=true;
@@ -678,6 +678,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					game.broadcast(function(muniu,cards){
 						muniu.cards=cards;
 					},muniu,muniu.cards);
+					event.trigger("addCardToStorage");
 					var players=game.filterPlayer(function(current){
 						if(!current.getEquip(5)&&current!=player&&!current.isTurnedOver()&&
 							get.attitude(player,current)>=3&&get.attitude(current,player)>=3){
@@ -686,8 +687,8 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					});
 					players.sort(lib.sort.seat);
 					var choice=players[0];
-					var next=player.chooseTarget('是否移动木牛流马？',function(card,player,target){
-						return !target.isMin()&&player!=target&&!target.getEquip(5);
+					var next=player.chooseTarget('是否移动书包？',function(card,player,target){
+						return !target.isMin()&&player!=target&&target.isEmpty(5);
 					});
 					next.set('ai',function(target){
 						return target==_status.event.choice?1:-1;
@@ -752,7 +753,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				direct:true,
 				content:function(){
 					"step 0"
-					player.chooseButton(['木牛流马',player.getEquip(5).cards]).set('filterButton',function(button){
+					player.chooseButton(['书包',player.getEquip(5).cards]).set('filterButton',function(button){
 						var evt=_status.event.getTrigger();
 						if(evt&&evt.filterCard){
 							return evt.filterCard(button.link,_status.event.player,evt);
@@ -799,7 +800,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				},
 				chooseButton:{
 					dialog:function(event,player){
-						return ui.create.dialog('木牛流马',player.getEquip(5).cards,'hidden');
+						return ui.create.dialog('书包',player.getEquip(5).cards,'hidden');
 					},
 					filter:function(button,player){
 						var evt=_status.event.getParent();
@@ -921,7 +922,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					for(var i=0;i<trigger.cards.length;i++){
 						if(trigger.cards[i].name=='du'&&trigger.cards[i].original!='j') num++;
 					}
-					player.popup('毒','wood');
+					player.popup('禁','wood');
 					player.loseHp(num);
 				},
 			},
@@ -948,41 +949,41 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			}
 		},
 		translate:{
-			qijia:'弃甲曳兵',
-			qijia_info:'出牌阶段，对一名工具区里有牌的其他角色使用。该角色选择一项：1.弃置手牌区和工具区里所有的助发和-1附加工具；2.弃置手牌区和工具区里所有的助刷和+1附加工具。',
-			jinchan:'金蝉脱壳',
-			g_jinchan2:'金蝉脱壳',
-			g_jinchan2_info:'当你因弃置而失去【金蝉脱壳】时，你摸一张牌',
-			jinchan_info:'当你成为其他角色使用牌的目标时，若你的手牌里只有【金蝉脱壳】，使目标动作牌或基本牌对你无效，你摸两张牌。当你因弃置而失去【金蝉脱壳】时，你摸一张牌。',
-			fulei:'浮校级',
-			fulei_info:'出牌阶段，对你使用。将【浮校级】放置于你的判定区里，若判定结果为理补作业，则目标角色受到X点校级电扣分（X为此动作判定结果为理补作业的次数）。判定完成后，将此牌移动到下家的判定区里。',
-			qibaodao:'七宝刀',
-			qibaodao_info:'攻击范围2；锁定技，你使用【发作业】无视目标助刷，若目标角色未损失分数值，此【发作业】扣分+1',
-			zhungangshuo:'衠钢槊',
-			zhungangshuo_info:'当你使用【发作业】指定一名角色为目标后，你可令该角色弃置你的一张手牌，然后你弃置其一张手牌',
-			lanyinjia:'烂银甲',
-			lanyinjia_info:'你可以将一张手牌当做【刷作业】使用或打出。锁定技，【烂银甲】不会无效化；当你受到【发作业】造成的扣分时，弃置【烂银甲】。',
-			yinyueqiang:'银月枪',
-			yinyueqiang_info:'你的回合外，每当你使用或打出了一张理科手牌（若为使用则在它结算之前），你可以立即对你攻击范围内的任意一名角色使用一张【发作业】',
-			muniu:'木牛流马',
-			muniu_bg:'牛',
-			muniu_skill:'木牛',
-			muniu_skill2:'流马',
-			muniu_skill3:'流马',
-			muniu_skill4:'流马',
-			muniu_skill6:'木牛流马',
-			muniu_skill6_bg:'辎',
-			muniu_skill4_backup:'流马',
-			muniu_info:'出牌阶段限一次，你可以将一张手牌扣置于你工具区里的【木牛流马】下，若如此做，你可以将此工具移动到一名其他角色的工具区里；你可以将此工具牌下的牌如手牌般使用或打出。',
-			muniu_skill_info:'出牌阶段限一次，你可以将一张手牌扣置于你工具区里的【木牛流马】下，若如此做，你可以将此工具移动到一名其他角色的工具区里；你可以将此工具牌下的牌如手牌般使用或打出。',
-			du:'毒',
-			du_info:'当你因使用、打出或弃置而失去此牌时，你失去一点分数',
-			shengdong:'声东击西',
-			shengdong_info:'出牌阶段，对一名其他角色使用。你交给目标角色一张手牌，若如此做，其将两张牌交给另一名由你选择的其他角色（不足则全给，在学角色不超过2时可重做）',
-			zengbin:'增兵减灶',
+			qijia:'搜身检查',
+			qijia_info:'出牌阶段，对一名工具区里有牌的其他角色使用。该角色选择一项：1.弃置手牌区和工具区里所有的助学和前四梦想；2.弃置手牌区和工具区里所有的教辅和前八梦想。',
+			jinchan:'走为上计',
+			g_jinchan2:'走为上计',
+			g_jinchan2_info:'当你因弃置而失去【走为上计】时，你摸一张牌',
+			jinchan_info:'当你成为其他角色使用牌的目标时，若你的手牌里只有【走为上计】，使目标动作牌或基本牌对你无效，你摸两张牌。当你因弃置而失去【走为上计】时，你摸一张牌。',
+			fulei:'迟到',
+			fulei_info:'出牌阶段，对你使用。将【迟到】放置于你的判定区里，若判定结果为数学，则目标角色受到X点理竞扣分（X为此动作判定结果为数学的次数）。判定完成后，将此牌移动到下家的判定区里。',
+			qibaodao:'藐视一切',
+			qibaodao_info:'攻击范围2；锁定技，你使用【问】无视目标教辅，若目标角色未损失体力值，此【问】扣分+1',
+			zhungangshuo:'平衡艺术',
+			zhungangshuo_info:'当你使用【问】指定一名角色为目标后，你可令该角色弃置你的一张手牌，然后你弃置其一张手牌',
+			lanyinjia:'教材全解',
+			lanyinjia_info:'你可以将一张手牌当做【答】使用或打出。锁定技，【教材全解】不会无效化；当你受到【问】造成的扣分时，弃置【教材全解】。',
+			yinyueqiang:'突击检查',
+			yinyueqiang_info:'你的回合外，每当你使用或打出了一张黑色手牌（若为使用则在它结算之前），你可以立即对你攻击范围内的任意一名角色使用一张【问】',
+			muniu:'书包',
+			muniu_bg:'包',
+			muniu_skill:'装书',
+			muniu_skill2:'拿书',
+			muniu_skill3:'拿书',
+			muniu_skill4:'拿书',
+			muniu_skill6:'书包',
+			muniu_skill6_bg:'包',
+			muniu_skill4_backup:'拿书',
+			muniu_info:'出牌阶段限一次，你可以将一张手牌扣置于你工具区里的【书包】下，若如此做，你可以将此工具移动到一名其他角色的工具区里；你可以将此工具牌下的牌如手牌般使用或打出。',
+			muniu_skill_info:'出牌阶段限一次，你可以将一张手牌扣置于你工具区里的【书包】下，若如此做，你可以将此工具移动到一名其他角色的工具区里；你可以将此工具牌下的牌如手牌般使用或打出。',
+			du:'禁',
+			du_info:'当你因使用、打出或弃置而失去此牌时，你失去一点体力',
+			shengdong:'大呼小叫',
+			shengdong_info:'出牌阶段，对一名其他角色使用。你交给目标角色一张手牌，若如此做，其将两张牌交给另一名由你选择的其他角色（不足则全给，存活角色不超过2时可重铸）',
+			zengbin:'考前复习',
 			zengbin_info:'出牌阶段，对一名角色使用。目标角色摸三张牌，然后选择一项：1.弃置一张非基本牌；2.弃置两张牌',
-			caomu:'草木皆兵',
-			caomu_info:'出牌阶段，对一名其他角色使用。将【草木皆兵】放置于该角色的判定区里，若判定结果不为科学：摸牌阶段，目标角色少摸一张牌；摸牌阶段结束时，与其距离为1的角色各摸一张牌',
+			caomu:'考试焦虑',
+			caomu_info:'出牌阶段，对一名其他角色使用。将【考试焦虑】放置于该角色的判定区里，若判定结果不为科学：摸牌阶段，目标角色少摸一张牌；摸牌阶段结束时，与其距离为1的角色各摸一张牌',
 		},
 		list:[
 			['spade',1,'caomu'],

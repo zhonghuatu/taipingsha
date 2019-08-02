@@ -14,7 +14,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				content:function(){
 					target.$gain2(cards);
 					target.storage.luyugeng=card;
-					target.storage.luyugeng_markcount=2;
+					target.storage.luyugeng_markcount=3;
 					target.addSkill('luyugeng');
 				},
 				ai:{
@@ -424,9 +424,41 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					equipValue:8
 				}
 			},
+			shatang:{
+				fullskin:true,
+				type:'trick',
+				enable:true,
+				filterTarget:true,
+				cardcolor:'red',
+				cardnature:'fire',
+				content:function(){
+					'step 0'
+					target.damage('fire');
+					'step 1'
+					target.changeHujia();
+				},
+				ai:{
+					value:[4,1],
+					useful:2,
+					order:2,
+					result:{
+						target:function(player,target){
+							if(target.hasSkillTag('nofire')) return 1.5;
+							if(target.hasSkillTag('maixie_hp')) return 0;
+							if(target.hp==1) return -1;
+							return -1/Math.sqrt(target.hp+1);
+						}
+					},
+					tag:{
+						damage:1,
+						fireDamage:1,
+						natureDamage:1
+					}
+				}
+			},
 			shujinsan:{
 				fullskin:true,
-				type:'basic',
+				type:'trick',
 				enable:true,
 				filterTarget:function(card,player,target){
 					return target.countCards('he')>0;
@@ -444,7 +476,9 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				ai:{
 					order:1.5,
 					value:[4,1],
-					norepeat:1,
+					tag:{
+						norepeat:1
+					},
 					result:{
 						target:function(player,target){
 							if(target==player){
@@ -468,9 +502,109 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					}
 				}
 			},
+			dinvxuanshuang:{
+				fullskin:true,
+				type:'basic',
+				savable:true,
+				selectTarget:-1,
+				content:function(){
+					'step 0'
+					target.recover();
+					'step 1'
+					if(target.isIn()){
+						target.chooseToDiscard([1,Infinity],'he','弃置任意张牌并摸等量的牌');
+					}
+					else{
+						event.finish();
+					}
+					'step 2'
+					if(result.bool){
+						target.draw(result.cards.length);
+					}
+				},
+				ai:{
+					basic:{
+						order:6,
+						useful:10,
+						value:[8,6.5,5,4],
+					},
+					result:{
+						target:2
+					},
+					tag:{
+						recover:1,
+						save:1,
+					}
+				}
+			},
+			dinvxuanshuang_old:{
+				fullskin:true,
+				type:'basic',
+				enable:true,
+				// range:{global:1},
+				filterTarget:function(card,player,target){
+					return !target.hujia;
+				},
+				content:function(){
+					target.storage.dinvxuanshuang_skill=game.createCard('dinvxuanshuang');
+					target.addSkill('dinvxuanshuang_skill');
+					if(cards&&cards.length){
+						card=cards[0];
+					}
+					if(target==targets[0]&&card.clone&&(card.clone.parentNode==player.parentNode||card.clone.parentNode==ui.arena)){
+						card.clone.moveDelete(target);
+						game.addVideo('gain2',target,get.cardsInfo([card]));
+					}
+				},
+				ai:{
+					basic:{
+						order:7,
+						useful:5,
+						value:[8,6.5,5,4],
+					},
+					result:{
+						target:function(player,target){
+							var num=1/Math.sqrt(1+target.hp)+0.1/Math.sqrt(target.countCards('h')+1);
+							if(player==target) num*=1.2;
+							return num;
+						}
+					}
+				}
+			},
 			ziyangdan:{
 				fullskin:true,
 				type:'basic',
+				enable:true,
+				filterTarget:true,
+				content:function(){
+					target.changeHujia(3);
+					if(target.hasSkill('ziyangdan')){
+						target.storage.ziyangdan+=3;
+					}
+					else{
+						target.addSkill('ziyangdan');
+					}
+				},
+				ai:{
+					order:1.6,
+					value:[7,1],
+					useful:3,
+					tag:{
+						norepeat:1
+					},
+					result:{
+						target:function(player,target){
+							if(target.hp>2){
+								if(player.needsToDiscard()) return 1/target.hp;
+								return 0;
+							}
+							if(target.hp>0){
+								return 2/target.hp;
+							}
+							return 0;
+						}
+					}
+				}
 			},
 			yunvyuanshen:{
 				fullskin:true,
@@ -495,6 +629,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					basic:{
 						value:9,
 						useful:4,
+						value:7
 					},
 					order:2,
 					result:{
@@ -504,10 +639,6 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					},
 				}
 			},
-			// liuxiaxianniang:{
-			//     fullskin:true,
-			//     type:'basic',
-			// },
 			bingpotong:{
 				fullskin:true,
 				type:'jiguan',
@@ -523,9 +654,9 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 						event.finish();
 						return;
 					}
-					var rand=Math.random()<0.5;
 					player.chooseCard('请展示一张手牌',true).set('ai',function(){
 						var num=0;
+						var rand=_status.event.rand;
 						if(get.color(card)=='red'){
 							if(rand) num-=6;
 						}
@@ -535,12 +666,12 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 						var value=get.value(card);
 						if(value>=8) return -100;
 						return num-value;
-					}).prompt2='若与'+get.translation(target)+'展示的牌相同，你弃置展示的牌，'+get.translation(target)+'失去一点分数';
+					}).set('rand', Math.random()<0.5).prompt2='若与'+get.translation(target)+'展示的牌相同，你弃置展示的牌，'+get.translation(target)+'失去一点体力';
 					"step 1"
 					event.card1=result.cards[0];
-					var rand=Math.random()<0.5;
 					target.chooseCard('请展示一张手牌',true).set('ai',function(card){
 						var num=0;
+						var rand=_status.event.rand;
 						if(get.color(card)=='red'){
 							if(rand) num-=6;
 						}
@@ -550,7 +681,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 						var value=get.value(card);
 						if(value>=8) return -100;
 						return num-value;
-					}).prompt2='若与'+get.translation(player)+'展示的牌相同，'+get.translation(player)+'弃置展示的牌，你失去一点分数';
+					}).set('rand', Math.random()<0.5).prompt2='若与'+get.translation(player)+'展示的牌相同，'+get.translation(player)+'弃置展示的牌，你失去一点体力';
 					"step 2"
 					event.card2=result.cards[0];
 					ui.arena.classList.add('thrownhighlight');
@@ -623,8 +754,9 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				enable:true,
 				fullskin:true,
 				wuxieable:true,
+				outrange:{globalFrom:2},
 				filterTarget:function(card,player,target){
-					return get.distance(player,target)>1;
+					return target!=player;
 				},
 				content:function(){
 					"step 0"
@@ -633,7 +765,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					else{
-						target.chooseToDiscard({color:'black'},'弃置一张理科手牌或受流失一点分数').ai=function(card){
+						target.chooseToDiscard({color:'black'},'弃置一张黑色手牌或受失去一点体力').ai=function(card){
 							return 8-get.value(card);
 						};
 					}
@@ -654,6 +786,55 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					tag:{
 						discard:1,
 						loseHp:1
+					}
+				}
+			},
+			longxugou:{
+				type:'jiguan',
+				enable:true,
+				fullskin:true,
+				wuxieable:true,
+				filterTarget:function(card,player,target){
+					return target!=player&&target.countGainableCards(player,'e');
+				},
+				content:function(){
+					'step 0'
+					var es=target.getGainableCards(player,'e')
+					if(es.length){
+						player.choosePlayerCard('e',target,true).set('es',es).set('filterButton',function(button){
+							return _status.event.es.contains(button.link);
+						});
+					}
+					else{
+						event.finish();
+					}
+					'step 1'
+					if(result.bool){
+						target.$give(result.links[0],player);
+						target.lose(result.links[0],ui.special);
+						event.card=result.links[0];
+						game.delay();
+					}
+					else{
+						event.finish();
+					}
+					'step 2'
+					if(event.card&&get.position(event.card)=='s'){
+						player.equip(event.card);
+					}
+				},
+				ai:{
+					basic:{
+						order:9,
+						value:6,
+						useful:4,
+					},
+					result:{
+						target:-1
+					},
+					tag:{
+						loseCard:1,
+						gain:1,
 					}
 				}
 			},
@@ -693,6 +874,69 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 							return game.countPlayer(function(current){
 								if(current==target||(get.distance(target,current,'pure')==1&&current.countCards('he'))){
 									return -get.sgn(get.attitude(player,current));
+								}
+							});
+						}
+					}
+				}
+			},
+			shenhuofeiya:{
+				type:'jiguan',
+				enable:true,
+				fullskin:true,
+				wuxieable:true,
+				filterTarget:function(card,player,target){
+					return target!=player;
+				},
+				changeTarget:function(player,targets){
+					game.filterPlayer(function(current){
+						return get.distance(targets[0],current,'pure')==1;
+					},targets);
+				},
+				cardcolor:'red',
+				cardnature:'fire',
+				content:function(){
+					"step 0"
+					var next=target.chooseToRespond({name:'shan'});
+					next.ai=function(card){
+						if(get.damageEffect(target,player,target,'fire')>=0) return 0;
+						if(player.hasSkillTag('notricksource')) return 0;
+						if(target.hasSkillTag('notrick')) return 0;
+						if(target.hasSkillTag('noShan')){
+							return -1;
+						}
+						return 11-get.value(card);
+					};
+					next.autochoose=lib.filter.autoRespondShan;
+					"step 1"
+					if(result.bool==false){
+						target.damage('fire');
+					}
+				},
+				ai:{
+					wuxie:function(target,card,player,viewer){
+						if(get.attitude(viewer,target)>0&&target.countCards('h','shan')){
+							if(!target.countCards('h')||target.hp==1||Math.random()<0.7) return 0;
+						}
+						if(get.attitude(viewer,target)<=0){
+							return 0;
+						}
+					},
+					order:7,
+					tag:{
+						respond:1,
+						respondShan:1,
+						damage:1,
+						natureDamage:1,
+						fireDamage:1,
+						multitarget:1,
+						multineg:1,
+					},
+					result:{
+						player:function(player,target){
+							return game.countPlayer(function(current){
+								if(current==target||(get.distance(target,current,'pure')==1)){
+									return get.sgn(get.effect(current,{name:'chiyuxi'},player,player));
 								}
 							});
 						}
@@ -841,39 +1085,62 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			},
 		},
 		skill:{
+			ziyangdan:{
+				trigger:{player:'phaseBegin'},
+				silent:true,
+				init:function(player){
+					player.storage.ziyangdan=3;
+				},
+				onremove:true,
+				content:function(){
+					if(player.hujia>0){
+						player.changeHujia(-1);
+					}
+					player.storage.ziyangdan--;
+					if(player.hujia==0||player.storage.ziyangdan==0){
+						player.removeSkill('ziyangdan');
+					}
+				},
+				ai:{
+					threaten:0.8
+				}
+			},
 			luyugeng:{
 				mark:'card',
-				trigger:{player:'phaseBegin'},
-				forced:true,
-				popup:false,
+				enable:'phaseUse',
+				usable:1,
 				nopop:true,
+				filterCard:{type:'basic'},
+				filter:function(event,player){
+					return player.countCards('h',{type:'basic'});
+				},
 				intro:{
 					content:function(storage,player){
-						return '准备阶段，你对一名分数值全场最高的随机敌人造成一点校级属性扣分（剩余'+player.storage.luyugeng_markcount+'回合）'
+						return '出牌阶段限一次，你可以弃置一张基本牌并发现一张牌，持续两回合（剩余'+player.storage.luyugeng_markcount+'回合）'
 					}
 				},
 				content:function(){
-					var list=player.getEnemies();
-					for(var i=0;i<list.length;i++){
-						if(!list[i].isMaxHp()){
-							list.splice(i--,1);
-						}
-					}
-					if(list.length){
-						var target=list.randomGet();
-						player.logSkill('luyugeng',target,'thunder');
-						target.damage('thunder');
-					}
-					player.storage.luyugeng_markcount--;
-					if(player.storage.luyugeng_markcount==0){
-						delete player.storage.luyugeng;
-						delete player.storage.luyugeng_markcount;
-						player.removeSkill('luyugeng');
-					}
-					else{
-						player.updateMarks();
-					}
+					player.discoverCard();
 				},
+				group:'luyugeng_count',
+				subSkill:{
+					count:{
+						trigger:{player:'phaseAfter'},
+						forced:true,
+						popup:false,
+						content:function(){
+							player.storage.luyugeng_markcount--;
+							if(player.storage.luyugeng_markcount==0){
+								delete player.storage.luyugeng;
+								delete player.storage.luyugeng_markcount;
+								player.removeSkill('luyugeng');
+							}
+							else{
+								player.updateMarks();
+							}
+						},
+					}
+				}
 			},
 			xiajiao:{
 				mark:'card',
@@ -886,7 +1153,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				},
 				intro:{
 					content:function(storage,player){
-						return '你在摸牌阶段额外摸一张牌，并在摸牌阶段时弃置一张牌（剩余'+player.storage.xiajiao_markcount+'回合）'
+						return '你在摸牌阶段额外摸一张牌，然后弃置一张牌（剩余'+player.storage.xiajiao_markcount+'回合）'
 					}
 				},
 				content:function(){
@@ -929,7 +1196,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				nopop:true,
 				intro:{
 					content:function(storage,player){
-						return '你可以将一张文补作业牌当作补作业使用（剩余'+player.storage.mizhilianou_markcount+'回合）'
+						return '你可以将一张语文牌当作习使用（剩余'+player.storage.mizhilianou_markcount+'回合）'
 					}
 				},
 				content:function(){
@@ -953,7 +1220,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 						viewAsFilter:function(player){
 							return player.countCards('he',{suit:'heart'})>0;
 						},
-						prompt:'将一张文补作业牌当补作业使用',
+						prompt:'将一张语文牌当习使用',
 						check:function(card){return 10-get.value(card)},
 						ai:{
 							skillTagFilter:function(player){
@@ -1001,7 +1268,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				nopop:true,
 				intro:{
 					content:function(storage,player){
-						return '当你下一次受到发作业造成的扣分时，令扣分-1（剩余'+player.storage.gudonggeng_markcount+'回合）'
+						return '当你下一次受到问造成的扣分时，令扣分-1（剩余'+player.storage.gudonggeng_markcount+'回合）'
 					}
 				},
 				content:function(){
@@ -1047,7 +1314,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				nopop:true,
 				intro:{
 					content:function(storage,player){
-						return '你在回合内使用首张发作业时摸一张牌（剩余'+player.storage.qingtuan_markcount+'回合）'
+						return '你在回合内使用首张问时摸一张牌（剩余'+player.storage.qingtuan_markcount+'回合）'
 					}
 				},
 				content:function(){
@@ -1084,7 +1351,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				nopop:true,
 				intro:{
 					content:function(storage,player){
-						return '结束阶段，若你的分数值为全场最少或之一，你获得一点护甲（剩余'+player.storage.liyutang_markcount+'回合）'
+						return '结束阶段，若你的体力值为全场最少或之一，你获得一点护甲（剩余'+player.storage.liyutang_markcount+'回合）'
 					}
 				},
 				content:function(){
@@ -1111,7 +1378,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				nopop:true,
 				intro:{
 					content:function(storage,player){
-						return '准备阶段，若你的分数值为全场最少或之一，你回复一点分数（剩余'+player.storage.yougeng_markcount+'回合）'
+						return '准备阶段，若你的体力值为全场最少或之一，你回复一点体力（剩余'+player.storage.yougeng_markcount+'回合）'
 					}
 				},
 				content:function(){
@@ -1138,7 +1405,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				nopop:true,
 				intro:{
 					content:function(storage,player){
-						return '你不能成为其他角色的理科牌的目标（剩余'+player.storage.molicha_markcount+'回合）'
+						return '你不能成为其他角色的黑色牌的目标（剩余'+player.storage.molicha_markcount+'回合）'
 					}
 				},
 				mod:{
@@ -1169,7 +1436,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				nopop:true,
 				intro:{
 					content:function(storage,player){
-						return '你在出牌阶段可以额外使用一张发作业（剩余'+player.storage.yuanbaorou_markcount+'回合）'
+						return '你在出牌阶段可以额外使用一张问（剩余'+player.storage.yuanbaorou_markcount+'回合）'
 					}
 				},
 				mod:{
@@ -1261,7 +1528,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			yunvyuanshen_skill:{
 				mark:'card',
 				intro:{
-					content:'下一进入将退学状态时回复一点分数'
+					content:'下一进入将退学状态时回复一点体力'
 				},
 				trigger:{player:'dying'},
 				forced:true,
@@ -1273,6 +1540,22 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				content:function(){
 					player.recover();
 					player.removeSkill('yunvyuanshen_skill');
+				}
+			},
+			dinvxuanshuang_skill:{
+				mark:'card',
+				intro:{
+					content:'下个结束阶段获得一点护甲，若你体力值为全场最少之一，你摸一张牌'
+				},
+				trigger:{player:'phaseEnd'},
+				forced:true,
+				onremove:true,
+				content:function(){
+					player.changeHujia();
+					if(player.isMinHp()){
+						player.draw();
+					}
+					player.removeSkill('dinvxuanshuang_skill');
 				}
 			},
 			bingpotong:{},
@@ -1296,7 +1579,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				viewAsFilter:function(player){
 					if(!player.countCards('h')) return false;
 				},
-				prompt:'将一张手牌当发作业使用',
+				prompt:'将一张手牌当问使用',
 				check:function(card){return 5-get.value(card)},
 				ai:{
 					respondSha:true,
@@ -1511,17 +1794,17 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			jinlianzhu:'金莲珠',
 			jinlianzhu_info:'对一名即将受到扣分的角色使用，防止此扣分，并令扣分来源摸一张牌',
 			shihuifen:'石灰粉',
-			shihuifen_info:'在一名其他角色的出牌阶段开始时对其使用，目标需打出一张刷作业，否则此阶段使用卡牌无法指定其他角色为目标',
+			shihuifen_info:'在一名其他角色的出牌阶段开始时对其使用，目标需打出一张答，否则此阶段使用卡牌无法指定其他角色为目标',
 			liufengsan:'流风散',
-			liufengsan_info:'出牌阶段对一名角色使用，目标获得两张刷作业',
+			liufengsan_info:'出牌阶段对一名角色使用，目标获得两张答',
 			liutouge:'六骰格',
 			liutouge_info:'出牌阶段对一名角色使用，若目标是敌人，对目标施加一个随机的负面效果；否则对目标施加一个随机的正面效果',
-			// longxugou:'龙须钩',
-			// longxugou_info:'龙须钩',
+			longxugou:'龙须钩',
+			longxugou_info:'出牌阶段对一名工具区内有牌的其他角色使用，获得其工具区内的一张牌并工具之',
 			mianlijinzhen:'棉里针',
-			mianlijinzhen_info:'出牌阶段对一名分数值不小于你的角色使用，目标摸一张牌然后失去一点分数',
-			// shenhuofeiya:'神年级飞鸦',
-			// shenhuofeiya_info:'神年级飞鸦',
+			mianlijinzhen_info:'出牌阶段对一名体力值不小于你的角色使用，目标摸一张牌然后失去一点体力',
+			shenhuofeiya:'神火飞鸦',
+			shenhuofeiya_info:'出牌阶段对一名其他角色和其相邻角色使用，目标需打出一张答，否则受到一点火属性扣分',
 			// tuhunsha:'土魂砂',
 			// tuhunsha_info:'土魂砂',
 			// wenhuangsan:'瘟癀伞',
@@ -1531,61 +1814,64 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 
 			bingpotong:'天女散花',
 			bingpotong_ab:'散花',
-			bingpotong_info:'出牌阶段对至多3名角色使用，你与每个目标依次同时展示一张手牌，若颜色相同，你弃置展示的手牌，目标失去一点分数并终止结算',
+			bingpotong_info:'出牌阶段对至多3名角色使用，你与每个目标依次同时展示一张手牌，若颜色相同，你弃置展示的手牌，目标失去一点体力并终止结算',
 			feibiao:'飞镖',
-			feibiao_info:'出牌阶段，对一名距离1以外的角色使用，令其弃置一张理科手牌或流失一点分数',
+			feibiao_info:'出牌阶段，对一名距离1以外的角色使用，令其弃置一张黑色手牌或失去一点体力',
 
-			// liuxiaxianniang:'流霞仙酿',
-			// liuxiaxianniang_info:'流霞仙酿',
+			dinvxuanshuang:'帝女玄霜',
+			dinvxuanshuang_skill:'帝女玄霜',
+			dinvxuanshuang_info:'对一名将退学状态的角色使用，目标回复一点体力，然后可以弃置任意张牌并摸等量的牌',
 			yunvyuanshen:'玉女元参',
 			yunvyuanshen_skill:'玉女元参',
-			yunvyuanshen_info:'出牌阶段对一名角色使用，目标在下一次进入将退学状态时回复一点分数',
-			// ziyangdan:'紫阳丹',
-			// ziyangdan_info:'紫阳丹',
+			yunvyuanshen_info:'出牌阶段对一名角色使用，目标在下一次进入将退学状态时回复一点体力',
+			ziyangdan:'紫阳丹',
+			ziyangdan_info:'出牌阶段对一名角色使用，目标获得3点护甲，此后每个准备阶段失去1点护甲，直到首次失去所有护甲或累计以此法失去3点护甲',
 			yuheng:'玉衡',
 			yuheng_plus:'玉衡',
 			yuheng_pro:'玉衡',
 			yuheng_skill:'玉衡',
 			yuheng_plus_skill:'玉衡',
 			yuheng_pro_skill:'玉衡',
-			yuheng_info:'出牌阶段限一次，若敌方角色有理补作业手牌，你可以弃置一张理补作业手牌，然后获得一名随机敌方角色的一张随机理补作业手牌（此牌在本局游戏中第三次和第七次发动效果后，分别自动获得一次强化）',
-			yuheng_plus_info:'由普通玉衡强化得到，将玉衡技能描述中的“弃置一张理补作业手牌”改为“弃置一张理科手牌”',
-			yuheng_pro_info:'由普通玉衡二次强化得到，将玉横技能描述中的“弃置一张理补作业手牌”改为“弃置一张理科手牌”，并去掉使用次数限制',
-			yuheng_skill_info:'出牌阶段限一次，若敌方角色有理补作业手牌，你可以弃置一张理补作业手牌，然后获得一名随机敌方角色的一张随机理补作业手牌',
-			yuheng_plus_skill_info:'出牌阶段限一次，若敌方角色有理补作业手牌，你可以弃置一张理科手牌，然后获得一名随机敌方角色的一张随机理补作业手牌',
-			yuheng_pro_skill_info:'出牌阶段限，若敌方角色有理补作业手牌，你可以弃置一张理科手牌，然后获得一名随机敌方角色的一张随机理补作业手牌',
+			yuheng_info:'出牌阶段限一次，若敌方角色有数学手牌，你可以弃置一张数学手牌，然后获得一名随机敌方角色的一张随机数学手牌（此牌在本局游戏中第三次和第七次发动效果后，分别自动获得一次强化）',
+			yuheng_plus_info:'由普通玉衡强化得到，将玉衡技能描述中的“弃置一张数学手牌”改为“弃置一张黑色手牌”',
+			yuheng_pro_info:'由普通玉衡二次强化得到，将玉横技能描述中的“弃置一张数学手牌”改为“弃置一张黑色手牌”，并去掉使用次数限制',
+			yuheng_skill_info:'出牌阶段限一次，若敌方角色有数学手牌，你可以弃置一张数学手牌，然后获得一名随机敌方角色的一张随机数学手牌',
+			yuheng_plus_skill_info:'出牌阶段限一次，若敌方角色有数学手牌，你可以弃置一张黑色手牌，然后获得一名随机敌方角色的一张随机数学手牌',
+			yuheng_pro_skill_info:'出牌阶段限，若敌方角色有数学手牌，你可以弃置一张黑色手牌，然后获得一名随机敌方角色的一张随机数学手牌',
 			shujinsan:'舒筋散',
 			shujinsan_info:'出牌阶段对任意角色使用，目标可弃置任意张牌，并摸等量的牌',
 			mutoumianju:'木头面具',
-			mutoumianju_info:'出牌阶段限一次，你可以将一张手牌当作发作业使用',
-			mutoumianju_skill:'木发作业',
-			mutoumianju_skill_info:'出牌阶段限一次，你可以将一张手牌当作发作业使用',
-			heilonglinpian:'理龙鳞片',
+			mutoumianju_info:'出牌阶段限一次，你可以将一张手牌当作问使用',
+			mutoumianju_skill:'木问',
+			mutoumianju_skill_info:'出牌阶段限一次，你可以将一张手牌当作问使用',
+			heilonglinpian:'黑龙鳞片',
 			heilonglinpian_info:'出牌阶段对自己使用，获得一点护甲，直到下一回合开始，你的防御距离+1',
+			shatang:'沙棠',
+			shatang_info:'出牌阶段对一名角色使用，对目标造成一点文竞扣分，然后目标获得一点护甲',
 
 			food:'食物',
 			chunbing:'春饼',
 			chunbing_info:'你的手牌上限+1，持续五回合',
 			gudonggeng:'骨董羹',
-			gudonggeng_info:'当你下一次受到发作业造成的扣分时，令扣分-1，持续三回合',
+			gudonggeng_info:'当你下一次受到问造成的扣分时，令扣分-1，持续三回合',
 			yougeng:'酉羹',
-			yougeng_info:'准备阶段，若你的分数值为全场最少或之一，你回复一点分数，持续两回合',
+			yougeng_info:'准备阶段，若你的体力值为全场最少或之一，你回复一点体力，持续两回合',
 			liyutang:'鲤鱼汤',
-			liyutang_info:'结束阶段，若你的分数值为全场最少或之一，你获得一点护甲，持续两回合',
+			liyutang_info:'结束阶段，若你的体力值为全场最少或之一，你获得一点护甲，持续两回合',
 			mizhilianou:'蜜汁藕',
-			mizhilianou_info:'你可以将一张文补作业牌当作补作业使用，持续四回合',
+			mizhilianou_info:'你可以将一张语文牌当作习使用，持续四回合',
 			xiajiao:'虾饺',
-			xiajiao_info:'你在摸牌阶段额外摸一张牌，并在摸牌阶段时弃置一张牌，持续三回合',
+			xiajiao_info:'你在摸牌阶段额外摸一张牌，然后弃置一张牌，持续三回合',
 			tanhuadong:'昙花冻',
 			tanhuadong_info:'出牌阶段结束时，你摸一张牌，持续三回合',
 			qingtuan:'青团',
-			qingtuan_info:'你在回合内使用首张发作业时摸一张牌，持续两回合',
+			qingtuan_info:'你在回合内使用首张问时摸一张牌，持续两回合',
 			luyugeng:'鲈鱼羹',
-			luyugeng_info:'准备阶段，你对一名分数值全场最高的随机敌人造成一点校级属性扣分，持续两回合',
+			luyugeng_info:'出牌阶段限一次，你可以弃置一张基本牌并发现一张牌，持续三回合',
 			yuanbaorou:'元宝肉',
-			yuanbaorou_info:'你在出牌阶段可以额外使用一张发作业，持续四回合',
+			yuanbaorou_info:'你在出牌阶段可以额外使用一张问，持续四回合',
 			molicha:'茉莉茶',
-			molicha_info:'你不能成为其他角色的理科牌的目标，持续四回合',
+			molicha_info:'你不能成为其他角色的黑色牌的目标，持续四回合',
 			mapodoufu:'麻婆豆腐',
 			mapodoufu_info:'结束阶段，你弃置一名随机敌人的一张随机牌，持续两回合',
 		},
@@ -1622,8 +1908,17 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			['diamond',6,'shujinsan'],
 			['spade',2,'shujinsan'],
 
+			['diamond',6,'ziyangdan'],
+			['heart',1,'ziyangdan'],
+
+			// ['diamond',7,'dinvxuanshuang'],
+			['heart',9,'dinvxuanshuang'],
+
 			['spade',9,'qiankunbiao'],
 			['club',13,'qiankunbiao'],
+
+			['diamond',9,'shenhuofeiya'],
+			['spade',7,'longxugou'],
 
 			['heart',9,'jinlianzhu'],
 			['spade',7,'jinlianzhu'],
@@ -1634,6 +1929,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			['club',6,'liufengsan'],
 			['club',3,'liufengsan'],
 
+			['heart',13,'shatang','fire']
 		]
 	};
 });

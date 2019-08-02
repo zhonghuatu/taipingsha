@@ -286,7 +286,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			if(!event.video&&_status.mode=='combat'&&!_status.vsboss&&(_status.replacelist.length||get.config('additional_player'))){
 				_status.enemyDied=0;
 				_status.friendDied=0;
-				ui.enemyDied=ui.create.system('杀敌: '+get.cnNumber(0),null,true);
+				ui.enemyDied=ui.create.system('问倒: '+get.cnNumber(0),null,true);
 				ui.friendDied=ui.create.system('阵亡: '+get.cnNumber(0),null,true);
 				if(!get.config('additional_player')){
 					lib.setPopped(ui.friendDied,function(){
@@ -800,7 +800,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						ui.friendDied.innerHTML='阵亡: '+get.cnNumber(++_status.friendDied,true);
 					}
 					if(ui.enemyDied&&player.side!=game.me.side){
-						ui.enemyDied.innerHTML='杀敌: '+get.cnNumber(++_status.enemyDied,true);
+						ui.enemyDied.innerHTML='问倒: '+get.cnNumber(++_status.enemyDied,true);
 					}
 					delete lib.posmap[player.dataset.position];
 					setTimeout(function(){
@@ -3454,7 +3454,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 							game.reload();
 						});
 						var giveup=function(){
-							if(confirm('放弃后剩余战斗将视为战败并结算奖励，是否确定放弃？')){
+							if(confirm('放弃后剩余战斗将视为战败并结算思励，是否确定放弃？')){
 								_status.chessclicked=true;
 								event.arenafight.close();
 								event.arenaback.close();
@@ -4106,7 +4106,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					'step 1'
-					game.log('毒镖陷阱发动');
+					game.log('禁镖陷阱发动');
 					player.damage('nosource');
 					player.draw(2);
 				}
@@ -5420,8 +5420,8 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			zhu_config:'启用主将',
 			main_zhu_config:'启用副将',
 			noreplace_end_config:'无替补时结束',
-			reward_config:'杀敌摸牌',
-			punish_config:'杀死队友',
+			reward_config:'问倒摸牌',
+			punish_config:'问死队友',
 			seat_order_config:'行动顺序',
 			battle_number_config:'对战人数',
 			replace_number_config:'替补人数',
@@ -5507,7 +5507,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			chess_beimingjukun:'北溟巨鲲',
 			chess_wuzhaojinlong:'五爪金龙',
 
-			treasure_dubiaoxianjing:'毒镖陷阱',
+			treasure_dubiaoxianjing:'禁镖陷阱',
 			treasure_jiqishi:'集气石',
 			treasure_shenmidiaoxiang:'神秘雕像',
 			treasure_shenpanxianjing:'审判之刃',
@@ -5515,7 +5515,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			treasure_wuyashenxiang:'乌鸦神像',
 
 			dubiaoxianjing:'飞刃',
-			dubiaoxianjing_info:'距离两格体力值大于1的角色在回合结束后受到一点伤害，然后摸两张牌',
+			dubiaoxianjing_info:'距离两格体力值大于1的角色在回合结束后受到一点扣分，然后摸两张牌',
 			jiqishi:'集气',
 			jiqishi_info:'距离两格以内的已受伤角色在回合结束后回复一点体力，然后弃置两张牌',
 			shenmidiaoxiang:'秘咒',
@@ -5523,15 +5523,15 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			shenpanxianjing:'审判',
 			shenpanxianjing_info:'在任意一名角色回合结束后，若没有其他角色手牌数比其多，随机弃置其一张手牌',
 			shiyuansu:'护体',
-			shiyuansu_info:'任意一名角色一次性受到不少于两点伤害后，使其获得一点护甲',
+			shiyuansu_info:'任意一名角色一次性受到不少于两点扣分后，使其获得一点护甲',
 			wuyashenxiang:'厄音',
-			wuyashenxiang_info:'距离3格以内的角色在其回合结束后，若体力值不大于1，令其回复一点体力，然后将牌堆中的一张延时锦囊牌置于其判定区',
+			wuyashenxiang_info:'距离3格以内的角色在其回合结束后，若体力值不大于1，令其回复一点体力，然后将牌堆中的一张延时动作牌置于其判定区',
 
 			leader_caocao:'曹操',
 			leader_liubei:'刘备',
 			leader_sunquan:'孙权',
 			leader_xiaoxiong:'枭雄',
-			leader_xiaoxiong_info:'每当你造成伤害，获胜后会得到一定数量的额外金币奖励',
+			leader_xiaoxiong_info:'每当你造成扣分，获胜后会得到一定数量的额外金币思励',
 			leader_renyi:'仁义',
 			leader_renyi_info:'你招降敌将的成功率大幅增加',
 			leader_mouduan:'谋断',
@@ -5540,7 +5540,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			tongshuai:'统率',
 			tongshuai_info:'准备阶段和结束阶段，你可以选择一名未上场的已方武将的一个技能作为你的技能',
 			leader_zhaoxiang:'招降',
-			leader_zhaoxiang_info:'出牌阶段限一次，你可以尝试对相邻敌方武将进行招降，若成功，你获得该武将并立即结束本局游戏，若失败，你受到一点伤害。每发动一次消耗10招募令',
+			leader_zhaoxiang_info:'出牌阶段限一次，你可以尝试对相邻敌方武将进行招降，若成功，你获得该武将并立即结束本局游戏，若失败，你受到一点扣分。每发动一次消耗10招募令',
 
 			common:'普通',
 			rare:'稀有',
@@ -5559,32 +5559,32 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			arenaAdd_info:'出牌阶段限一次，你可以令一名未出场的已方角色加入战场。战斗结束后，该角色无论是否存活均不能再次出场',
 
 			pianyi:'翩仪',
-			pianyi_info:'结束阶段，若你没有于本回合内造成伤害，你获得一次移动机会',
+			pianyi_info:'结束阶段，若你没有于本回合内造成扣分，你获得一次移动机会',
 			lingdong:'灵动',
-			lingdong_info:'结束阶段，你可以移动X个格，X为你回合内出杀的次数',
+			lingdong_info:'结束阶段，你可以移动X个格，X为你回合内出问的次数',
 			lianshe:'箭舞',
-			lianshe_info:'当你于一个回合中首次使用杀时，你可以摸一张牌；在你的回合内，每当你使用一张不是杀的牌，你可以额外使用一张杀',
+			lianshe_info:'当你于一个回合中首次使用问时，你可以摸一张牌；在你的回合内，每当你使用一张不是问的牌，你可以额外使用一张问',
 			zhiming:'穿杨',
-			zhiming_info:'锁定技，当你使用杀造成伤害时，若你不在目标的攻击范围内，此伤害+1',
+			zhiming_info:'锁定技，当你使用问造成扣分时，若你不在目标的攻击范围内，此扣分+1',
 			sanjiansheji:'散箭',
-			sanjiansheji_info:'你可以将两张杀当杀使用，此杀可以指定距离你5格以内任意名目标',
+			sanjiansheji_info:'你可以将两张问当问使用，此问可以指定距离你5格以内任意名目标',
 			guanchuan:'强弩',
-			guanchuan_info:'当你使用杀指定惟一的目标后，可将攻击射线内的其他角色也加入目标',
+			guanchuan_info:'当你使用问指定惟一的目标后，可将攻击射线内的其他角色也加入目标',
 
 			boss_stoneqiangzheng:'强征',
 			boss_stoneqiangzheng_info:'锁定技，结束阶段，你获得每个其他角色的一张手牌',
 			boss_stonebaolin:'暴凌',
 			boss_moyan:'魔焰',
-			boss_moyan_info:'锁定技，结束阶段，你对场上所有角色造成一点火焰伤害',
+			boss_moyan_info:'锁定技，结束阶段，你对场上所有角色造成一点文竞扣分',
 
 			cangming:'颠动沧溟',
 			cangming_info:'出牌阶段限一次，你可弃置四张花色不同的手牌并将武将牌翻至背面，然后令所有其他角色进入混乱状态直到你的下一回合开始',
 			boss_bfengxing:'风行',
 			boss_bfengxing_info:'锁定技，你摸牌阶段摸牌数+2；你的攻击范围+2；你回合内的移动距离+2',
 			boss_chiyu:'炽羽',
-			boss_chiyu_info:'出牌阶段限一次，你可以弃置一张红色牌对距离5以内的所有其他角色造成一点火焰伤害',
+			boss_chiyu_info:'出牌阶段限一次，你可以弃置一张红色牌对距离5以内的所有其他角色造成一点文竞扣分',
 			boss_tenglong:'腾龙八齐',
-			boss_tenglong_info:'你没有装备区；出牌阶段限一次，你可以弃置一张装备牌对一名距离你2以内的其他角色造成3点火焰伤害',
+			boss_tenglong_info:'你没有工具区；出牌阶段限一次，你可以弃置一张工具牌对一名距离你2以内的其他角色造成3点文竞扣分',
 			boss_wushang:'神天并地',
 			boss_wushang_info:'锁定技，准备阶段，距离你5以内的所有其他角色需交给你一张手牌',
 			boss_wuying:'无影',
@@ -6225,18 +6225,18 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			'<div style="margin:10px">对阵模式</div><ul style="margin-top:0"><li>n人对战n人的模式，由单人控制，开始游戏后随机分配位置与出牌顺序<li>'+
 			'每人在出牌阶段有一次移动的机会，可移动的最大距离为2<li>'+
 			'任何卡牌或技能无法指定位置相隔8个格以上的角色为目标<li>'+
-			'杀死对方阵营的角色可摸一张牌，杀死本方阵营无惩罚<li>'+
-			'若开启主将，双方各选择一名角色成为主将。主将体力上限加一，主将死亡后，若有副将，副将代替之成为主将，否则游戏结束<li>'+
-			'开启无尽模式后，任何一方有角色死亡都将选择一名新角色重新加入战场，直到点击左上角的结束游戏按钮手动结束游戏。结束游戏时，杀敌更多的一方获胜<li>'+
+			'问死对方阵营的角色可摸一张牌，问死本方阵营无惩罚<li>'+
+			'若开启主将，双方各选择一名角色成为主将。主将体力上限加一，主将退学后，若有副将，副将代替之成为主将，否则游戏结束<li>'+
+			'开启无尽模式后，任何一方有角色退学都将选择一名新角色重新加入战场，直到点击左上角的结束游戏按钮手动结束游戏。结束游戏时，问倒更多的一方获胜<li>'+
 			'行动顺序为指定时，双方无论存活角色角色多少都将轮流进行行动。在一方所有角色行动完毕进行下一轮行动时，若其人数比另一方少，另一方可指定至多X名角色名摸一张牌，X为人数之差<li>'+
 			'开启战场机关后，每个回合结束时有一定机率出现一个机关，该机关不参与战斗，并有一个影响周围或全体角色的效果。机关在出现后的5~10个回合内消失<li>'+
-			'开启击退效果后，当一名角色对距离两格以内的目标造成伤害后，受伤害角色将沿反方向移动一格<li>'+
+			'开启击退效果后，当一名角色对距离两格以内的目标造成扣分后，受扣分角色将沿反方向移动一格<li>'+
 			'战场上可设置出现随机路障，角色无法移动到路障处。当一名角色的周围四格有至少三格为路障或在战场外时，其可以在回合内清除一个相邻路障</ul>'+
 			'<div style="margin:10px">君主模式</div><ul style="margin-top:0"><li>收集武将进行战斗，根据战斗难度及我方出场武将的强度，战斗胜利后将获得数量不等的金钱。没有君主出场时，获得的金钱较多<li>'+
 			'金钱可以用来招募随机武将，招到已有武将，或遣返不需要的武将时可得到招募令<li>'+
-			'战斗中有君主出场时可招降敌将，成功率取决于敌将的稀有度、剩余体力值以及手牌数。成功后战斗立即结束且没有金钱奖励。每发动一次招降，无论成功还是失败，都会扣除10招募令<li>'+
+			'战斗中有君主出场时可招降敌将，成功率取决于敌将的稀有度、剩余体力值以及手牌数。成功后战斗立即结束且没有金钱思励。每发动一次招降，无论成功还是失败，都会扣除10招募令<li>'+
 			'挑战武将会与该武将以及与其强度相近的武将进行战斗，敌方人数与我方出场人数相同，但不少于3。胜利后可通过招募令招募该武将，普通/稀有/史诗/传说武将分别需要40/100/400/1600招募令<li>'+
-			'竞技场：<br>随机选择9名武将，每次派出1~3名武将参战。战斗中阵亡的武将不能再次上场。<br><br>战斗后武将进入疲劳状态，若立即再次出场则初始体力值-1。<br><br>战斗中本方武将行动时可召唤后援，令一名未出场的已方武将加入战斗。后援武将在战斗结束后无论存活与否均不能再次出场<br><br>当取得12场胜利或所有武将全部阵亡后结束，并根据胜场数获得随机奖励<li>'+
+			'竞技场：<br>随机选择9名武将，每次派出1~3名武将参战。战斗中阵亡的武将不能再次上场。<br><br>战斗后武将进入疲劳状态，若立即再次出场则初始体力值-1。<br><br>战斗中本方武将行动时可召唤后援，令一名未出场的已方武将加入战斗。后援武将在战斗结束后无论存活与否均不能再次出场<br><br>当取得12场胜利或所有武将全部阵亡后结束，并根据胜场数获得随机思励<li>'+
 			'修改金钱：<br>game.changeMoney<br>修改招募令：<br>game.changeDust</ul>'
 		},
 	};

@@ -270,7 +270,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				selectTarget:-1,
 				content:function(){
 					"step 0"
-					player.chooseCard('将一张非基本牌当作发作业对'+get.translation(target)+'使用','he',function(card){
+					player.chooseCard('将一张非基本牌当作问对'+get.translation(target)+'使用','he',function(card){
 						return get.type(card)!='basic';
 					}).ai=function(card){
 						if(get.effect(target,{name:'sha'},player,player)>0){
@@ -285,7 +285,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					"step 2"
 					if(target==player.next) event.player2=player.next.next;
 					else event.player2=player.previous.previous;
-					event.player2.chooseCard('将一张非基本牌当作发作业对'+get.translation(target)+'使用','he',function(card){
+					event.player2.chooseCard('将一张非基本牌当作问对'+get.translation(target)+'使用','he',function(card){
 						return get.type(card)!='basic';
 					}).ai=function(card){
 						if(get.effect(target,{name:'sha'},event.player2,event.player2)>0){
@@ -364,8 +364,8 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			longfeizhen:'龙飞阵',
 			huyizhen:'虎翼阵',
 			niaoxiangzhen:'鸟翔阵',
-			niaoxiangzhen_info:'令所有非你阵营的队列的角色今次打出一张刷作业，或者受到一点扣分',
-			qixingzhen_info:'弃置所有围攻你的角色各一张牌，然后视为对所有你围攻的角色使用一张不计入出发作业次数的发作业',
+			niaoxiangzhen_info:'令所有非你阵营的队列的角色今次打出一张答，或者受到一点扣分',
+			qixingzhen_info:'弃置所有围攻你的角色各一张牌，然后视为对所有你围攻的角色使用一张不计入出问次数的问',
 			// longfeizhen_info:'弃置围攻你的角色各一张牌，然后摸一张牌',
 			// qixingzhen_info:'令我方所有角色进入围攻状态',
 			// shepanzhen_info:'令我方所有角色进入队列状态',

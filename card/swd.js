@@ -318,10 +318,10 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				},
 				selectTarget:-1,
 				modTarget:true,
-				usable:1,
+				// usable:1,
 				content:function(){
 					'step 0'
-					event.num=3;
+					event.num=2;
 					var list=[];
 					event.list=list;
 					for(var i=0;i<lib.inpile.length;i++){
@@ -382,7 +382,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			yuchanqian:{
 				fullskin:true,
 				type:'jiqi',
-				addinfo:'发作业',
+				addinfo:'问',
 				autoViewAs:'sha',
 				global:['g_yuchan_swap','g_yuchan_equip'],
 				ai:{
@@ -405,7 +405,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				fullskin:true,
 				type:'jiqi',
 				autoViewAs:'jiu',
-				addinfo:'辣条',
+				addinfo:'思',
 				global:['g_yuchan_swap','g_yuchan_equip'],
 				savable:function(card,player,dying){
 					return dying==player;
@@ -419,7 +419,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				fullskin:true,
 				type:'jiqi',
 				autoViewAs:'tao',
-				addinfo:'补作业',
+				addinfo:'习',
 				global:['g_yuchan_swap','g_yuchan_equip'],
 				savable:true,
 				ai:{
@@ -512,6 +512,11 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					'step 1'
 					var cards=[];
 					var list=get.typeCard('jiguan');
+					for(var i=0;i<list.length;i++){
+						if(lib.card[list[i]].derivation){
+							list.splice(i--,1);
+						}
+					}
 					if(list.length){
 						for(var i=0;i<event.num;i++){
 							cards.push(game.createCard(list.randomGet()));
@@ -673,7 +678,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				content:function(){
 					"step 0"
 					if(target.countCards('h')){
-						var next=target.chooseToDiscard('机关年级筒：弃置一张手牌或受到一点年级焰扣分');
+						var next=target.chooseToDiscard('机关火筒：弃置一张手牌或受到一点文竞扣分');
 						next.set('ai',function(card){
 							var evt=_status.event.getParent();
 							if(get.damageEffect(evt.target,evt.player,evt.target,'fire')>=0) return 0;
@@ -952,8 +957,8 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					if(player.countCards('he')){
 						player.chooseCard(true,'he').set('prompt2','你将'+
 						get.translation(cards)+'和选择牌置于'+get.translation(target)+
-						'的角色牌上，然后摸一张牌；'+get.translation(target)+
-						'于下一结束阶段获得角色牌上的牌');
+						'的武将牌上，然后摸一张牌；'+get.translation(target)+
+						'于下一结束阶段获得武将牌上的牌');
 					}
 					else{
 						event.finish();
@@ -1214,10 +1219,27 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				range:{global:1},
 				wuxieable:true,
 				filterTarget:function(card,player,target){
-					return !target.hasSkill('jiguanyaoshu_skill')&&!target.isMin();
+					for(var i=1;i<=5;i++){
+						if(!target.getEquip(i)){
+							return !target.hasSkill('jiguanyaoshu_skill')&&!target.isMin();
+						}
+					}
+					return false;
 				},
 				content:function(){
-					var card=game.createCard(get.inpile('equip').randomGet());
+					var types=[];
+					for(var i=1;i<=5;i++){
+						if(!target.getEquip(i)){
+							types.push('equip'+i);
+						}
+					}
+					var list=get.inpile('equip');
+					for(var i=0;i<list.length;i++){
+						if(!types.contains(lib.card[list[i]].subtype)){
+							list.splice(i--,1);
+						}
+					}
+					var card=game.createCard(list.randomGet());
 					target.$gain2(card);
 					target.equip(card);
 					target.addSkill('jiguanyaoshu_skill');
@@ -1481,7 +1503,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					return player!=target&&!target.hasSkill('qianxing');
 				},
 				content:function(){
-					target.addTempSkill('qianxing',{player:'phaseBegin'});
+					target.tempHide();
 				},
 				ai:{
 					order:2,
@@ -1631,7 +1653,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 						event.finish();
 					}
 					else{
-						target.chooseToDiscard({color:'black'},'弃置一张理科手牌或受流失一点分数').ai=function(card){
+						target.chooseToDiscard({color:'black'},'弃置一张黑色手牌或受失去一点体力').ai=function(card){
 							return 8-get.value(card);
 						};
 					}
@@ -1692,7 +1714,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					for(var i=0;i<game.dead.length;i++){
 						list.push(game.dead[i].name);
 					}
-					player.chooseButton(ui.create.dialog('选择要复课的角色',[list,'character']),function(button){
+					player.chooseButton(ui.create.dialog('选择要复活的角色',[list,'character']),function(button){
 						for(var i=0;i<game.dead.length&&game.dead[i].name!=button.link;i++);
 						return get.attitude(_status.event.player,game.dead[i]);
 					},true);
@@ -1878,8 +1900,8 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				},
 				effect:function(){
 					if(result.bool==false){
-						player.turnOver();
-						player.draw();
+						player.loseHp();
+						player.randomDiscard();
 					}
 				},
 				ai:{
@@ -1931,7 +1953,9 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					player.addTempSkill('zhufangshenshi');
 				},
 				ai:{
-					norepeat:1,
+					tag:{
+						norepeat:1
+					},
 					value:4,
 					wuxie:function(){
 						return 0;
@@ -2217,7 +2241,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				},
 				filterCard:{name:'hufu'},
 				viewAs:{name:'sha'},
-				prompt:'将一张玉符当发作业使用或打出',
+				prompt:'将一张玉符当问使用或打出',
 				check:function(card){return 1},
 				ai:{
 					order:1,
@@ -2232,7 +2256,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				},
 				filterCard:{name:'hufu'},
 				viewAs:{name:'shan'},
-				prompt:'将一张玉符当刷作业使用或打出',
+				prompt:'将一张玉符当答使用或打出',
 				check:function(){return 1},
 				ai:{
 					order:1,
@@ -2247,7 +2271,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				},
 				filterCard:{name:'hufu'},
 				viewAs:{name:'jiu'},
-				prompt:'将一张玉符当辣条使用',
+				prompt:'将一张玉符当思使用',
 				check:function(){return 1},
 			},
 			zhiluxiaohu:{
@@ -2287,7 +2311,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			huanpodan_skill:{
 				mark:true,
 				intro:{
-					content:'防止一次退学，改为弃置所有牌，将分数值变为1并摸一张牌'
+					content:'防止一次退学，改为弃置所有牌，将体力值变为1并摸一张牌'
 				},
 				trigger:{player:'dieBefore'},
 				forced:true,
@@ -2592,9 +2616,9 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				intro:{
 					content:function(storage,player){
 						if(storage==1){
-							'在'+get.translation(player.storage.gouhunluo2)+'的下个准备阶段失去一点分数并弃置所有手牌'
+							'在'+get.translation(player.storage.gouhunluo2)+'的下个准备阶段失去一点体力并弃置所有手牌'
 						}
-						return '在'+storage+'轮后'+get.translation(player.storage.gouhunluo2)+'的准备阶段失去一点分数并弃置所有手牌'
+						return '在'+storage+'轮后'+get.translation(player.storage.gouhunluo2)+'的准备阶段失去一点体力并弃置所有手牌'
 					}
 				},
 				nopop:true,
@@ -3129,13 +3153,16 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				trigger:{player:'phaseEnd'},
 				direct:true,
 				filter:function(event,player){
-					return player.countCards('h')>0;
+					return player.countCards('h',{color:'red'})>0;
 				},
 				content:function(){
 					'step 0'
 					player.chooseCardTarget({
 						filterTarget:true,
-						filterCard:lib.filter.cardDiscardable,
+						filterCard:function(card,player,event){
+							if(get.color(card)!='red') return false;
+							return lib.filter.cardDiscardable(card,player,event);
+						},
 						ai1:function(card){
 							return 8-get.useful(card);
 						},
@@ -3385,11 +3412,11 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 						};
 						if(trigger.result.judge>0){
 							trigger.result.bool=true;
-							trigger.player.popup('高分');
+							trigger.player.popup('洗具');
 						}
 						if(trigger.result.judge<0){
 							trigger.result.bool=false;
-							trigger.player.popup('考砸了');
+							trigger.player.popup('杯具');
 						}
 						game.log(trigger.player,'的判定结果为',card);
 						trigger.direct=true;
@@ -3490,7 +3517,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					"step 1"
 					if(result.bool){
 						event.bool=true;
-						player.chooseTarget('选择一个目标视为'+get.translation(target)+'对其使用一张发作业',function(card,player,target2){
+						player.chooseTarget('选择一个目标视为'+get.translation(target)+'对其使用一张问',function(card,player,target2){
 							return player!=target2&&target.canUse('sha',target2);
 						}).ai=function(target2){
 							return get.effect(target2,{name:'sha'},target,player);
@@ -3573,36 +3600,36 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			yiluan:{
 				enable:'phaseUse',
 				usable:1,
-				filterCard:true,
-				position:'he',
-				check:function(card){
-					return 6-get.value(card);
-				},
-				filter:function(event,player){
-					return !player.isTurnedOver();
-				},
 				filterTarget:function(card,player,target){
-					return target!=player&&!target.isMad();
+					return target!=player&&target.countCards('h');
 				},
 				content:function(){
 					'step 0'
-					player.judge(function(card){
-						return get.color(card)=='black'?1:0;
-					});
+					target.judge();
 					'step 1'
-					if(result.color=='red'){
-						game.asyncDraw([player,target]);
-					}
-					else{
-						if(!player.isTurnedOver()) player.turnOver();
-						target.goMad({player:'phaseAfter'});
+					if(result.suit!='heart'){
+						var hs=target.getCards('h');
+						while(hs.length){
+							var chosen=hs.randomRemove();
+							if(target.hasUseTarget(chosen)&&!get.info(chosen).multitarget){
+								var list=game.filterPlayer(function(current){
+									return lib.filter.targetEnabled2(chosen,target,current);
+								});
+								if(list.length){
+									target.useCard(chosen,list.randomGet());
+									event.finish();
+									break;
+								}
+							}
+						}
 					}
 				},
 				ai:{
 					order:10,
 					result:{
 						target:function(player,target){
-							return -target.countCards('h');
+							if(!target.countCards('h')) return 0;
+							return -1;
 						}
 					}
 				}
@@ -3858,7 +3885,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					'step 1'
 					if(result.bool){
 						player.logSkill('hslingjian_yinmilichang_equip1',result.targets);
-						result.targets[0].addTempSkill('qianxing',{player:'phaseBegin'});
+						result.targets[0].tempHide();
 					}
 				}
 			},
@@ -4345,10 +4372,10 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				global:'hslingjian_chaofeng_disable',
 				nopop:true,
 				unique:true,
-				gainnable:true,
+				gainable:true,
 				mark:true,
 				intro:{
-					content:'锁定技，若你的手牌数大于你的分数值，则只要你在任一其他角色的攻击范围内，该角色使用【发作业】时便不能指定你以外的角色为目标',
+					content:'锁定技，与你相邻的角色只能选择你为出问目标',
 				},
 				subSkill:{
 					disable:{
@@ -4358,8 +4385,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 								if(card.name=='sha'){
 									if(target.hasSkill('hslingjian_chaofeng')) return;
 									if(game.hasPlayer(function(current){
-										return (current.hasSkill('hslingjian_chaofeng')&&
-											current.hp<current.countCards('h')&&get.distance(player,current,'attack')<=1);
+										return (current.hasSkill('hslingjian_chaofeng')&&get.distance(player,current,'pure')<=1);
 									})){
 										return false;
 									}
@@ -4657,21 +4683,19 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 						case 'heart':player.recover();break;
 						case 'diamond':player.draw();break;
 						case 'club':{
-							player.chooseTarget('弃置一名角色的一张牌',function(card,player,target){
-								return player!=target&&target.countCards('he')>0;
-							}).ai=function(target){
-								return -get.attitude(player,target);
-							};
+							var targets=player.getEnemies();
+							for(var i=0;i<targets.length;i++){
+								if(!targets[i].countCards('he')){
+									targets.splice(i--,1);
+								}
+							}
+							if(targets.length){
+								var target=targets.randomGet();
+								player.line(target);
+								target.randomDiscard();
+							}
 							break;
 						}
-					}
-					if(result.suit!='club'){
-						event.finish();
-					}
-					"step 2"
-					if(result.bool&&result.targets&&result.targets.length){
-						player.line(result.targets[0],'green');
-						player.discardPlayerCard(result.targets[0],'he',true);
 					}
 				},
 				ai:{
@@ -4826,7 +4850,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 					})
 					"step 1"
 					if(result.bool){
-						trigger.target.chooseToRespond({name:'shan'},'萨登荆环：请额外打出一张刷作业响应发作业').autochoose=lib.filter.autoRespondShan;
+						trigger.target.chooseToRespond({name:'shan'},'萨登荆环：请额外打出一张答响应问').autochoose=lib.filter.autoRespondShan;
 					}
 					else{
 						event.finish();
@@ -4922,14 +4946,14 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			qiankundai_info:'你的手牌上限+1。当你失去该工具时，你摸一张牌。',
 			hufu:'玉符',
 			hufu_bg:'符',
-			g_hufu_sha:'符发作业',
-			g_hufu_shan:'符刷作业',
-			g_hufu_jiu:'符辣条',
-			hufu_info:'你可以将一张玉符当作发作业、刷作业或辣条使用或打出',
+			g_hufu_sha:'符问',
+			g_hufu_shan:'符答',
+			g_hufu_jiu:'符思',
+			hufu_info:'你可以将一张玉符当作问、答或思使用或打出',
 			// yihuajiemu:'移花接木',
-			// yihuajiemu_info:'对一名工具区内有违禁品的角色使用，将其违禁品牌转移至另一名角色',
-			liuxinghuoyu:'流星年级羽',
-			liuxinghuoyu_info:'出牌阶段，对一名角色使用，令目标弃置2张牌，或受到一点年级焰扣分',
+			// yihuajiemu_info:'对一名工具区内有宝物的角色使用，将其宝物牌转移至另一名角色',
+			liuxinghuoyu:'流星火羽',
+			liuxinghuoyu_info:'出牌阶段，对一名角色使用，令目标弃置2张牌，或受到一点文竞扣分',
 			g_yuchan_equip:'玉蝉',
 			yuchanqian_duanzao:'玉蝉',
 			yuchanqian_equip1_info:'出牌阶段限一次，你可以弃置任意张基本牌并摸等量的牌',
@@ -4980,40 +5004,40 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			yuchandui_equip4_info:'出牌阶段限一次，你可以弃置任意张基本牌并摸等量的牌',
 			yuchandui_equip5_info:'出牌阶段限一次，你可以弃置任意张基本牌并摸等量的牌',
 			yuchanqian:'乾玉蝉',
-			yuchanqian_info:'在你行动时可当作发作业使用；可用于煅造工具；在你使用一张牌后，此牌会随机切换形态',
+			yuchanqian_info:'在你行动时可当作问使用；可用于煅造工具；在你使用一张牌后，此牌会随机切换形态',
 			yuchankun:'坤玉蝉',
 			yuchankun_info:'在你行动时可当作草药使用；可用于煅造工具；在你使用一张牌后，此牌会随机切换形态',
 			yuchanzhen:'震玉蝉',
-			yuchanzhen_info:'在你行动时可当作辣条使用；可用于煅造工具；在你使用一张牌后，此牌会随机切换形态',
+			yuchanzhen_info:'在你行动时可当作思使用；可用于煅造工具；在你使用一张牌后，此牌会随机切换形态',
 			yuchanxun:'巽玉蝉',
-			yuchanxun_info:'在你行动时可当作补作业使用；可用于煅造工具；在你使用一张牌后，此牌会随机切换形态',
+			yuchanxun_info:'在你行动时可当作习使用；可用于煅造工具；在你使用一张牌后，此牌会随机切换形态',
 			yuchankan:'坎玉蝉',
 			yuchankan_info:'在你行动时可当作神秘果使用；可用于煅造工具；在你使用一张牌后，此牌会随机切换形态',
 			yuchanli:'离玉蝉',
-			yuchanli_info:'在你行动时可当作天仙辣条使用；可用于煅造工具；在你使用一张牌后，此牌会随机切换形态',
+			yuchanli_info:'在你行动时可当作天仙思使用；可用于煅造工具；在你使用一张牌后，此牌会随机切换形态',
 			yuchangen:'艮玉蝉',
 			yuchangen_info:'在你行动时可当作封印之蛋使用；可用于煅造工具；在你使用一张牌后，此牌会随机切换形态',
 			yuchandui:'兑玉蝉',
 			yuchandui_info:'在你行动时可当作雪肌冰鲍使用；可用于煅造工具；在你使用一张牌后，此牌会随机切换形态',
 			yangpijuan:'羊皮卷',
-			yangpijuan_info:'出牌阶段对自己使用，选择一种卡牌类别，从3张随机该类别的卡牌中选择一张加入手牌',
-			// pantao:'蟠补作业',
-			// pantao_info:'出牌阶段对自己使用，或对将退学角色使用，目标回复两点分数并获得一点护甲',
+			yangpijuan_info:'出牌阶段对自己使用，选择一种卡牌类别，发现一张该类别的卡牌',
+			// pantao:'蟠习',
+			// pantao_info:'出牌阶段对自己使用，或对将退学角色使用，目标回复两点体力并获得一点护甲',
 			shencaojie:'神草结',
 			shencaojie_info:'你的动作牌即将造成扣分时对目标使用，令此扣分+1；你即将受到动作牌扣分时对自己使用，令此扣分-1',
 			yuruyi:'玉如意',
 			yuruyi_ab:'如意',
 			yuruyi_info:'你有更高的机率摸到好牌',
 			fengyinzhidan:'封印之蛋',
-			fengyinzhidan_info:'出牌阶段限用一次，随机使用三张普通动作牌（随机指定目标）',
+			fengyinzhidan_info:'随机使用两张普通动作牌（随机指定目标）',
 			shuchui:'鼠槌',
-			shuchui_info:'出牌阶段限一次，你可以指定一名攻击范围内的角色，依次将手牌中的至多3张发作业对该角色使用，若发作业造成了扣分，你摸一张牌',
+			shuchui_info:'出牌阶段限一次，你可以指定一名攻击范围内的角色，依次将手牌中的至多3张问对该角色使用，若问造成了扣分，你摸一张牌',
 			zhiluxiaohu:'指路小狐',
-			zhiluxiaohu_info:'出牌阶段对自己使用，视为对一名随机敌方角色使用一张发作业，若此发作业造成扣分，你摸一张牌',
+			zhiluxiaohu_info:'出牌阶段对自己使用，视为对一名随机敌方角色使用一张问，若此问造成扣分，你摸一张牌',
 			xuejibingbao:'雪肌冰鲍',
 			xuejibingbao_info:'出牌阶段对一名角色使用，该角色摸牌阶段摸牌数+1，持续2个回合',
 			gouhunluo:'勾魂锣',
-			gouhunluo_info:'出牌阶段对一名角色使用，在3轮后你的准备阶段令该角色失去1点分数并弃置所有手牌',
+			gouhunluo_info:'出牌阶段对一名角色使用，在3轮后你的准备阶段令该角色失去1点体力并弃置所有手牌',
 			jiguan:'机关',
 			jiqi:'祭器',
 			qinglongzhigui:'青龙之圭',
@@ -5036,102 +5060,102 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			baishouzhihu_equip5_info:'结束阶段，你可以弃置一名其他角色的一张随机牌',
 			zhuquezhizhang:'朱雀之璋',
 			g_zhuquezhizhang:'朱雀之璋',
-			zhuquezhizhang_info:'可用于煅造工具；此牌在你手牌中时，每当你受到其他角色造成的扣分，你对扣分来源造成一点年级属性扣分',
+			zhuquezhizhang_info:'可用于煅造工具；此牌在你手牌中时，每当你受到其他角色造成的扣分，你对扣分来源造成一点火属性扣分',
 			zhuquezhizhang_duanzao:'炽翎',
-			zhuquezhizhang_equip1_info:'结束阶段，你可以弃置一张文科牌并对一名分数值不小于你的角色造成一点年级属性扣分',
-			zhuquezhizhang_equip2_info:'结束阶段，你可以弃置一张文科牌并对一名分数值不小于你的角色造成一点年级属性扣分',
-			zhuquezhizhang_equip3_info:'结束阶段，你可以弃置一张文科牌并对一名分数值不小于你的角色造成一点年级属性扣分',
-			zhuquezhizhang_equip4_info:'结束阶段，你可以弃置一张文科牌并对一名分数值不小于你的角色造成一点年级属性扣分',
-			zhuquezhizhang_equip5_info:'结束阶段，你可以弃置一张文科牌并对一名分数值不小于你的角色造成一点年级属性扣分',
+			zhuquezhizhang_equip1_info:'结束阶段，你可以弃置一张红色牌并对一名体力值不小于你的角色造成一点火属性扣分',
+			zhuquezhizhang_equip2_info:'结束阶段，你可以弃置一张红色牌并对一名体力值不小于你的角色造成一点火属性扣分',
+			zhuquezhizhang_equip3_info:'结束阶段，你可以弃置一张红色牌并对一名体力值不小于你的角色造成一点火属性扣分',
+			zhuquezhizhang_equip4_info:'结束阶段，你可以弃置一张红色牌并对一名体力值不小于你的角色造成一点火属性扣分',
+			zhuquezhizhang_equip5_info:'结束阶段，你可以弃置一张红色牌并对一名体力值不小于你的角色造成一点火属性扣分',
 			xuanwuzhihuang:'玄武之璜',
 			g_xuanwuzhihuang:'玄武之璜',
 			xuanwuzhihuang_duanzao:'寒晶',
-			xuanwuzhihuang_info:'可用于煅造工具；此牌在你手牌中时，每当你造成扣分，你回复等量的分数',
-			xuanwuzhihuang_equip1_info:'结束阶段，你可以弃置一张文科牌并回复一点分数',
-			xuanwuzhihuang_equip2_info:'结束阶段，你可以弃置一张文科牌并回复一点分数',
-			xuanwuzhihuang_equip3_info:'结束阶段，你可以弃置一张文科牌并回复一点分数',
-			xuanwuzhihuang_equip4_info:'结束阶段，你可以弃置一张文科牌并回复一点分数',
-			xuanwuzhihuang_equip5_info:'结束阶段，你可以弃置一张文科牌并回复一点分数',
+			xuanwuzhihuang_info:'可用于煅造工具；此牌在你手牌中时，每当你造成扣分，你回复等量的体力',
+			xuanwuzhihuang_equip1_info:'结束阶段，你可以弃置一张红色牌并回复一点体力',
+			xuanwuzhihuang_equip2_info:'结束阶段，你可以弃置一张红色牌并回复一点体力',
+			xuanwuzhihuang_equip3_info:'结束阶段，你可以弃置一张红色牌并回复一点体力',
+			xuanwuzhihuang_equip4_info:'结束阶段，你可以弃置一张红色牌并回复一点体力',
+			xuanwuzhihuang_equip5_info:'结束阶段，你可以弃置一张红色牌并回复一点体力',
 			huanglinzhicong:'黄麟之琮',
 			g_huanglinzhicong:'黄麟之琮',
 			huanglinzhicong_duanzao:'玄甲',
 			huanglinzhicong_info:'可用于煅造工具；此牌在你手牌中时，准备阶段，若你没有护甲，你获得一点护甲',
-			huanglinzhicong_equip1_info:'结束阶段，若你没有护甲，你可以弃置一张理科牌并获得一点护甲',
-			huanglinzhicong_equip2_info:'结束阶段，若你没有护甲，你可以弃置一张理科牌并获得一点护甲',
-			huanglinzhicong_equip3_info:'结束阶段，若你没有护甲，你可以弃置一张理科牌并获得一点护甲',
-			huanglinzhicong_equip4_info:'结束阶段，若你没有护甲，你可以弃置一张理科牌并获得一点护甲',
-			huanglinzhicong_equip5_info:'结束阶段，若你没有护甲，你可以弃置一张理科牌并获得一点护甲',
+			huanglinzhicong_equip1_info:'结束阶段，若你没有护甲，你可以弃置一张黑色牌并获得一点护甲',
+			huanglinzhicong_equip2_info:'结束阶段，若你没有护甲，你可以弃置一张黑色牌并获得一点护甲',
+			huanglinzhicong_equip3_info:'结束阶段，若你没有护甲，你可以弃置一张黑色牌并获得一点护甲',
+			huanglinzhicong_equip4_info:'结束阶段，若你没有护甲，你可以弃置一张黑色牌并获得一点护甲',
+			huanglinzhicong_equip5_info:'结束阶段，若你没有护甲，你可以弃置一张黑色牌并获得一点护甲',
 			cangchizhibi:'苍螭之璧',
 			g_cangchizhibi:'苍螭之璧',
 			cangchizhibi_duanzao:'灵枢',
-			cangchizhibi_info:'可用于煅造工具；此牌在你手牌中时，准备阶段，你可以选择至多3名角色拉帮或重置之',
-			cangchizhibi_equip1_info:'结束阶段，你可以拉帮或重置一名角色',
-			cangchizhibi_equip2_info:'结束阶段，你可以拉帮或重置一名角色',
-			cangchizhibi_equip3_info:'结束阶段，你可以拉帮或重置一名角色',
-			cangchizhibi_equip4_info:'结束阶段，你可以拉帮或重置一名角色',
-			cangchizhibi_equip5_info:'结束阶段，你可以拉帮或重置一名角色',
+			cangchizhibi_info:'可用于煅造工具；此牌在你手牌中时，准备阶段，你可以选择至多3名角色横置或重置之',
+			cangchizhibi_equip1_info:'结束阶段，你可以横置或重置一名角色',
+			cangchizhibi_equip2_info:'结束阶段，你可以横置或重置一名角色',
+			cangchizhibi_equip3_info:'结束阶段，你可以横置或重置一名角色',
+			cangchizhibi_equip4_info:'结束阶段，你可以横置或重置一名角色',
+			cangchizhibi_equip5_info:'结束阶段，你可以横置或重置一名角色',
 
 			guisheqi:'龟蛇旗',
 			guisheqi_info:'出牌阶段对一名角色使用，目标获得一点护甲',
 			jiguanfeng:'机关蜂',
-			jiguanfeng_info:'出牌阶段对一名其他角色使用，目标需打出一张刷作业，否则非锁定技失效直到下一回合开始，并受到一点扣分',
+			jiguanfeng_info:'出牌阶段对一名其他角色使用，目标需打出一张答，否则非锁定技失效直到下一回合开始，并受到一点扣分',
 			jiguanyuan:'机关鸢',
-			jiguanyuan_info:'出牌阶段对一名其他角色使用，你将此牌和一张其它牌置于一名其他角色的角色牌上，然后摸一张牌；该角色于下一结束阶段获得角色牌上的牌',
-			jiguantong:'机关年级筒',
-			jiguantong_ab:'年级筒',
-			jiguantong_info:'出牌阶段对所有其他角色使用，目标弃置一张手牌，或受到一点年级焰扣分；若没有人因此受到扣分，使用者摸一张牌',
+			jiguanyuan_info:'出牌阶段对一名其他角色使用，你将此牌和一张其它牌置于一名其他角色的武将牌上，然后摸一张牌；该角色于下一结束阶段获得武将牌上的牌',
+			jiguantong:'机关火筒',
+			jiguantong_ab:'火筒',
+			jiguantong_info:'出牌阶段对所有其他角色使用，目标弃置一张手牌，或受到一点文竞扣分；若没有人选择受到扣分，使用者摸一张牌',
 			jiutiansuanchi:'九天算尺',
-			jiutiansuanchi_info:'每当你使用发作业造成扣分，你可以弃置一张牌并展示受扣分角色的一张手牌，若此牌与你弃置的牌花色或点数相同，此发作业的扣分+2',
+			jiutiansuanchi_info:'每当你使用问造成扣分，你可以弃置一张牌并展示受扣分角色的一张手牌，若此牌与你弃置的牌花色或点数相同，此问的扣分+2',
 			shenmiguo:'神秘果',
 			shenmiguo_info:'出牌阶段内，当你使用一张基本牌或普通动作牌后使用，令此牌再结算一次。每阶段限用一次',
 			qinglianxindeng:'青莲心灯',
 			qinglianxindeng_info:'你防止动作牌造成的扣分',
 			hslingjian_xuanfengzhiren_duanzao:'风刃',
 			hslingjian_xuanfengzhiren_duanzao2:'风',
-			hslingjian_xuanfengzhiren_equip1_info:'每当你用发作业造成一次扣分，受扣分角色随机弃置一张牌',
-			hslingjian_xuanfengzhiren_equip2_info:'每当你受到发作业造成的扣分，扣分来源随机弃置一张牌',
+			hslingjian_xuanfengzhiren_equip1_info:'每当你用问造成一次扣分，受扣分角色随机弃置一张牌',
+			hslingjian_xuanfengzhiren_equip2_info:'每当你受到问造成的扣分，扣分来源随机弃置一张牌',
 			hslingjian_xuanfengzhiren_equip3_info:'当你于回合外失去牌后，你本回合的防御距离+1',
 			hslingjian_xuanfengzhiren_equip4_info:'当你于回合内失去牌后，你本回合的进攻距离+1',
 			hslingjian_xuanfengzhiren_equip5_info:'出牌阶段限一次，你可以弃置一张牌，然后随机弃置一名其他角色的一张牌',
 			hslingjian_zhongxinghujia_duanzao:'重甲',
 			hslingjian_zhongxinghujia_duanzao2:'护',
-			hslingjian_zhongxinghujia_equip1_info:'每当你用发作业造成一次扣分，你可以随机工具一件助刷牌',
-			hslingjian_zhongxinghujia_equip2_info:'每当你受到发作业造成的扣分，你可以弃置扣分来源的助刷牌',
-			hslingjian_zhongxinghujia_equip3_info:'当你的工具区内有助刷牌时，你的防御距离+1',
-			hslingjian_zhongxinghujia_equip4_info:'当你的工具区内有助刷牌时，你的进攻距离+1',
-			hslingjian_zhongxinghujia_equip5_info:'出牌阶段限一次，你可以弃置两张牌，然后令一名角色随机工具一件助刷',
+			hslingjian_zhongxinghujia_equip1_info:'每当你用问造成一次扣分，你可以随机工具一件教辅牌',
+			hslingjian_zhongxinghujia_equip2_info:'每当你受到问造成的扣分，你可以弃置扣分来源的教辅牌',
+			hslingjian_zhongxinghujia_equip3_info:'当你的工具区内有教辅牌时，你的防御距离+1',
+			hslingjian_zhongxinghujia_equip4_info:'当你的工具区内有教辅牌时，你的进攻距离+1',
+			hslingjian_zhongxinghujia_equip5_info:'出牌阶段限一次，你可以弃置两张牌，然后令一名角色随机工具一件教辅',
 			hslingjian_jinjilengdong_duanzao:'冰冻',
 			hslingjian_jinjilengdong_duanzao2:'冰',
-			hslingjian_jinjilengdong_equip1_info:'每当你用发作业造成一次扣分，你可以令目标摸两张牌并旷课',
-			hslingjian_jinjilengdong_equip2_info:'每当你受到发作业造成的扣分，你可以令扣分来源摸两张牌并旷课',
-			hslingjian_jinjilengdong_equip3_info:'你的角色牌背面朝上时防御距离+2',
-			hslingjian_jinjilengdong_equip4_info:'你的角色牌背面朝上时进攻距离+2',
-			hslingjian_jinjilengdong_equip5_info:'回合结束后，若你的角色牌正面朝上，你可以与一名角色牌正面朝上的其他角色同时旷课，然后各摸两张牌',
+			hslingjian_jinjilengdong_equip1_info:'每当你用问造成一次扣分，你可以令目标摸两张牌并翻面',
+			hslingjian_jinjilengdong_equip2_info:'每当你受到问造成的扣分，你可以令扣分来源摸两张牌并翻面',
+			hslingjian_jinjilengdong_equip3_info:'你的武将牌背面朝上时防御距离+2',
+			hslingjian_jinjilengdong_equip4_info:'你的武将牌背面朝上时进攻距离+2',
+			hslingjian_jinjilengdong_equip5_info:'回合结束后，若你的武将牌正面朝上，你可以与一名武将牌正面朝上的其他角色同时翻面，然后各摸两张牌',
 			hslingjian_yinmilichang_duanzao:'隐力',
 			hslingjian_yinmilichang_duanzao2:'隐',
-			hslingjian_yinmilichang_equip1_info:'每当你用发作业造成一次扣分，你可以令一名其他角色获得潜行直到其下一回合开始',
+			hslingjian_yinmilichang_equip1_info:'每当你用问造成一次扣分，你可以令一名其他角色获得潜行直到其下一回合开始',
 			hslingjian_yinmilichang_equip2_info:'每当你受到一次扣分，你本回合内获得潜行',
-			hslingjian_yinmilichang_equip3_info:'当你的分数值为1时，你的防御距离+1',
-			hslingjian_yinmilichang_equip4_info:'当你的分数值为1时，你的进攻距离+1',
-			hslingjian_yinmilichang_equip5_info:'当你没有手牌时，你不能成为发作业或核对作业的目标',
+			hslingjian_yinmilichang_equip3_info:'当你的体力值为1时，你的防御距离+1',
+			hslingjian_yinmilichang_equip4_info:'当你的体力值为1时，你的进攻距离+1',
+			hslingjian_yinmilichang_equip5_info:'当你没有手牌时，你不能成为问或辩论的目标',
 			hslingjian_xingtigaizao_duanzao:'移形',
 			hslingjian_xingtigaizao_duanzao2:'形',
-			hslingjian_xingtigaizao_equip1_info:'每当你用发作业造成一次扣分，你摸一张牌',
-			hslingjian_xingtigaizao_equip2_info:'每当你受到发作业造成的扣分，你摸一张牌',
+			hslingjian_xingtigaizao_equip1_info:'每当你用问造成一次扣分，你摸一张牌',
+			hslingjian_xingtigaizao_equip2_info:'每当你受到问造成的扣分，你摸一张牌',
 			hslingjian_xingtigaizao_equip3_info:'你的防御距离+1，进攻距离-1',
 			hslingjian_xingtigaizao_equip4_info:'你的防御距离-1，进攻距离+1',
 			hslingjian_xingtigaizao_equip5_info:'你于摸牌阶段额外摸一张牌；你的手牌上限-1',
 			hslingjian_shengxiuhaojiao_duanzao:'号角',
 			hslingjian_shengxiuhaojiao_duanzao2:'角',
-			hslingjian_shengxiuhaojiao_equip1_info:'有嘲讽的角色不能刷作业避你的发作业',
-			hslingjian_shengxiuhaojiao_equip2_info:'有嘲讽的角色不能对你使用发作业',
-			hslingjian_shengxiuhaojiao_equip3_info:'若你的手牌数大于你的分数值，你的防御距离+1',
-			hslingjian_shengxiuhaojiao_equip4_info:'若你的手牌数大于你的分数值，你的进攻距离+1',
+			hslingjian_shengxiuhaojiao_equip1_info:'有嘲讽的角色不能避答你的问',
+			hslingjian_shengxiuhaojiao_equip2_info:'有嘲讽的角色不能对你使用问',
+			hslingjian_shengxiuhaojiao_equip3_info:'若你的手牌数大于你的体力值，你的防御距离+1',
+			hslingjian_shengxiuhaojiao_equip4_info:'若你的手牌数大于你的体力值，你的进攻距离+1',
 			hslingjian_shengxiuhaojiao_equip5_info:'出牌阶段限一次，你可以弃置两张牌，然后令一名角色获得或解除嘲讽',
 			hslingjian_shijianhuisu_duanzao:'回溯',
 			hslingjian_shijianhuisu_duanzao2:'溯',
-			hslingjian_shijianhuisu_equip1_info:'当你工具一张助刷牌时，你摸一张牌',
-			hslingjian_shijianhuisu_equip2_info:'当你工具一张助发牌时，你摸一张牌',
+			hslingjian_shijianhuisu_equip1_info:'当你工具一张教辅牌时，你摸一张牌',
+			hslingjian_shijianhuisu_equip2_info:'当你工具一张助学牌时，你摸一张牌',
 			hslingjian_shijianhuisu_equip3_info:'当你的工具区内没有其他牌时，你的防御距离+1',
 			hslingjian_shijianhuisu_equip4_info:'当你的工具区内没有其他牌时，你的进攻距离+1',
 			hslingjian_shijianhuisu_equip5_info:'出牌阶段限一次，你可以弃置一张牌，然后令一名其他角色将其工具区内的牌收回手牌',
@@ -5151,10 +5175,10 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			hslingjian_xuanfengzhiren:'旋风之刃',
 			hslingjian_xuanfengzhiren_info:'可用于煅造工具；随机弃置一名角色的一张牌',
 			hslingjian_zhongxinghujia:'重型护甲',
-			hslingjian_zhongxinghujia_info:'可用于煅造工具；令一名角色工具一件随机助刷，然后随机弃置其一张手牌',
+			hslingjian_zhongxinghujia_info:'可用于煅造工具；令一名角色工具一件随机教辅，然后随机弃置其一张手牌',
 			hslingjian_jinjilengdong:'紧急冷冻',
 			hslingjian_jinjilengdong_bg:'冻',
-			hslingjian_jinjilengdong_info:'可用于煅造工具；令一名角色牌正面朝上的其他角色获得两点护甲并旷课，该角色不能使用卡牌，也不能成为卡牌的目标直到角色牌翻回正面',
+			hslingjian_jinjilengdong_info:'可用于煅造工具；令一名武将牌正面朝上的其他角色获得两点护甲并翻面，该角色不能使用卡牌，也不能成为卡牌的目标直到武将牌翻回正面',
 			hslingjian_yinmilichang:'隐秘力场',
 			hslingjian_yinmilichang_info:'可用于煅造工具；令一名其他角色获得技能潜行，直到其下一回合开始',
 			hslingjian_xingtigaizao:'型体改造',
@@ -5164,38 +5188,38 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			hslingjian_shijianhuisu:'时间回溯',
 			hslingjian_shijianhuisu_info:'可用于煅造工具；令一名其他角色将其工具牌收回手牌',
 			hslingjian_chaofeng:'嘲讽',
-			hslingjian_chaofeng_info:'锁定技，若你的手牌数大于你的分数值，则只要你在任一其他角色的攻击范围内，该角色使用【发作业】时便不能指定你以外的角色为目标',
+			hslingjian_chaofeng_info:'锁定技，与你相邻的角色只能选择你为出问目标',
 			qinglonglingzhu:'青龙灵珠',
 			qinglonglingzhu_ab:'灵珠',
 			qinglonglingzhu_info:'每当你造成一次属性扣分，你可以获得对方的一张牌',
 			xingjunyan:'星君眼',
-			xingjunyan_info:'你的发作业造成的扣分+1；发作业对你造成的扣分+1',
+			xingjunyan_info:'你的问造成的扣分+1；问对你造成的扣分+1',
 			guiyanfadao:'鬼眼法刀',
 			guiyanfadao_bg:'眼',
-			guiyanfadao_info:'每当你使用发作业命中目标，你可以防止扣分，改为令目标失去一点分数',
-			tianxianjiu:'天仙辣条',
+			guiyanfadao_info:'每当你使用问命中目标，你可以防止扣分，改为令目标失去一点体力',
+			tianxianjiu:'天仙思',
 			tianxianjiu_bg:'仙',
-			tianxianjiu_info:'出牌阶段对自己使用，你使用的下一张发作业造成扣分后可以摸两张牌；将退学阶段，对自己使用，回复1点分数',
+			tianxianjiu_info:'出牌阶段对自己使用，你使用的下一张问造成扣分后可以摸两张牌；将退学阶段，对自己使用，回复1点体力',
 			// xiangyuye:'翔羽叶',
-			// xiangyuye_info:'出牌阶段，对一名攻击范围外的角色使用，令其弃置一张理科手牌或流失一点分数',
+			// xiangyuye_info:'出牌阶段，对一名攻击范围外的角色使用，令其弃置一张黑色手牌或失去一点体力',
 			// huanpodan:'还魄丹',
 			// huanpodan_bg:'魄',
-			// huanpodan_info:'出牌阶段对一名角色使用，在目标即将退学时防止其退学，改为令其弃置所有牌，将分数值回复至1并摸一张牌',
+			// huanpodan_info:'出牌阶段对一名角色使用，在目标即将退学时防止其退学，改为令其弃置所有牌，将体力值回复至1并摸一张牌',
 			// huanpodan_skill:'还魄丹',
 			// huanpodan_skill_bg:'丹',
-			// huanpodan_skill_info:'防止一次退学，改为弃置所有牌，将分数值变为1并摸一张牌',
+			// huanpodan_skill_info:'防止一次退学，改为弃置所有牌，将体力值变为1并摸一张牌',
 			ximohu:'吸魔壶',
 			ximohu_bg:'魔',
-			// ximohu_info:'锁定技，你将即将受到的校级属性扣分转化为你的分数值',
+			// ximohu_info:'锁定技，你将即将受到的雷属性扣分转化为你的体力值',
 			sadengjinhuan:'萨登荆环',
 			sadengjinhuan_ab:'荆环',
-			sadengjinhuan_info:'当你的发作业被刷作业避后，可以进行一次判定，若结果为文科目标需再打出一张刷作业',
+			sadengjinhuan_info:'当你的问被避答后，可以进行一次判定，若结果为红色目标需再打出一张答',
 			sadengjinhuan_bg:'荆',
 			qipoguyu:'奇魄古玉',
 			xujin:'蓄劲',
 			xujin2:'蓄劲',
 			// qipoguyu_info:'工具后获得蓄劲技能',
-			xujin_info:'回合开始前，若你的蓄劲标记数小于当前的分数值，你可以跳过此回合，并获得一枚蓄劲标记。锁定技，每当你即将造成扣分，你令此扣分+X，然后弃置一枚蓄劲标记，X为你拥有的蓄劲标记数',
+			xujin_info:'回合开始前，若你的蓄劲标记数小于当前的体力值，你可以跳过此回合，并获得一枚蓄劲标记。锁定技，每当你即将造成扣分，你令此扣分+X，然后弃置一枚蓄劲标记，X为你拥有的蓄劲标记数',
 			guilingzhitao:'归灵指套',
 			nigong:'逆攻',
 			nigong2:'逆攻',
@@ -5205,13 +5229,13 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			nigong_info:'每当你受到一点扣分，你获得一个逆攻标记，标记数不能超过4。出牌阶段，你可以弃置所有逆攻标记并令对一名其他角色造成标记数一半的扣分（若非整数则向下取整并摸一张牌）',
 			baihupifeng:'白狐披风',
 			baihupifeng_bg:'狐',
-			baihupifeng_info:'结束阶段，若你的分数值是全场最小的之一，你可以回复一点分数',
+			baihupifeng_info:'结束阶段，若你的体力值是全场最小的之一，你可以回复一点体力',
 			fengxueren:'封雪刃',
 			fengxueren_bg:'雪',
-			fengxueren_info:'你使用发作业击中目标后，若目标角色牌正面朝上，你可以防止扣分，然后令目标摸一张牌并旷课',
+			fengxueren_info:'你使用问击中目标后，若目标武将牌正面朝上，你可以防止扣分，然后令目标摸一张牌并翻面',
 			chilongya:'赤龙牙',
-			chilongya_info:'锁定技，你的年级属性扣分+1',
-			daihuofenglun:'带年级风轮',
+			chilongya_info:'锁定技，你的火属性扣分+1',
+			daihuofenglun:'带火风轮',
 			daihuofenglun_ab:'风轮',
 			daihuofenglun_bg:'轮',
 			daihuofenglun_info:'你的进攻距离+2，你的防御距离-1',
@@ -5227,38 +5251,38 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			xianluhui:'仙炉灰',
 			xianluhui_info:'令所有已受伤角色获得一点护甲',
 			caoyao:'草药',
-			caoyao_info:'出牌阶段，对距离为1以内的角色使用，回复一点分数。',
+			caoyao_info:'出牌阶段，对距离为1以内的角色使用，回复一点体力。',
 			langeguaiyi:'蓝格怪衣',
 			langeguaiyi_bg:'格',
-			langeguaiyi_info:'出牌阶段限一次，你可以进行一次判定，然后按花色执行以下效果。文补作业：你回复一点分数；英语：你摸一张牌；科学：你弃置一名其他角色的一张牌；理补作业：无事发生',
+			langeguaiyi_info:'出牌阶段限一次，你可以进行一次判定，然后按花色执行以下效果。语文：你回复一点体力；英语：你摸一张牌；科学：你令一名随机敌方角色随机弃置一张牌；数学：无事发生',
 			longfan:'龙帆',
-			longfan_info:'出牌阶段限一次，你可以进行一次判定，然后按花色执行以下效果。文补作业：你回复一点分数；英语：你摸一张牌；科学：你弃置一名其他角色的一张牌；理补作业：无事发生',
-			// longfan_info:'0000：旷课；1111：弃手牌；2222：弃工具牌；3333：受扣分；4444：流失分数；5555：结派；6666：摸牌；7777：回复分数；8888：弃置判定牌；9999：置衡',
+			longfan_info:'出牌阶段限一次，你可以进行一次判定，然后按花色执行以下效果。语文：你回复一点体力；英语：你摸一张牌；科学：你令一名随机敌方角色随机弃置一张牌；数学：无事发生',
+			// longfan_info:'0000：翻面；1111：弃手牌；2222：弃工具牌；3333：受扣分；4444：失去体力；5555：结派；6666：摸牌；7777：回复体力；8888：弃置判定牌；9999：置衡',
 			guiyoujie:'鬼幽结',
 			guiyoujie_bg:'结',
-			guiyoujie_info:'出牌阶段，对一名其他角色使用。若判定结果为理科，其摸一张牌并旷课。',
+			guiyoujie_info:'出牌阶段，对一名其他角色使用。若判定结果为黑色，其失去一点体力并随机弃置一张牌',
 			yufulu:'御夫录',
-			yufulu_info:'出牌阶段，可弃置一张助发牌令一名角色受到一点扣分，然后该角色获得此助发牌',
+			yufulu_info:'出牌阶段，可弃置一张助学牌令一名角色受到一点扣分，然后该角色获得此助学牌',
 			touzhi:'投掷',
-			touzhi_info:'出牌阶段，可弃置一张助发牌令一名角色受到一点扣分，然后该角色获得此助发牌',
+			touzhi_info:'出牌阶段，可弃置一张助学牌令一名角色受到一点扣分，然后该角色获得此助学牌',
 			xixueguizhihuan:'吸血鬼指环',
 			xixueguizhihuan_ab:'血环',
-			xixueguizhihuan_info:'锁定技，每当你使用发作业造成一点扣分，你回复一点分数',
+			xixueguizhihuan_info:'锁定技，每当你使用问造成一点扣分，你回复一点体力',
 			xixue:'吸血',
-			xixue_info:'锁定技，每当你使用发作业造成一点扣分，你回复一点分数',
+			xixue_info:'锁定技，每当你使用问造成一点扣分，你回复一点体力',
 			zhufangshenshi:'祠符',
 			zhufangshenshi_info:'出牌阶段，对一名其他角色使用，本回合内对其使用卡牌无视距离，结算后摸一张牌',
-			jingleishan:'惊校级刷作业',
-			jingleishan_info:'出牌阶段，对所有其他角色使用。每名目标角色需打出一张【发作业】，否则受到1点校级电扣分。',
+			jingleishan:'惊雷答',
+			jingleishan_info:'出牌阶段，对所有其他角色使用。每名目标角色需打出一张【问】，否则受到1点理竞扣分。',
 			chiyuxi:'炽羽袭',
-			chiyuxi_info:'出牌阶段，对所有其他角色使用。每名目标角色需打出一张【刷作业】，否则受到1点年级焰扣分。',
+			chiyuxi_info:'出牌阶段，对所有其他角色使用。每名目标角色需打出一张【答】，否则受到1点文竞扣分。',
 			guangshatianyi:'光纱天衣',
 			guangshatianyi_bg:'纱',
 			guangshatianyi_info:'锁定技，每当你即将受到扣分，有三分之一的概率令扣分减一',
 			sifeizhenmian:'四非真面',
-			sifeizhenmian_info:'出牌阶段限一次，若你没旷课，你可以弃置一张牌并指定一名其他角色进行判定，若结果为理科，你旷课，该角色进入混乱状态直到下一回合结束；若结果为文科，你与其各摸一张牌',
+			sifeizhenmian_info:'出牌阶段限一次，你可以令一名有手牌的其他角色进行一次判定，若结果为不为语文且目标有可用的手牌，目标随机使用一张手牌（随机指定目标）',
 			yiluan:'意乱',
-			yiluan_info:'出牌阶段限一次，若你没旷课，你可以弃置一张牌并指定一名其他角色进行判定，若结果为理科，你旷课，该角色进入混乱状态直到下一回合结束；若结果为文科，你与其各摸一张牌',
+			yiluan_info:'出牌阶段限一次，你可以令一名有手牌的其他角色进行一次判定，若结果为不为语文且目标有可用的手牌，目标随机使用一张手牌（随机指定目标）',
 			donghuangzhong:'东皇钟',
 			xuanyuanjian:'轩辕剑',
 			xuanyuanjian2:'轩辕剑',
@@ -5282,21 +5306,21 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			nvwashi_bg:'石',
 			kongxin:'控心',
 			lianhua:'炼化',
-			// dujian:'毒箭',
-			// dujian_info:'出牌阶段，对一名有手牌或工具牌的角色使用，令其展示一张手牌，若与你选择的手牌颜色相同，其流失一点分数',
+			// dujian:'禁箭',
+			// dujian_info:'出牌阶段，对一名有手牌或工具牌的角色使用，令其展示一张手牌，若与你选择的手牌颜色相同，其失去一点体力',
 			lianhua_info:'出牌阶段限一次，你可以弃置两张炼妖壶中的牌，从牌堆中获得一张与弃置的牌类别均不相同的牌',
 			shouna:'收纳',
 			shouna_info:'出牌阶段限一次，你可以弃置一张手牌，并将一名其他角色的一张手牌置入炼妖壶',
-			donghuangzhong_info:'结束阶段，你可以弃置一张手牌，并选择一名角色将一张随机单体延时动作置入其判定区',
-			xuanyuanjian_info:'工具时获得一点护甲；每当你即将造成一次扣分，你令此扣分加一并变为校级属性，并在扣分结算后流失一点分数。任何时候，若你分数值不超过2，则立即失去轩辕剑',
+			donghuangzhong_info:'结束阶段，你可以弃置一张红色手牌，并选择一名角色将一张随机单体延时动作置入其判定区',
+			xuanyuanjian_info:'工具时获得一点护甲；每当你即将造成一次扣分，你令此扣分加一并变为雷属性，并在扣分结算后失去一点体力。任何时候，若你体力值不超过2，则立即失去轩辕剑',
 			pangufu_info:'锁定技，每当你造成一次扣分，受伤角色须弃置一张牌',
 			haotianta_info:'锁定技，任意一名角色进行判定前，你观看牌堆顶的2张牌，并选择一张作为判定结果，此结果不可被更改，也不能触发技能',
-			shennongding_info:'出牌阶段，你可以弃置两张手牌，然后回复一点分数。每阶段限一次',
-			kongdongyin_info:'令你抵挡一次退学，将分数回复至1，并摸一张牌，发动后进入弃牌堆',
+			shennongding_info:'出牌阶段，你可以弃置两张手牌，然后回复一点体力。每阶段限一次',
+			kongdongyin_info:'令你抵挡一次退学，将体力回复至1，并摸一张牌，发动后进入弃牌堆',
 			kunlunjingc_info:'出牌阶段限一次，你可以观看牌堆顶的三张牌，然后用一张手牌替换其中的一张',
-			nvwashi_info:'当一名角色将退学时，若你的分数值大于1，你可以失去一点分数并令其回复一点分数',
-			kongxin_info:'出牌阶段限一次，你可以与一名其他角色进行排名，若你赢，你可以指定另一名角色视为对方对该角色使用一张发作业，否则对方可弃置你一张牌',
-			fuxiqin_info:'出牌阶段限一次，你可以与一名其他角色进行排名，若你赢，你可以指定另一名角色视为对方对该角色使用一张发作业，否则对方可弃置你一张牌',
+			nvwashi_info:'当一名角色将退学时，若你的体力值大于1，你可以失去一点体力并令其回复一点体力',
+			kongxin_info:'出牌阶段限一次，你可以与一名其他角色进行拼点，若你赢，你可以指定另一名角色视为对方对该角色使用一张问，否则对方可弃置你一张牌',
+			fuxiqin_info:'出牌阶段限一次，你可以与一名其他角色进行拼点，若你赢，你可以指定另一名角色视为对方对该角色使用一张问，否则对方可弃置你一张牌',
 			lianyaohu_info:'出牌阶段各限一次，你可以选择一项：1.弃置一张手牌，并将一名其他角色的一张手牌置入炼妖壶；2.弃置两张炼妖壶中的牌，从牌堆中获得一张与弃置的牌类别均不相同的牌',
 		},
 		list:[

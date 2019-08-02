@@ -48,31 +48,31 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			pal_jushifang:['male','shu',3,['yujia','xiepan','yanshi']],
 		},
 		characterIntro:{
-			pal_lixiaoyao:'一个天资聪颖的乡下客栈店小二，因一壶辣条被辣条剑仙传授了理山仙剑派剑术，在仙灵岛与赵灵儿相遇，自此经历重重磨难成长为一代旷世奇侠。灵儿牺牲以后他悲痛欲绝。后出任理山掌门，取道号一贫，从此御剑行遍天下，行侠仗义、斩妖除魔。多年后因魔教之乱，故引咎卸职，成为理山七圣之一。而后虽心力交瘁，但仍竭力保护天下苍生。',
-			pal_zhaoliner:'林青儿与巫王之女，亦是女娲族人。自幼与世隔绝，跟随姥姥隐居仙灵岛修炼，躲避仇人的追杀。难以告人的神秘身世，让她逃不过命运的捉弄，注定在滚滚红尘中历尽千灾万劫。在最终，赵灵儿为了消灭拜月水魔兽，与其同归于尽。但在王小虎、李忆如决战大魔头千叶禅师的结尾，出现了她的声音。',
+			pal_lixiaoyao:'一个天资聪颖的乡下客栈店小二，因一壶思被思剑仙传授了蜀山仙剑派剑术，在仙灵岛与赵灵儿相遇，自此经历重重磨难成长为一代旷世奇侠。灵儿牺牲以后他悲痛欲绝。后出任蜀山掌门，取道号一贫，从此御剑行遍天下，行侠仗义、斩妖除魔。多年后因魔教之乱，故引咎卸职，成为蜀山七圣之一。而后虽心力交瘁，但仍竭力保护天下苍生。',
+			pal_zhaoliner:'林青儿与巫王之女，亦是女娲族人。自幼与世隔绝，跟随姥姥隐居仙灵岛修炼，躲避仇人的追问。难以告人的神秘身世，让她逃不过命运的捉弄，注定在滚滚红尘中历尽千灾万劫。在最终，赵灵儿为了消灭拜月水魔兽，与其同归于尽。但在王小虎、李忆如决战大魔头千叶禅师的结尾，出现了她的声音。',
 			pal_linyueru:'天资灵秀，聪敏慧黠，情深义重。身为江南武林魁首林家堡之武门千金，与李逍遥不打不相识，并在此后的寻人旅途中相知相恋。在经历过重重艰辛和生离死别后，遥月二人终于携手而共结连理，与高堂娇儿共享天伦。',
 
 			pal_wangxiaohu:'李逍遥的同乡，自小仰慕李逍遥，想要拜在他门下，得知拜师无望之后，遂跟随李大婶学习排云掌法。之后前往杭州拜“三大神捕”之一的”神眼魔刀”盛尊武为师，并习得魔刀刀法。热血少年，敢作敢当，嫉恶如仇，相信人定胜天。他最后发现千叶禅师的阴谋，与众人合力击败千叶禅师。',
-			pal_sumei:'蛇妖和狐精之女，其父母当年被李逍遥和林月如所杀，因此她一直想要报仇，可以说是为报仇而活着。爱上王小虎，认识李忆如之后，苏媚学会了宽恕，最后甚至为了朋友和爱人牺牲自己。',
+			pal_sumei:'蛇妖和狐精之女，其父母当年被李逍遥和林月如所问，因此她一直想要报仇，可以说是为报仇而活着。爱上王小虎，认识李忆如之后，苏媚学会了宽恕，最后甚至为了朋友和爱人牺牲自己。',
 			pal_shenqishuang:'乳名沈七七，峨嵋山仙霞派掌门清柔师太座下弟子，与四位师姊妹合称“仙霞五奇”，排行第四，个性拘谨温婉，对小虎心怀爱意却不敢开口表达。',
 
-			pal_jingtian:'永安当的小伙计，司“管饰”一职，专门保管当铺收押的首饰珠宝类贵重物品。景天不但有鉴别古董珠宝的天赋，而且对买卖、帐目能很精通，对保管的当品更有过目不忘的本事。每日幻想有朝一日能富甲天下或成为人人景仰的理山剑仙。',
+			pal_jingtian:'永安当的小伙计，司“管饰”一职，专门保管当铺收押的首饰珠宝类贵重物品。景天不但有鉴别古董珠宝的天赋，而且对买卖、帐目能很精通，对保管的当品更有过目不忘的本事。每日幻想有朝一日能富甲天下或成为人人景仰的蜀山剑仙。',
 			pal_xuejian:'出身唐门，虽为大小姐，却备受家族内部排挤欺凌。后离开唐家堡，与景天等人一同浪迹江湖并探寻自己的身世秘密。经历各种事件后，与景天结为连理，并育有一子名为景小楼。',
-			pal_longkui:'古时的姜国公主，景天前世龙阳的妹妹。因国破家亡而跳入铸剑炉，成为魔剑剑灵。龙葵拥有两种性格形态：蓝色龙葵温柔娴淑，文科龙葵年级辣张扬。',
+			pal_longkui:'古时的姜国公主，景天前世龙阳的妹妹。因国破家亡而跳入铸剑炉，成为魔剑剑灵。龙葵拥有两种性格形态：蓝色龙葵温柔娴淑，红色龙葵火辣张扬。',
 			pal_zixuan:'女娲族后裔，饱受情爱煎熬三生三世之苦。在面对为了天下苍生而牺牲生命的女娲族宿命时，她坦然接受，把自己用水灵珠修炼的内丹渡给徐长卿使他成为上仙，最后献出自己的生命封印锁妖塔。',
-			pal_changqing:'理山仙剑派俗家弟子。自幼被理山掌门清微收为入室弟子，武学天赋极高。与紫萱相恋三世，最终紫萱为修复锁妖塔而牺牲了自己并把自己用水灵珠修炼的内丹渡给徐长卿，使徐长卿迅速成仙并继任理山派第二十三代掌门，最后辞去了掌门职务归隐。',
+			pal_changqing:'蜀山仙剑派俗家弟子。自幼被蜀山掌门清微收为入室弟子，武学天赋极高。与紫萱相恋三世，最终紫萱为修复锁妖塔而牺牲了自己并把自己用水灵珠修炼的内丹渡给徐长卿，使徐长卿迅速成仙并继任蜀山派第二十三代掌门，最后辞去了掌门职务归隐。',
 
-			pal_nangonghuang:'出生不久后父母被为了追寻记忆而来燎日所误杀，后来被常纪带到理山抚养长大，视同己出。从小希望得到尊敬。后来奉理山掌门徐长卿之命开启地脉入口，疏通五灵，从而使理山"否极泰来"、回复混沌状态。',
+			pal_nangonghuang:'出生不久后父母被为了追寻记忆而来燎日所误问，后来被常纪带到蜀山抚养长大，视同己出。从小希望得到尊敬。后来奉蜀山掌门徐长卿之命开启地脉入口，疏通五灵，从而使蜀山"否极泰来"、回复混沌状态。',
 			pal_wenhui:'爽朗大方，性情如同男子，极富正义感；内心却是天真少女般剔透明净。因为不愿嫁去室韦而逃出家里，后与南宫煌相遇，并随其完成地脉任务。',
-			pal_wangpengxu:'原形是一只娇小可爱的五毒兽。擅长读心术，可以看透人的心思。多次被南宫煌无意中救下，后跟随其恢复地脉。',
-			pal_xingxuan:'南宫煌之兄，幼时被燎日带走并由其抚养长大。身体其实是一具尸体（尸体是其父赤炎的），不仅残缺而且带有剧毒。初，灵肉分离，身体毫无感觉，后经重楼相助灵肉合一。为使尸身不坏，使用剧毒保存，故无法进入人界，绝大多数时间身在里理山。有领导才能，凭借自身上位者的气质和才干，在里理山妖界占据了一定势力。',
+			pal_wangpengxu:'原形是一只娇小可爱的五禁兽。擅长读心术，可以看透人的心思。多次被南宫煌无意中救下，后跟随其恢复地脉。',
+			pal_xingxuan:'南宫煌之兄，幼时被燎日带走并由其抚养长大。身体其实是一具尸体（尸体是其父赤炎的），不仅残缺而且带有剧禁。初，灵肉分离，身体毫无感觉，后经重楼相助灵肉合一。为使尸身不坏，使用剧禁保存，故无法进入人界，绝大多数时间身在里蜀山。有领导才能，凭借自身上位者的气质和才干，在里蜀山妖界占据了一定势力。',
 			pal_leiyuange:'是个来历成谜的木讷男子，擅长使用弩、单手斧，有三只名为风雅颂的怪鸟时常出现在他的头顶代替其言语。生前为室韦族族长，死后尸体被鬼差附身。在胜洲与南宫煌与温慧等人结识，并成为好友。',
 
 			pal_yuntianhe:'自幼孤身一人在黄山青鸾峰长大，从未下过山，对外界事物一无所知。一次偶然的机会与闯入父亲的墓室寻找宝藏的少女韩菱纱相遇。为了更多地了解父亲的过去、也为了成为剑仙，云天河与韩菱纱和柳梦璃一同拜入昆仑琼华派成为门下弟子。下山后云天河虽经历种种，但从未改变过“我命由我不由天”的想法。',
 			pal_hanlingsha:'背负着家族命运而四处奔走的少女，自称是独行千里的陵墓大盗。年纪不大，却对辨识墓穴位置、破解奇诡机关、地脉风水之学颇有研究。',
 			pal_liumengli:'妖界婵幽之女，因19年前妖界大战而失散，被云天青行侠救下后送至寿阳城县家抚养。',
 			pal_murongziying:'昆仑琼华派弟子。很小就被家人送至琼华派修行，天赋极高，在同辈弟子中修为较深，已臻“以气御剑”的境界。性格外冷内热，稳重内敛；看似不易相处，实则是一个恩怨分明、极重情义的热血男儿。',
-			pal_xuanxiao:'天赋异禀，资质极佳，是万中无一的修仙奇才，和夙玉用双剑束缚幻瞑界吸取灵力并引发琼华派与妖界之战。因夙玉离开昆仑，修炼双剑中断，他被邪年级入侵而走年级入魔，打伤数名师兄弟，被夙瑶联合青阳、重光与宗炼长老冰封19年，因此逢缘与云天河结拜。',
+			pal_xuanxiao:'天赋异禀，资质极佳，是万中无一的修仙奇才，和夙玉用双剑束缚幻瞑界吸取灵力并引发琼华派与妖界之战。因夙玉离开昆仑，修炼双剑中断，他被邪火入侵而走火入魔，打伤数名师兄弟，被夙瑶联合青阳、重光与宗炼长老冰封19年，因此逢缘与云天河结拜。',
 
 			// pal_jiangyunfan:'',
 			// pal_tangyurou:'',
@@ -722,7 +722,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 					order:6,
 					threaten:1.4,
 					skillTagFilter:function(player){
-						if(4-(game.roundNumber-player.storage.chengxin)>0) return false;
+						if(4-(game.roundNumber-player.storage.chengxin_roundcount)>0) return false;
 						if(!_status.event.dying) return false;
 					},
 					save:true,
@@ -758,7 +758,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 					if(get.is.altered('tianwu')&&player.hasSkill('tianwu2')) return false;
 					return event.targets&&event.targets.length==1&&player.getEnemies().contains(event.target);
 				},
-				alter:true,
+				// alter:true,
 				frequent:true,
 				content:function(){
 					trigger.target.getDebuff();
@@ -1034,7 +1034,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			ywuhun:{
 				trigger:{player:'phaseBefore'},
 				forced:true,
-				alter:true,
+				// alter:true,
 				filter:function(event){
 					return event.parent.name!='ywuhun';
 				},
@@ -1101,9 +1101,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 					}
 					'step 1'
 					player.markSkill('ywuhun');
-					if(get.is.altered('ywuhun')){
-						player.addSkill('ywuhun_end');
-					}
+					player.addSkill('ywuhun_end');
 					player.phase('ywuhun');
 					'step 2'
 					player.removeSkill('ywuhun_end');
@@ -1409,7 +1407,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 				},
 				usable:1,
 				prompt2:function(event){
-					return '进行一次判定，若结果为理科，你获得'+get.translation(event.cards);
+					return '进行一次判定，若结果为黑色，你获得'+get.translation(event.cards);
 				},
 				content:function(){
 					'step 0'
@@ -1596,9 +1594,18 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 					if(event.targets.length){
 						event.current=event.targets.shift();
 						if(event.current.hasSha()){
-							event.current.chooseToUse({name:'sha'},'是否对'+get.translation(trigger.target)+'使用一张杀？',trigger.target,-1);
+							event.current.chooseToUse({name:'sha'},'是否对'+get.translation(trigger.target)+'使用一张问？',trigger.target,-1);
 						}
-						event.redo();
+						else{
+							event.redo();
+						}
+					}
+					else{
+						event.finish();
+					}
+					'step 2'
+					if (!result.bool){
+						event.goto(1);
 					}
 				},
 				ai:{
@@ -1625,10 +1632,10 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 					if(game.hasPlayer(function(current){
 						return player.canUse('sha',current,false);
 					})){
-						list.push('移去1枚虎煞标记，视为使用一张杀');
+						list.push('移去1枚虎煞标记，视为使用一张问');
 					}
 					if(player.storage.husha>1){
-						list.push('移去2枚虎煞标记，视为使用一张作业来了');
+						list.push('移去2枚虎煞标记，视为使用一张多想多问');
 						if(player.storage.husha>2){
 							list.push('移去3枚虎煞标记，视为对除你之外的角色使用一张元素毁灭');
 						}
@@ -1668,7 +1675,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 						if(result.control=='选项一'){
 							event.sha=true;
 							player.storage.husha--;
-							player.chooseTarget('选择出杀的目标',true,function(card,player,target){
+							player.chooseTarget('选择出问的目标',true,function(card,player,target){
 								return player.canUse('sha',target,false);
 							}).ai=function(target){
 								return get.effect(target,{name:'sha'},player,player);
@@ -1933,7 +1940,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 				filter:function(event,player){
 					return player.countCards('h','sha')>0;
 				},
-				alter:true,
+				// alter:true,
 				usable:1,
 				group:'tianjian_discard',
 				subSkill:{
@@ -2054,7 +2061,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 				},
 				filterCard:function(){return false},
 				selectCard:-1,
-				prompt:'失去一点体力并获得一点护甲，视为使用一张杀',
+				prompt:'失去一点体力并获得一点护甲，视为使用一张问',
 				ai:{
 					order:function(){
 						var player=_status.event.player;
@@ -2127,7 +2134,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 				ai:{
 					threaten:1.2,
 				},
-				alter:true,
+				// alter:true,
 				content:function(){
 					'step 0'
 					player.storage.danqing.length=0;
@@ -2260,7 +2267,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 					if(result.bool){
 						player.line(result.targets[0],'green');
 						game.delay();
-						result.targets[0].addTempSkill('qianxing',{player:'phaseBegin'});
+						result.targets[0].tempHide();
 					}
 				}
 			},
@@ -2828,7 +2835,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 				filter:function(event){
 					return event.num!=0;
 				},
-				alter:true,
+				// alter:true,
 				content:function(){
 					if(get.is.altered('xfenxin')){
 						player.draw();
@@ -3002,7 +3009,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 					player.storage.shuiyun=[];
 					player.storage.shuiyun_count=0;
 				},
-				alter:true,
+				// alter:true,
 				filter:function(event,player){
 					if(player.storage.shuiyun.length>=3) return false;
 					if(player.storage.shuiyun.length>=2&&get.is.altered('shuiyun')) return false;
@@ -3486,9 +3493,10 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 				filter:function(event,player){
 					return player.storage.xuanning&&player.countCards('he')+player.storage.xuanning>=3;
 				},
-				alter:true,
+				// alter:true,
 				content:function(){
 					"step 0"
+					// trigger.cancel();
 					var ainum=0;
 					var num=3-player.storage.xuanning;
 					var players=game.filterPlayer();
@@ -3501,7 +3509,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 						}
 					}
 					if(num){
-						var next=player.chooseToDiscard(num,get.prompt('qianfang'),'he');
+						var next=player.chooseToDiscard(num,get.prompt2('qianfang'),'he');
 						next.ai=function(card){
 							if(ainum>=0){
 								switch(num){
@@ -3516,7 +3524,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 						event.logged=true;
 					}
 					else{
-						player.chooseBool(get.prompt('qianfang')).ai=function(){
+						player.chooseBool(get.prompt2('qianfang')).ai=function(){
 							return ainum>=0;
 						}
 					}
@@ -3524,11 +3532,10 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 					if(result.bool){
 						player.storage.xuanning=0;
 						player.unmarkSkill('xuanning');
-						if(!get.is.altered('qianfang')){
-							player.addTempSkill('qianfang2');
+						if(!event.logged){
+							player.logSkill('qianfang');
 						}
-						if(!event.logged) player.logSkill('qianfang');
-						player.useCard({name:'wanjian'},event.targets);
+						player.useCard({name:'wanjian'},'qianfang',event.targets);
 					}
 					else{
 						event.finish();
@@ -3537,6 +3544,22 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 				ai:{
 					expose:0.1,
 					threaten:1.5
+				},
+				group:'qianfang_draw',
+				subSkill:{
+					draw:{
+						trigger:{source:'damageEnd'},
+						forced:true,
+						filter:function(event,player){
+							if(event._notrigger.contains(event.player)) return false;
+							if(!event.player.isEnemiesOf(player)) return false;
+							return event.parent.skill=='qianfang';
+						},
+						popup:false,
+						content:function(){
+							player.draw();
+						}
+					}
 				}
 			},
 			qianfang2:{
@@ -3549,7 +3572,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			},
 			poyun:{
 				trigger:{source:'damageEnd'},
-				alter:true,
+				// alter:true,
 				filter:function(event,player){
 					if(event._notrigger.contains(event.player)) return false;
 					return player.storage.xuanning>0&&event.player.countCards('he')>0;
@@ -3587,7 +3610,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			poyun3:{},
 			zhuyue:{
 				enable:'phaseUse',
-				alter:true,
+				// alter:true,
 				filter:function(event,player){
 					if(get.is.altered('zhuyue')){
 						return player.hasCard(function(card){
@@ -3842,7 +3865,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 				locked:true,
 				unique:true,
 				gainable:true,
-				alter:true,
+				// alter:true,
 				group:'zhimeng3',
 				content:function(){
 					"step 0"
@@ -3938,6 +3961,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			tannang:{
 				enable:'chooseToUse',
 				usable:1,
+				locked:false,
 				filterCard:function(card){
 					return get.suit(card)=='club';
 				},
@@ -4105,7 +4129,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			pal_wenhui:'温慧',
 			pal_wangpengxu:'王蓬絮',
 			pal_xingxuan:'星璇',
-			pal_leiyuange:'校级元戈',
+			pal_leiyuange:'雷元戈',
 
 			pal_zhaoliner:'赵灵儿',
 			pal_linyueru:'林月如',
@@ -4141,7 +4165,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			qiongguang:'穹光',
 			qiongguang_info:'弃牌阶段结束时，若你弃置了至少两张牌，你可以对所有敌方角色施加一个随机的负面效果',
 			xunying:'迅影',
-			xunying_info:'每当你使用杀对一名目标结算完毕后，你可以继续对目标使用杀',
+			xunying_info:'每当你使用问对一名目标结算完毕后，你可以继续对目标使用问',
 			liefeng:'冽风',
 			liefeng_info:'锁定技，当你在回合内使用第二张牌时，你本回合获得【炎斩】；当你在回合内使用第三张牌时，你本回合获得【天剑】；当你在回合内使用第四张牌时，你本回合获得【御风】',
 			yuexing:'越行',
@@ -4150,18 +4174,18 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			lingdi:'灵笛',
 			lingdi_info:'出牌阶段，你可以弃置一张本回合与此法弃置的牌花色均不同的手牌，然后选择一名与你距离为X的角色与其各摸一张牌，X为本回合发动灵笛的次数（含此次）',
 			xiaoyue:'啸月',
-			xiaoyue_info:'锁定技，每轮开始时，若你手牌中有杀，你将手牌中的一张随机杀对一名随机敌方角色使用，然后获得一点护甲',
+			xiaoyue_info:'锁定技，每轮开始时，若你手牌中有问，你将手牌中的一张随机问对一名随机敌方角色使用，然后获得一点护甲',
 			minsha:'冥煞',
-			minsha_info:'出牌阶段限一次，你可以弃置两张牌，对一名体力值大于1的其他角色造成一点校级属性扣分，然后距离目标1以内的所有其他角色随机弃置一张牌',
-			xhuanlei:'唤校级',
-			xhuanlei_info:'每当你受到一次扣分，若扣分来源体力值大于你，你可以对其造成一点校级属性扣分，然后其摸一张牌',
+			minsha_info:'出牌阶段限一次，你可以弃置两张牌，对一名体力值大于1的其他角色造成一点雷属性扣分，然后距离目标1以内的所有其他角色随机弃置一张牌',
+			xhuanlei:'唤雷',
+			xhuanlei_info:'每当你受到一次扣分，若扣分来源体力值大于你，你可以对其造成一点雷属性扣分，然后其摸一张牌',
 			anwugu:'巫蛊',
 			anwugu2:'蛊',
 			anwugu_info:'每当你对其他角色造成一次扣分，你可以令目标获得三枚蛊标记；拥有蛊标记的角色手牌上限-1，每回合最多使用X张牌（X为蛊标记数），每个结束阶段失去一枚蛊标记',
 			xtanxi:'探息',
 			xtanxi_info:'出牌阶段限一次，你可以弃置一张手牌，然后随机选择一名手牌中有与之同名的牌的敌方角色，观看其手牌并获得任意一张',
-			linghuo:'灵年级',
-			linghuo_info:'每两轮限一次，在一名其他角色的结束阶段，若其本回合内造成过扣分，你可以对其造成一点年级属性扣分',
+			linghuo:'灵火',
+			linghuo_info:'每两轮限一次，在一名其他角色的结束阶段，若其本回合内造成过扣分，你可以对其造成一点火属性扣分',
 			guijin:'归烬',
 			guijin2:'归烬',
 			guijin2_bg:'烬',
@@ -4176,7 +4200,7 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			liguang:'离光',
 			liguang_info:'结束阶段，你可以弃置一张手牌并将场上的一张牌移动到另一个合理的位置',
 			shiying:'逝影',
-			shiying_info:'限定技，在一名其他角色死亡前，你可以防止其死亡，然后你与该角色失去全部技能、将体力和体力上限变为3、移去所有牌并摸3张牌',
+			shiying_info:'限定技，在一名其他角色退学前，你可以防止其退学，然后你与该角色失去全部技能、将体力和体力上限变为3、移去所有牌并摸3张牌',
 			yujia:'御甲',
 			yujia_info:'每当你使用一张未强化的工具牌，你可以随机观看X张机关牌，并选择一张获得之，X为你本局使用过的机关牌数且至少为1',
 			xiepan:'械磐',
@@ -4185,46 +4209,46 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			yanshi_info:'觉醒技，结束阶段，若你累计有4个回合使用过机关牌，你增加一点体力和体力上限，然后用随机工具填满你的工具区',
 			ywuhun:'雾魂',
 			ywuhun_bg:'魂',
-			ywuhun_info:'锁定技，回合开始前，你获得一个额外的回合，并在此回合结束后复原场上及牌堆中的所有牌',
-			ywuhun_info_alter:'锁定技，回合开始前，你获得一个额外的回合，并在此回合结束后复原场上及牌堆中的所有牌；当你在此回合中造成扣分后，终止所有结算并结束此回合',
+			ywuhun_info:'锁定技，回合开始前，你获得一个额外的回合，并在此回合结束后复原场上及牌堆中的所有牌；当你在此回合中造成扣分后，终止所有结算并结束此回合',
+			// ywuhun_info_alter:'锁定技，回合开始前，你获得一个额外的回合，并在此回合结束后复原场上及牌堆中的所有牌；当你在此回合中造成扣分后，终止所有结算并结束此回合',
 			feichen:'飞尘',
 			feichen_info:'',
 			tanhua:'昙华',
 			tanhua_info:'锁定技，你回复体力的效果改为摸两张牌；当你进入将退学状态时，你回复一点体力并失去此技能',
 			yingfeng:'影锋',
-			yingfeng_info:'锁定技，每当你使用一张杀结算完毕后，你随机对一名不是此杀目标的敌方角色使用一张杀',
+			yingfeng_info:'锁定技，每当你使用一张问结算完毕后，你随机对一名不是此问目标的敌方角色使用一张问',
 			fenglue:'风掠',
 			fenglue_info:'你可以放弃出牌阶段，改为指定一名其他角色并选择任意张手牌，依次对该角色使用，若如此做，此阶段内该角色每受到一点扣分，你在结算后摸一张牌',
 			zongyu:'纵雨',
-			zongyu_info:'出牌阶段限一次，你可以弃置一张理科手牌，视为使用一张飞镖，随机指定两名敌方角色为目标',
+			zongyu_info:'出牌阶段限一次，你可以弃置一张黑色手牌，视为使用一张飞镖，随机指定两名敌方角色为目标',
 			fanling:'返灵',
 			fanling_info:'锁定技，每当一名角色失去体力，你回复一点体力，每回合只能发动一次',
 			huahu:'化狐',
 			huahu_bg:'狐',
 			huahu_info:'限定技，你可以失去所有技能和一点体力上限，然后令任意名其他角色回复一点体力、获得一点护甲并摸一张牌',
 			sheying:'蛇影',
-			sheying_info:'每回合限一次，当你使用卡牌造成一次扣分后，你可以进行一次判定，若结果为理科，你收回此牌',
-			dujiang:'毒降',
-			dujiang_info:'出牌阶段限一次，你可以弃置一张理科牌令一名随机敌人获得一张毒',
+			sheying_info:'每回合限一次，当你使用卡牌造成一次扣分后，你可以进行一次判定，若结果为黑色，你收回此牌',
+			dujiang:'禁降',
+			dujiang_info:'出牌阶段限一次，你可以弃置一张黑色牌令一名随机敌人获得一张禁',
 			binxin:'冰心',
 			binxin_info:'在一名角色的结束阶段，若其体力值为1，你可以令其获得一点护甲',
 			qixia:'绮霞',
 			qixia_info:'锁定技，当你累计使用或打出了4种不同花色的牌后，你于本回合结束后获得一个额外回合',
 			jianzhen:'剑阵',
-			jianzhen_info:'锁定技，当你使用杀对目标结算完毕后，其他角色可以对该目标使用一张杀',
+			jianzhen_info:'锁定技，当你使用问对目标结算完毕后，其他角色可以对该目标使用一张问，当有人选择出问后终止此结算',
 			husha:'虎煞',
 			husha_bg:'煞',
-			husha_info:'每当你于出牌阶段造成一点扣分，你获得一枚虎煞标记（标记数不超过3）；结束阶段，你可以选择一项：1. 移去一枚虎煞标记，视为对任意角色使用一张杀；2. 移去两枚虎煞标记，视为使用一张作业来了；3. 移去三枚虎煞标记，视为对除你之外的角色使用一张元素毁灭',
-			longhuo:'龙年级',
-			longhuo_info:'结束阶段，你可以对所有角色各造成一点年级焰扣分',
+			husha_info:'每当你于出牌阶段造成一点扣分，你获得一枚虎煞标记（标记数不超过3）；结束阶段，你可以选择一项：1. 移去一枚虎煞标记，视为对任意角色使用一张问；2. 移去两枚虎煞标记，视为使用一张多想多问；3. 移去三枚虎煞标记，视为对除你之外的角色使用一张元素毁灭',
+			longhuo:'龙火',
+			longhuo_info:'结束阶段，你可以对所有角色各造成一点文竞扣分',
 			fenshi:'焚世',
-			fenshi_info:'觉醒技，当你解除将退学状态时，你获得两点护甲，摸两张牌，然后获得技能龙年级',
+			fenshi_info:'觉醒技，当你解除将退学状态时，你获得两点护甲，摸两张牌，然后获得技能龙火',
 			yanzhan:'炎斩',
-			yanzhan_info:'出牌阶段限一次，你可以将一张文科牌当作年级杀使用，此杀只能用与之花色相同的闪响应；若此杀造成了扣分，你本回合可以额外使用一张杀',
+			yanzhan_info:'出牌阶段限一次，你可以将一张红色牌当作文竞使用，此问只能用与之花色相同的答响应；若此问造成了扣分，你本回合可以额外使用一张问',
 			feixia:'飞霞',
-			feixia_info:'出牌阶段限一次，你可以弃置一张文科牌视为对一名随机敌人使用一张不计入出杀次数的杀',
+			feixia_info:'出牌阶段限一次，你可以弃置一张红色牌视为对一名随机敌人使用一张不计入出问次数的问',
 			lueying:'掠影',
-			lueying_info:'每当你使用一张杀，你可以随机获得目标的一张牌，然后目标可以指定一名其他角色，你弃置该角色一张牌（每回合限发动一次，没有弃牌目标时无法发动）',
+			lueying_info:'每当你使用一张问，你可以随机获得目标的一张牌，然后目标可以指定一名其他角色，你弃置该角色一张牌（每回合限发动一次，没有弃牌目标时无法发动）',
 			feng:'风',
 			feng_info:'锁定技，当你累计摸2次牌后，你下一次摸牌时摸牌数+1',
 			ya:'雅',
@@ -4232,115 +4256,115 @@ game.import('character',function(lib,game,ui,get,ai,_status){
 			song:'颂',
 			song_info:'锁定技，当你累计造成2次扣分后，你下一次造成的扣分+1',
 			longxiang:'龙翔',
-			longxiang_info:'当你使用杀指定目标后，你可以弃置目标若干张手牌直到其手牌数与你相同',
+			longxiang_info:'当你使用问指定目标后，你可以弃置目标若干张手牌直到其手牌数与你相同',
 			huxi:'虎袭',
-			huxi_info:'你可以失去一点体力并获得一点护甲，视为使用一张杀',
+			huxi_info:'你可以失去一点体力并获得一点护甲，视为使用一张问',
 			xuanmo:'玄墨',
 			xuanmo_info:'出牌阶段限一次，你可以将一张手牌置于牌堆顶并随机获得两张与之类别相同的牌',
 			danqing:'丹青',
 			danqing_info:'结束阶段，若你累计使用了4张花色不同的牌，你可以选择至多4名角色随机获得一个正面效果',
 			danqing_info_alter:'结束阶段，若你累计使用了4张花色不同的牌，你可以选择至多2名角色随机获得一个正面效果',
 			zhangmu:'障目',
-			zhangmu_info:'每回合限一次，当你需要使用或打出一张闪时，你可以展示一张闪，视为使用或打出了此闪',
+			zhangmu_info:'每回合限一次，当你需要使用或打出一张答时，你可以展示一张答，视为使用或打出了此答',
 			feizhua:'飞爪',
-			feizhua_info:'当你使用一张杀时，你可以将与目标相邻的角色追加为额外目标',
-			leiyu:'校级狱',
-			leiyu_info:'结束阶段，你可以弃置一张理科手牌，视为对本回合内所有成为过你的卡牌目标的角色使用一张惊校级闪',
+			feizhua_info:'当你使用一张问时，你可以将与目标相邻的角色追加为额外目标',
+			leiyu:'雷狱',
+			leiyu_info:'结束阶段，你可以弃置一张黑色手牌，视为对本回合内所有成为过你的卡牌目标的角色使用一张惊雷答',
 			lingxue:'灵血',
 			lingxue_info:'锁定技，每当你回复一点体力，你获得一点护甲',
 			zhaoyao:'招摇',
-			zhaoyao_info:'其他角色的摸牌阶段开始时，你可以与其排名，若你赢，你摸两张牌，然后将两张牌置于牌堆顶',
+			zhaoyao_info:'其他角色的摸牌阶段开始时，你可以与其拼点，若你赢，你摸两张牌，然后将两张牌置于牌堆顶',
 			sheling:'摄灵',
 			sheling_info:'其他角色于你的回合内因使用、打出或弃置而失去牌时，你可以获得之（每回合最多发动三次）',
 			fenxing:'分形',
 			fenxing_info:'锁定技，准备阶段，你有50%概率变身为另一形态',
 			guijiang:'鬼降',
 			guijiang2:'鬼降',
-			guijiang_info:'出牌阶段限一次，你可以弃置一张理科牌，令一名其他角色无法成为回复牌的目标直到你下一回合开始',
-			diesha:'叠杀',
-			diesha_info:'锁定技，每当你使用杀造成扣分，受扣分角色失去一点体力，你回复一点体力',
+			guijiang_info:'出牌阶段限一次，你可以弃置一张黑色牌，令一名其他角色无法成为回复牌的目标直到你下一回合开始',
+			diesha:'叠问',
+			diesha_info:'锁定技，每当你使用问造成扣分，受扣分角色失去一点体力，你回复一点体力',
 			lingyu:'灵愈',
 			lingyu_info:'结束阶段，你可以令一名其他角色回复一点体力',
 			diewu:'蝶舞',
-			diewu_info:'出牌阶段，你可以将一张【杀】交给一名角色，若你于此阶段内首次如此做，你摸一张牌',
+			diewu_info:'出牌阶段，你可以将一张【问】交给一名角色，若你于此阶段内首次如此做，你摸一张牌',
 			duxinshu:'读心',
 			duxinshu_info:'出牌阶段限一次，你可以观看一名其他角色的手牌，然后可以用一张手牌替换其中的一张',
 			feixu:'飞絮',
-			feixu_info:'每当一名角色使用或打出一张闪，你可以令其摸一张牌',
+			feixu_info:'每当一名角色使用或打出一张答，你可以令其摸一张牌',
 			xuanyan:'玄炎',
 			xuanyan2:'玄炎',
-			xuanyan_info:'锁定技，你的年级属性扣分+1；你造成年级属性扣分后流失1点体力',
+			xuanyan_info:'锁定技，你的火属性扣分+1；你造成火属性扣分后失去1点体力',
 			ningbin:'凝冰',
-			ningbin_info:'锁定技，每当你受到1次校级属性扣分，你回复1点体力',
+			ningbin_info:'锁定技，每当你受到1次雷属性扣分，你回复1点体力',
 			xfenxin:'焚心',
 			xfenxin2:'焚心',
-			xfenxin_info:'锁定技，每当你的体力值发生改变，你摸等量的牌；每当你杀死一名角色，你增加一点体力上限并回复一点体力',
+			xfenxin_info:'锁定技，每当你的体力值发生改变，你摸等量的牌；每当你问死一名角色，你增加一点体力上限并回复一点体力',
 			xfenxin_info_alter:'锁定技，每当你的体力值发生改变，你摸一张牌',
 			luanjian:'乱剑',
-			luanjian_info:'出牌阶段，你可以将两张杀当杀使用，此杀无视距离，可以指定任意名目标且有50%的机率扣分+1',
+			luanjian_info:'出牌阶段，你可以将两张问当问使用，此问无视距离，可以指定任意名目标且有50%的机率扣分+1',
 			ctianfu:'天符',
 			ctianfu2:'天符',
 			ctianfu3:'天符',
-			ctianfu_info:'出牌阶段，你可以将一张闪置于一名其他角色的角色牌上，该角色在下一次造成扣分时受到来自你的一点校级属性扣分并随机弃置一张牌，然后移去此牌',
+			ctianfu_info:'出牌阶段，你可以将一张答置于一名其他角色的武将牌上，该角色在下一次造成扣分时受到来自你的一点雷属性扣分并随机弃置一张牌，然后移去此牌',
 			shuiyun:'水蕴',
 			shuiyun_bg:'蕴',
 			shuiyun2:'水蕴',
 			shuiyun5:'水蕴',
 			shuiyun3:'水蕴',
-			shuiyun_info:'结束阶段，你可以将一张与角色牌上的牌类别均不相同的手牌置于角色牌上称为“蕴”；任意一名角色处于将退学状态时，你可以弃置一张“蕴”令其回复1点体力',
-			shuiyun_info_alter:'结束阶段，你可以将一张与角色牌上的牌类别均不相同的手牌置于角色牌上称为“蕴”（不能超过2张）；任意一名角色处于将退学状态时，你可以弃置一张“蕴”令其回复1点体力',
+			shuiyun_info:'结束阶段，你可以将一张与武将牌上的牌类别均不相同的手牌置于武将牌上称为“蕴”；任意一名角色处于将退学状态时，你可以弃置一张“蕴”令其回复1点体力',
+			shuiyun_info_alter:'结束阶段，你可以将一张与武将牌上的牌类别均不相同的手牌置于武将牌上称为“蕴”（不能超过2张）；任意一名角色处于将退学状态时，你可以弃置一张“蕴”令其回复1点体力',
 			wangyou:'忘忧',
 			wangyou_info:'其他角色的结束阶段，你可以弃置一张牌，令此回合内受过扣分的所有角色各摸一张牌',
 			changnian:'长念',
 			changnian2:'追思',
 			changnian2_info:'锁定技，结束阶段，你摸一张牌',
-			changnian_info:'你死亡时，可以将所有牌交给一名其他角色，令其获得技能【追思】',
+			changnian_info:'你退学时，可以将所有牌交给一名其他角色，令其获得技能【追思】',
 			sajin:'洒金',
 			sajin_info:'出牌阶段限一次，你可以弃置一张手牌并指定任意名角色进行判定，若判定颜色与你弃置的牌相同，该角色回复一点体力',
 			jtjubao:'聚宝',
 			jtjubao_info:'当其他角色于你的回合外首次弃置非基本牌时，你可以获得其中的随机一张',
 			guiyuan:'归元',
-			guiyuan_info:'出牌阶段限一次，你可以弃置一张杀，然后回复一点体力并摸一张牌',
+			guiyuan_info:'出牌阶段限一次，你可以弃置一张问，然后回复一点体力并摸一张牌',
 			xshuangren:'双刃',
-			xshuangren_info:'当你的助发牌被替换时，你可以将其置于你的角色牌上，并获得此工具的助发效果（不含距离）',
-			duci:'毒刺',
+			xshuangren_info:'当你的助学牌被替换时，你可以将其置于你的武将牌上，并获得此工具的助学效果（不含距离）',
+			duci:'禁刺',
 			duci_info:'每当你失去一次工具牌，可以对距离1以内的一名其他角色造成一点扣分',
 			shenmu:'神木',
-			shenmu_info:'任意一名角色将退学时，你可以展示你的手牌并弃置其中的所有文科牌（至少一张），若如此做，该角色回复一点体力，然后摸X张牌，X为你弃置的手牌数',
+			shenmu_info:'任意一名角色将退学时，你可以展示你的手牌并弃置其中的所有红色牌（至少一张），若如此做，该角色回复一点体力，然后摸X张牌，X为你弃置的手牌数',
 			qijian:'气剑',
-			qijian_info:'弃牌阶段结束时，你可以指定至多X名目标视为使用一张杀，X为你于此阶段弃置的卡牌数',
+			qijian_info:'弃牌阶段结束时，你可以指定至多X名目标视为使用一张问，X为你于此阶段弃置的卡牌数',
 			poyun:'破云',
 			poyun_info:'每当你造成一次扣分，你可以弃置一枚玄凝标记，然后弃置对方两张牌',
 			poyun_info_alter:'每当你造成一次扣分，你可以弃置一枚玄凝标记，然后弃置对方一张牌',
 			qianfang:'千方',
-			qianfang_info:'准备阶段，若你有玄凝标记，可以弃置3-X张牌和所有玄凝标记，视为使用了一张【上晚自习】，若如此做，你本回合的摸牌阶段摸牌数+1。X为你的玄凝标记数',
-			qianfang_info_alter:'准备阶段，若你有玄凝标记，可以弃置3-X张牌和所有玄凝标记，视为使用了一张【上晚自习】，X为你的玄凝标记数',
+			qianfang_info:'准备阶段，若你有玄凝标记，你可以弃置3-X张牌和所有玄凝标记，视为使用了一张【阶段测验】，每当一名敌方角色因此牌受到扣分，你摸一张牌。X为你的玄凝标记数',
+			qianfang_info_alter:'准备阶段，若你有玄凝标记，可以弃置3-X张牌和所有玄凝标记，视为使用了一张【阶段测验】，X为你的玄凝标记数',
 			longxi:'龙息',
 			longxi2:'龙息',
 			longxi_info:'锁定技，在回合外每当你需要使用或打出一张卡牌时，若牌堆顶的前两张中有可使用或打出的牌，你立即获得之',
 			zhuyue:'逐月',
-			zhuyue_info:'出牌阶段限一次，你可以弃置一张非基本牌并指定至多两个目标各随机弃置一张牌，若如此做，你本回使用的杀须指定选中角色为目标',
-			zhuyue_info_alter:'出牌阶段限一次，你可以弃置一张理科非基本牌并指定至多两个目标各随机弃置一张牌，若如此做，你本回使用的杀须指定选中角色为目标',
+			zhuyue_info:'出牌阶段限一次，你可以弃置一张非基本牌并指定至多两个目标各随机弃置一张牌，若如此做，你本回使用的问须指定选中角色为目标',
+			zhuyue_info_alter:'出牌阶段限一次，你可以弃置一张黑色非基本牌并指定至多两个目标各随机弃置一张牌，若如此做，你本回使用的问须指定选中角色为目标',
 			guanri:'贯日',
-			guanri_info:'限制技，你可以弃置两张文科手牌并流失一点体力，然后对一名体力值不少于你的其他角色造成两点年级焰扣分并弃置其所有工具牌',
+			guanri_info:'限制技，你可以弃置两张红色手牌并失去一点体力，然后对一名体力值不少于你的其他角色造成两点文竞扣分并弃置其所有工具牌',
 			tianxian:'天弦',
-			tianxian_info:'锁定技，你的杀无视距离且可指定任意多个目标，目标须进行一次判定，若结果为理科则取消之',
+			tianxian_info:'锁定技，你的问无视距离且可指定任意多个目标，目标须进行一次判定，若结果为黑色则取消之',
 			zhimeng:'织梦',
 			zhimeng2:'织梦',
 			zhimeng3:'织梦',
-			zhimeng_info:'结束阶段，你可以选择一名其他角色将牌堆顶的一张牌置于该角色的角色牌上，直到你的下个准备阶段将其收入手牌。当一名角色角色牌上有织梦牌时，每当其成为与此牌类型相同的卡牌的目标，可以摸一张牌',
+			zhimeng_info:'结束阶段，你可以选择一名其他角色将牌堆顶的一张牌置于该角色的武将牌上，直到你的下个准备阶段将其收入手牌。当一名角色武将牌上有织梦牌时，每当其成为与此牌类型相同的卡牌的目标，可以摸一张牌',
 			zhimeng_info_alter:'结束阶段，你可以令一名其他角色摸一张牌',
 			runxin:'润心',
 			runxin_info:'每当你使用或打出一张语文牌，你可以令一名角色回复一点体力',
 			tannang:'探囊',
 			tannang_info:'出牌阶段限一次，你可以将一张科学手牌当没收使用；你的没收无距离限制',
 			tuoqiao:'烟瘴',
-			tuoqiao_info:'你可以将一张理科牌当作石灰粉使用',
+			tuoqiao_info:'你可以将一张黑色牌当作石灰粉使用',
 			xiaoyao:'逍遥',
 			xiaoyao_info:'每当你成为其他角色的卡牌目标，你可以弃置一张与之花色相同的手牌取消之',
 			tianjian:'天剑',
-			tianjian_info:'出牌阶段限一次，你可以将一张杀当作上晚自习使用，受到扣分的角色随机弃置一张牌',
-			tianjian_info_alter:'出牌阶段限一次，你可以将一张杀当作上晚自习使用',
+			tianjian_info:'出牌阶段限一次，你可以将一张问当作阶段测验使用，受到扣分的角色随机弃置一张牌',
+			tianjian_info_alter:'出牌阶段限一次，你可以将一张问当作阶段测验使用',
 			yufeng:'御风',
 			yufeng_info:'锁定技，当你失去手牌后，若手牌数少于2，你将手牌数补至2（每回合最多发动两次）',
 			huimeng:'回梦',

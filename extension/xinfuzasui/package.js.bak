@@ -1,0 +1,19 @@
+extension["新服杂碎"]={
+	intro:"",
+	author:"苏婆玛丽奥",
+	netdisk:"",
+	forum:"",
+	version:"1.0",
+	files:["sp_taishici.jpg","re_jsp_pangtong.jpg","caoying.jpg","lvdai.jpg","lvqian.jpg",
+		"re_zhangliang.jpg","wangcan.jpg","caoying.mp3","extension.js","extension.js.bak",
+		"lingren_jianxiong1.mp3","lingren_xingshang1.mp3","lvdai.mp3","lvqian.mp3","package.js",
+		"qinguo_lose1.mp3","qinguo_lose2.mp3","qinguo_use1.mp3","qinguo_use2.mp3","re_jsp_pangtong.mp3",
+		"re_zhangliang.mp3","sp_taishici.mp3","wangcan.mp3","xinfu_denglou1.mp3","xinfu_denglou2.mp3",
+		"xinfu_fangtong1.mp3","xinfu_fangtong2.mp3","xinfu_fujian1.mp3","xinfu_fujian2.mp3",
+		"xinfu_guolun1.mp3","xinfu_guolun2.mp3","xinfu_jijun1.mp3","xinfu_jijun2.mp3","xinfu_jixu1.mp3",
+		"xinfu_jixu2.mp3","xinfu_lingren1.mp3","xinfu_lingren2.mp3","xinfu_qiai1.mp3","xinfu_qiai2.mp3",
+		"xinfu_sanwen1.mp3","xinfu_sanwen2.mp3","xinfu_songsang1.mp3","xinfu_songsang2.mp3",
+		"xinfu_weilu1.mp3","xinfu_weilu2.mp3","xinfu_zengdao1.mp3","xinfu_zengdao2.mp3",
+		"xinfu_zhanji1.mp3","xinfu_zhanji2.mp3"],
+	size:"2.4MB"
+};

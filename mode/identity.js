@@ -160,7 +160,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				};
 				var step5=function(){
 					clear();
-					ui.create.dialog('如果还有其它问题，欢迎来到百度无名杀吧（原作者吧）和后山特遣队论坛进行交流');
+					ui.create.dialog('如果还有其它问题，欢迎来到百度无名问吧（原作者吧）和后山特遣队论坛进行交流');
 					ui.create.control('完成',function(){
 						clear();
 						clear2();
@@ -338,10 +338,10 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 				}
 			},
 			getRoomInfo:function(uiintro){
-				uiintro.add('<div class="text chat">游戏模式：'+(lib.configOL.identity_mode=='zhong'?'真班委':'标准'));
+				uiintro.add('<div class="text chat">游戏模式：'+(lib.configOL.identity_mode=='zhong'?'副班':'标准'));
 				uiintro.add('<div class="text chat">双将模式：'+(lib.configOL.double_character?'开启':'关闭'));
 				if(lib.configOL.identity_mode!='zhong'){
-					uiintro.add('<div class="text chat">双学生会：'+(lib.configOL.double_nei?'开启':'关闭'));
+					uiintro.add('<div class="text chat">双干事：'+(lib.configOL.double_nei?'开启':'关闭'));
 					uiintro.add('<div class="text chat">加强班长：'+(lib.configOL.enhance_zhu?'开启':'关闭'));
 				}
 				else{
@@ -395,7 +395,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 					switch(i){
 						case 'fan':list[i]='杠精';break;
 						case 'zhong':list[i]='班委';break;
-						case 'nei':list[i]='学生会';break;
+						case 'nei':list[i]='干事';break;
 						case 'zhu':list[i]='班长';break;
 						case 'cai':list[i]='未知';break;
 					}
@@ -1450,14 +1450,14 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 		translate:{
 			zhu:"长",
 			zhong:"委",
-			mingzhong:"委",
+			mingzhong:"副",
 			nei:"会",
 			fan:"杠",
 			cai:"猜",
 			zhu2:"班长",
 			zhong2:"班委",
-			mingzhong2:"真班委",
-			nei2:"学生会",
+			mingzhong2:"副班",
+			nei2:"干事",
 			fan2:"杠精",
 			random2:"随机",
 			identity_junshi_bg:'智',
@@ -1475,7 +1475,7 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 			dongcha:'洞察',
 			dongcha_info:'游戏开始时，随机一名杠精的身份对你可见；准备阶段，你可以弃置场上的一张牌',
 			sheshen:'舍身',
-			sheshen_info:'锁定技，班长处于濒死状态即将死亡时，令班长+1体力上限，回复体力至X点（X为你的体力值数），获得你的所有牌，然后你死亡',
+			sheshen_info:'锁定技，班长处于将退学状态即将退学时，令班长+1体力上限，回复体力至X点（X为你的体力值数），获得你的所有牌，然后你退学',
 		},
 		element:{
 			player:{
@@ -2363,9 +2363,9 @@ game.import('mode',function(lib,game,ui,get,ai,_status){
 		},
 		help:{
 			'身份模式':'<div style="margin:10px">选项</div><ul style="margin-top:0"><li>加强班长<br>杠精人数多于2时班长会额外增加一个技能（每个班长的额外技能固定，非常备班长增加天命）<li>特殊身份<br><ul style="padding-left:20px;padding-top:5px"><li>军师：班委身份。只要军师存活，班长在准备阶段开始时，可以观看牌堆顶的三张牌，然后将这些牌以任意顺序置于牌堆顶或牌堆底<li>大将：班委身份。只要大将存活，班长手牌上限+1<li>贼首：杠精身份，只要贼首存活，班长手牌上限-1</ul></ul>'+
-			'<div style="margin:10px">真班委</div><ul style="margin-top:0"><li>本模式需要8名玩家进行游戏，使用的身份牌为：1班长、2班委、4杠精和1学生会。游戏开始时，每名玩家随机获得一个身份，由系统随机选择一名班委身份的玩家亮出身份（将班委牌正面朝上放在面前），其他身份（包括班长）的玩家不亮出身份。<li>'+
+			'<div style="margin:10px">副班</div><ul style="margin-top:0"><li>本模式需要8名玩家进行游戏，使用的身份牌为：1班长、2班委、4杠精和1干事。游戏开始时，每名玩家随机获得一个身份，由系统随机选择一名班委身份的玩家亮出身份（将班委牌正面朝上放在面前），其他身份（包括班长）的玩家不亮出身份。<li>'+
 			'首先由亮出身份的班委玩家随机获得六张武将牌，挑选一名角色，并将选好的武将牌展示给其他玩家。之后其余每名玩家随机获得三张武将牌，各自从其中挑选一张同时亮出<li>'+
-			'亮出身份牌的班委增加1点体力上限。角色濒死和死亡的结算及胜利条件与普通身份局相同。',
+			'亮出身份牌的班委增加1点体力上限。角色将退学和退学的结算及胜利条件与普通身份局相同。',
 		}
 	};
 });

@@ -166,7 +166,7 @@ game.import("extension",function(lib,game,ui,get,ai,_status){return {name:"太�
                 viewAsFilter:function (player){
         if(!player.countCards('h',{color:'black'})) return false;
     },
-                prompt:"将一张理科手牌当闪打出",
+                prompt:"将一张理科手牌当答打出",
                 check:function (){return 1},
                 ai:{
                     respondShan:true,
@@ -222,7 +222,7 @@ game.import("extension",function(lib,game,ui,get,ai,_status){return {name:"太�
                 viewAs:{
                     name:"shandian",
                 },
-                prompt:"将一张科学牌当午休讲话使用",
+                prompt:"将一张科学牌当就寝讲话使用",
                 check:function (card){return 6-get.value(card)},
                 ai:{
                     threaten:1.5,
@@ -394,7 +394,7 @@ game.import("extension",function(lib,game,ui,get,ai,_status){return {name:"太�
                         viewAsFilter:function (player){
                 if(!player.countCards('h','shan')) return false;
             },
-                        prompt:"将一张闪当杀使用或打出",
+                        prompt:"将一张答当问使用或打出",
                         check:function (){return 1},
                         ai:{
                             effect:{
@@ -460,7 +460,7 @@ game.import("extension",function(lib,game,ui,get,ai,_status){return {name:"太�
                         viewAs:{
                             name:"shan",
                         },
-                        prompt:"将一张杀当闪打出",
+                        prompt:"将一张问当答打出",
                         check:function (){return 1},
                         viewAsFilter:function (player){
                 if(!player.countCards('h','sha')) return false;
@@ -884,7 +884,7 @@ game.import("extension",function(lib,game,ui,get,ai,_status){return {name:"太�
                 viewAsFilter:function (player){
         if(!player.countCards('h',{color:'red'})) return false;
     },
-                prompt:"将一张文科手牌当刷作业打出",
+                prompt:"将一张文科手牌当答打出",
                 check:function (){return 1},
                 ai:{
                     respondShan:true,
@@ -1307,30 +1307,30 @@ player.update();
         },
         translate:{
             tiba:"题霸",
-            "tiba_info":"你可以将一张理科手牌当[闪]使用或打出",
+            "tiba_info":"你可以将一张理科手牌当[答]使用或打出",
             shensi:"神思",
             "shensi_info":"准备阶段，你可以进行一定判定，若为理科则可以继续判定，直到出现文科。然后你获得所有理科的判定牌。",
             "shensi_info_alter":"准备阶段，你可以进行一定判定，若为理科则可以继续判定，直到出现文科。然后你获得所有理科的判定牌。你通过神思获得的牌，不计入当前回合的手牌上限",
             liangong:"连攻",
-            "liangong_info":"每当你使用的【发作业】被目标角色使用的【刷作业】抵消时，你可以对其使用一张【发作业】（无距离限制）。",
+            "liangong_info":"每当你使用的【问】被目标角色使用的【答】抵消时，你可以对其使用一张【问】（无距离限制）。",
             "tps_bufa":"不法",
-            "tps_bufa_info":"你可以将一张科学花色的手牌当[午休讲话]使用",
+            "tps_bufa_info":"你可以将一张科学花色的手牌当[就寝讲话]使用",
             "tps_bangtou":"帮头",
             "tps_bangtou_info":"你可以将一张科学手牌当【结派】使用，若以此法使用的【结派】仅指定一个目标，你摸一张牌；你可以重做科学牌",
             "tps_siren":"死人",
-            "tps_siren_info":"锁定技，在你死亡前，若你的体力值不大于0，亮出牌堆顶的一张牌并置于你的角色牌上，若此牌的点数与你角色牌上已有的牌点数均不同，则你回复至1体力。只要你的角色牌上有牌，你的手牌上限便与这些牌数量相等",
+            "tps_siren_info":"锁定技，在你退学前，若你的体力值不大于0，亮出牌堆顶的一张牌并置于你的角色牌上，若此牌的点数与你角色牌上已有的牌点数均不同，则你回复至1体力。只要你的角色牌上有牌，你的手牌上限便与这些牌数量相等",
             "tps_zilian":"自恋",
-            "tps_zilian_info":"你可以将你的任意一张♠或♣手牌当【我很优秀】使用。",
+            "tps_zilian_info":"你可以将你的任意一张数学或科学手牌当【我很优秀】使用。",
             "tps_jinze":"尽责",
-            "tps_jinze_info":"锁定技，你使用的【发作业】需要两张【刷作业】响应",
+            "tps_jinze_info":"锁定技，你使用的【问】需要两张【答】响应",
             "tps_baofa":"爆发",
-            "tps_baofa_info":"你可以将同花色的X张牌按下列规则使用或打出：语文当【补作业】，方块当具年级焰扣分的【杀】，科学当【闪】，数学当【我很优秀】（X为你当前的体力值且至少为1）",
+            "tps_baofa_info":"你可以将同花色的X张牌按下列规则使用或打出：语文当【习】，英语当具年级焰扣分的【问】，科学当【答】，数学当【我很优秀】（X为你当前的体力值且至少为1）",
             "tps_gaizi":"改字",
-            "tps_gaizi_info":"你可以将[发作业]当[刷作业]，或[刷作业]当[发作业]使用或打出",
+            "tps_gaizi_info":"你可以将[问]当[答]，或[答]当[问]使用或打出",
             "tps_gaile":"改了",
             "tps_gaile_info":"在任意角色的判定牌生效前，你可以打出一张牌代替之",
             "tps_wanji":"完击",
-            "tps_wanji_info":"你可以将你的任意一张♠或♣手牌当【我很优秀】使用。",
+            "tps_wanji_info":"你可以将你的任意一张数学或科学手牌当【我很优秀】使用。",
             "tps_zifu":"自负",
             "tps_zifu_info":"你可以将一张英语花色的手牌当[罚站]使用",
             "tps_yixue":"易学",
@@ -1344,23 +1344,23 @@ player.update();
             "tps_zuobi":"作弊",
             "tps_zuobi_info":"你的手牌上限+2。",
             "tps_zaoli":"早离",
-            "tps_zaoli_info":"锁定技，杀死你的角色立即死亡。",
+            "tps_zaoli_info":"锁定技，问死你的角色立即退学。",
             "tps_qinxue":"勤学",
             "tps_qinxue_info":"摸牌阶段，你可以额外摸三张牌",
             "tps_tianwen":"偏文",
             "tps_tianwen_info":"锁定技，你的英语牌均视为语文",
             "tps_miaobi":"妙笔",
-            "tps_miaobi_info":"你可以将一张文科科手牌当[刷作业]使用或打出",
+            "tps_miaobi_info":"你可以将一张文科科手牌当[答]使用或打出",
             "tps_bili":"比离",
             "tps_bili_info":"出牌阶段限一次，你可以与一名其他角色排名，若你赢，则直到回合结束，该角色不能使用或打出手牌且其非锁定技失效，若你没赢，你可令该角色回复一点体力。",
             "tps_wencai":"文采",
-            "tps_wencai_info":"当你成为[发作业]的目标时，可以弃置一张牌将其转移给攻击范围内的一名其他角色，此角色不能是[发作业]的使用者",
+            "tps_wencai_info":"当你成为[问]的目标时，可以弃置一张牌将其转移给攻击范围内的一名其他角色，此角色不能是[问]的使用者",
             "tps_jinye":"敬业",
-            "tps_jinye_info":"出牌阶段，你使用[发作业]无数量限制",
+            "tps_jinye_info":"出牌阶段，你使用[问]无数量限制",
             "tps_fanxing":"反省",
             "tps_fanxing_info":"你可以将一张科学花色的手牌当[集体补课]使用",
             "tps_guanban":"管班",
-            "tps_guanban_info":"锁定技，你使用的【发作业】或【核对作业】需要两张【刷作业】或【发作业】响应",
+            "tps_guanban_info":"锁定技，你使用的【问】或【辩论】需要两张【答】或【问】响应",
             "tps_kuanrong":"宽容",
             "tps_kuanrong_info":"出牌阶段，你可以弃置一张手牌令一名角色回复一点体力，每阶段限一次",
             "tps_chaqin":"查寝",
@@ -1372,7 +1372,7 @@ player.update();
             "tps_laolian":"老练",
             "tps_laolian_info":"你的手牌上限+1。",
             "tps_huashui":"滑水",
-            "tps_huashui_info":"锁定技，当你没有手牌时，不能成为[发作业]或[核对作业]的目标",
+            "tps_huashui_info":"锁定技，当你没有手牌时，不能成为[问]或[辩论]的目标",
             "tps_wudi":"无敌",
             "tps_wudi_info":"锁定技，游戏开始时，你的血量变为无限",
         },

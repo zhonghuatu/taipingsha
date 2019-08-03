@@ -5,8 +5,8 @@ game.import('character',
 		name: 'retps',
 		connect: true,
 		character: {
-		    re_liujiqing:['male','shen',3,["tps_lianzhi","tps_re_jingxin"],["shu","tps"]],
-		    re_xiaohong:['male','shen',3,['tps_zhuangbi','tps_bici'],['shu']],
+		    re_liujiqing:['male','shen',3,["tps_lianzhi","tps_re_jingxin","tps_school_2z"],["shu","tps"]],
+		    re_xiaohong:['male','shen',3,['tps_zhuangbi','tps_bici',"tps_school_2z"],['shu']],
 		    zhoulinghang: ['male', 'wu', 3, ['tps_pengzhang','tps_yifen']],
 		    re_hezihang: ['male', 'qun', 3, ['tps_re_caiyi','tps_fuyou']],
 			wangzile: ['male', 'qun', 2, ['tps_xingyun', 'tps_laolian']],
@@ -21,11 +21,11 @@ game.import('character',
 			hushiqun: ['male', 'wu', 3, ['tps_jinji','tps_guanlan','tps_tujin']],
 			re_lujunyu: ['male', 'qun', 3, ['tps_re_mensao']],
 			re_shouxintao:['male','shen',0,['tps_guoren'],['wu']],
-			re_xusichen: ['male', 'qun', 2, ['tps_zuobishen', 'tps_baofa']],
+			re_xusichen: ['male', 'qun', 2, ['tps_zuobishen', 'tps_baofa', 'tps_school_hg']],
 			maozihao: ['male', 'shu', 3, ['tps_wanji', 'tps_gaile']],
 			zhanglingkai: ['male', 'shu', 3, ['tps_huashui', 'xinguanxing','tps_shuipi']],
 			re_chenhongliang: ['male', 'wu', 4, ['tps_lumang']],
-			re_zhangyihe: ['female', 'shen', 3, ['tps_nixue'],['wei']],
+			re_zhangyihe: ['female', 'shen', 3, ['tps_nixue',"tps_school_2z"],['wei']],
 			re_fangyiyuan: ['female', 'qun', 3, ['tps_feili','tps_mengtai']],
 			chengjingya: ['female', 'qun', 4, ['tps_juai','tps_huoai']],
 			luxinting: ['female', 'wei', 3, ['tps_qinxue']],
@@ -33,7 +33,7 @@ game.import('character',
 			re_wangjing: ['female', 'qun', 3, ['xinzhiheng','tps_chadao','jiuyuan'],['zhu']],
 			//re_zhangjiahui:['female','wu',3,['xiaoji','xinjieyin']],
 			mouminzi: ['female', 'wei', 3, ['tps_tianwen', 'tps_miaobi', 'tps_shenghua']],
-			re_chenyimiao: ['female', 'shen', 3, ['tps_re_qiangpo','tps_re_zhuanzhu'],['wei']],
+			re_chenyimiao: ['female', 'shen', 3, ['tps_re_qiangpo','tps_re_zhuanzhu', 'tps_school_hg'],['wei']],
 			re_laileshang: ['female', 'wei', 3, ['tps_bihu','tps_bili']],
 			re_wangchenxiao: ['female', 'shu', 3, ['tps_shushen', 'tps_zeyou', 'tps_school_hg']],
 			re_zhangche: ['female', 'wei', 3, ['tps_pianwen', 'tps_re_wencai', 'tps_school_hg']],
@@ -1595,7 +1595,8 @@ game.import('character',
                 filter: function(event, player) {
 					if(!lib.config.schoolMod)return false;
                     return player.getEquip(4)&&player.getEquip(4).name=="chitu";
-                },
+				},
+				check: true,
 				content:function(){
 					player.draw(player.countCards("h"));
 					player.showHandcards();
@@ -1637,7 +1638,160 @@ game.import('character',
 					"step 3"
 					event.goto(1);
 				}
-			}
+			},
+			tps_school_2z:{
+				group:['tps_school_2z1']
+			},
+			/*tps_school_2z1:{
+				trigger:{player:"phaseEnd"},
+                filter: function(event, player) {
+					if(!lib.config.schoolMod)return false;
+                    return player.getEquip(3)&&player.getEquip(3).name=="hualiu";
+				},
+				check: true,
+				content:function(){
+					player.addTempSkill('tps_school_2z2', {
+						player: 'phaseEnd'
+					});
+				}
+			},
+			tps_school_2z2:{
+				//group:["tps_school_2z_3"],
+				forced:true,
+				mod: {
+					suit: function (card, suit) {
+						return "diamond";
+					},
+					nature: function (card, nature) {
+						return 'thunder';
+					},
+					globalFrom:function(from,to,current){
+						if(to.hp<from.hp)
+						return 1;
+					},
+					globalTo:function(from,to,current){
+						if(to.hp<from.hp)
+						return current*2;
+					},
+				},
+			},
+			tps_school_2z3:{
+				forced:true,
+				trigger:{target:'compare'},
+				filter:function(event,player){
+					return player.getEquip(3)&&player.getEquip(3).name=="hualiu"&&!event.iwhile;
+				},
+				content:function(){
+					trigger.num1=13;
+				}
+			},*/
+			tps_school_2z1:{
+				enable:'phaseUse',
+				usable:1,
+				filterCard:true,
+				filter:function(event,player){
+					return player.getEquip(3)&&player.getEquip(3).name=="hualiu"&&!event.iwhile;
+				},
+				filterTarget:function(card,player,target){
+					return player!=target&&!target.hasSkill('tps_school_2z2');
+				},
+				prepare:'throw',
+				discard:false,
+				content:function(){
+					target.$gain2(cards);
+					target.storage.tps_school_2z2=cards[0];
+					target.addSkill('tps_school_2z2');
+					target.storage.tps_school_2z13=player;
+					ui.special.appendChild(cards[0]);
+					target.syncStorage('tps_school_2z2');
+				},
+				check:function(card){
+					return 6-get.value(card)
+				},
+				ai:{
+					expose:0.1,
+					order:4,
+					result:{
+						target:function(player,target){
+							if(target.hasSkillTag('maixie')) return 0;
+							return -1;
+						}
+					}
+				},
+				group:['tps_school_2z1_die','tps_school_2z1_gain'],
+				subSkill:{
+					die:{
+						trigger:{player:'dieBegin'},
+						silent:true,
+						content:function(){
+							for(var i=0;i<game.players.length;i++){
+								if(game.players[i].hasSkill('tps_school_2z2')&&game.players[i].storage.tps_school_2z13==player){
+									game.players[i].removeSkill('tps_school_2z2');
+								}
+							}
+						}
+					},
+					gain:{
+						trigger:{player:'phaseBegin'},
+						silent:true,
+						content:function(){
+							for(var i=0;i<game.players.length;i++){
+								if(game.players[i].hasSkill('tps_school_2z2')&&game.players[i].storage.tps_school_2z13==player){
+									var card=game.players[i].storage.tps_school_2z2;
+									game.players[i].removeSkill('tps_school_2z2');
+									game.players[i].$give(card,player);
+									player.gain(card);
+								}
+							}
+						}
+					}
+				}
+			},
+			tps_school_2z2:{
+				trigger:{player:'respondAfter'},
+				forced:true,
+				priority:10,
+				mark:'card',
+				popup:false,
+				filter:function(event,player){
+					return event.card&&event.card.name=='shan'&&player.storage.tps_school_2z13&&player.storage.tps_school_2z13.isIn();
+				},
+				content:function(){
+					'step 0'
+					player.storage.tps_school_2z13.logSkill('tps_school_2z1',player);
+					player.judge(function(card){
+						var suit=get.suit(card);
+						if(suit=='heart'||suit=='diamond'){
+							return -1;
+						}
+						else{
+							return 0;
+						}
+					});
+					'step 1'
+					var source=player.storage.tps_school_2z13;
+					if(result.suit=='diamond'){
+						player.damage('fire',source);
+						if(player.countCards('h')){
+							player.randomDiscard('h');
+						}
+					}
+					else if(result.suit=='heart'){
+						player.damage('fire',2,source);
+					}
+				},
+				intro:{
+					content:'card'
+				},
+				onremove:function(player){
+					player.storage.tps_school_2z2.discard();
+					delete player.storage.tps_school_2z2;
+					delete player.storage.tps_school_2z13;
+				},
+				ai:{
+					noShan:true
+				}
+			},
 		},
 		translate: {
 		    re_liujiqing:"柳季青",
@@ -1773,8 +1927,16 @@ game.import('character',
 			tps_school_hg1:"杭高林欢",
 			tps_school_hg1_info:"作为一个杭高人，当你拥有杭高梦想时，你就可以像【杭高林欢】一样装逼：结束阶段开始时，你可以摸等同于你手牌数的牌，若如此做，你须展示你的手牌，然后直到你的下一回合开始，每当你受到一点扣分时，你必须选择一项：1.失去一点体力，2.弃两张手牌（你的手牌数必须大于等于2）",
 			tps_school_hg2:"林欢",
-			tps_school_hg2_info:"直到你的下一回合开始，每当你受到一点扣分时，你必须选择一项：1.失去一点体力，2.弃两张手牌（你的手牌数必须大于等于2）。"
+			tps_school_hg2_info:"直到你的下一回合开始，每当你受到一点扣分时，若你装备有【杭高梦想】，你必须选择一项：1.失去一点体力，2.弃两张手牌（你的手牌数必须大于等于2）。",
 			
+			tps_school_2z:"饿中制霸",
+			tps_school_2z1:"饿中制霸",
+			tps_school_2z1_info:"出牌阶段限一次，若你装备有【二中之梦】，你可将一张手牌置于一名武将牌上没有“饿”的角色的武将牌上，称为“饿”，若如此做，其回合外使用或打出【答】时，你可令其判定，若结果为：语文，你对其造成2点文竞扣分；英语，你弃置其一张手牌，然后对其造成1点文竞扣分。你的下个回合开始时，你获得其武将牌上的“饿”。",
+			tps_school_2z2:"饿符",
+			tps_school_2z2_info:"你回合外使用或打出【答】时，其可令你判定，若结果为：语文，其对你造成2点文竞扣分；英语，其弃置你一张手牌，然后对你造成1点文竞扣分。",
+			
+			tps_school_xj:"学车高人",
+
 			/*
 			debug_lmk1:"乱码-科1",
 			debug_lmk1_info:"乱码-科1",

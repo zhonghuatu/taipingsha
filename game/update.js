@@ -1,22 +1,13 @@
 window.noname_update={
-	version:'2.5.0.0',
-	update:'2.5.0.0',
+	version:'2.5.0.1',
+	update:'2.5.0.1',
 	changeLog:[
-		'加入大量太平杀新技能和三国杀新角色',
-		'升级版角色设为默认，原角色改为旧包',
+		'修改了二中之梦和长河之梦',
+		'为二中之梦添加了母校模式',
 	],
 	files:[
-		'character/gujian.js',
-		'character/gwent.js',
-		'character/shenhua.js',
-		'character/sp.js',
-		'character/tps.js',
 		'character/retps.js',
-		//'character/standard.js',
-		'character/xinghuoliaoyuan.js',
-		'character/yijiang.js',
-		//'game/asset.js',
-		'game/game.js',
-		//'game/package.js'
+		'image/card/hualiu.png',
+		'image/card/jingfanma.png',
 	]
 };

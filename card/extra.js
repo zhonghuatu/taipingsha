@@ -581,7 +581,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			huogong_info:'目标角色展示一张手牌，然后若你能弃掉一张与所展示牌相同花色的手牌，则抽查对该角色造成1点文竞扣分。',
 			tiesuo_bg:'派',
 			bingliang:'作业没带',
-			hualiu:'长河之梦',
+			hualiu:'二中之梦',
 			zhuque:'朱雀羽扇',
 			bingliang_bg:'落',
 			bingliang_info:'目标角色判定阶段进行判定：若判定结果不为科学，则跳过该角色的摸牌阶段。',

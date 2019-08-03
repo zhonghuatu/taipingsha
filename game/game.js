@@ -22,8 +22,8 @@
 	var lib={
 		configprefix:'noname_0.9_',
 		versionOL:27,
-		updateURL:'https://raw.githubusercontent.com/libccy/noname',
-		mirrorURL:'https://gitlab.com/isgs/noname/raw',
+		updateURL:'https://code.aliyun.com/zhonghuatu/taipingsha/raw/',
+		mirrorURL:'https://raw.githubusercontent.com/libccy/noname',
 		hallURL:'tps.zhtg.red',
 		assetURL:'',
 		changeLog:[],
@@ -36609,10 +36609,10 @@
 						var li3=document.createElement('li');
 						var trimurl=function(str){
 							if(str==lib.updateURL){
-								return 'GitHub';
+								return 'Aliyun';
 							}
 							if(str==lib.mirrorURL){
-								return 'GitLab';
+								return 'GitHub';
 							}
 							var index;
 							index=str.indexOf('://');
@@ -37062,8 +37062,8 @@
 							updatepx.style.display='none';
 							updatepx.style.whiteSpace='nowrap';
 							updatepx.style.marginTop='8px';
-							var buttonx=ui.create.node('button','访问项目主页',function(){
-								window.open('https://github.com/libccy/noname');
+							var buttonx=ui.create.node('button','访问种花兔的博客',function(){
+								window.open('http://zhtg.red');
 							});
 							updatepx.appendChild(buttonx);
 							ui.updateUpdate=function(){

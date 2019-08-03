@@ -1,15 +1,17 @@
 window.noname_update={
-	version:'1.9.88.4',
-	update:'1.9.88.3',
+	version:'2.5.0.0',
+	update:'2.5.0.0',
 	changeLog:[
-		'修复BUG',
-		'昆特牌，古剑奇谭部分技能调整',
+		'加入大量太平杀新技能和三国杀新角色',
+		'升级版角色设为默认，原角色改为旧包',
 	],
 	files:[
 		'character/gujian.js',
 		'character/gwent.js',
 		'character/shenhua.js',
 		'character/sp.js',
+		'character/tps.js',
+		'character/retps.js',
 		//'character/standard.js',
 		'character/xinghuoliaoyuan.js',
 		'character/yijiang.js',

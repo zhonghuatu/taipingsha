@@ -1292,7 +1292,7 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 			wuliu_skill:'特长生',
 			sanjian_skill:'一石二鸟',
 			jingfanma_bg:'前三',
-			jingfanma:'长河之梦',
+			jingfanma:'杭二之梦',
 			jingfanma_info:'你的进攻距离+1',
 			huxinjing_bg:'逃',
 			huxinjing:'临阵脱逃',

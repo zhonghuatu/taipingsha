@@ -75,6 +75,7 @@ window.noname_package={
 		}
 	},
 	background:{
+		classmate_bg:'同学',
 		ol_bg:'龙纹',
 		zhulin_bg:'竹林',
 		shengshi_bg:'盛世',
@@ -89,6 +90,9 @@ window.noname_package={
 		music_shezhan:'舌战',
 		music_danji:'单骑',
 		music_cheer:'干杯',
+		music_graduate:'毕业',
+		music_wandering:'流浪',
+		music_wandering2:'征程',
 	},
 	font:{
 		xiaozhuan:'小篆',
@@ -99,6 +103,7 @@ window.noname_package={
 		shousha:'手问',
 	},
 	theme:{
+		classmate:'同学',
 		woodden:'木纹',
 		music:'音乐',
 		simple:'简约'

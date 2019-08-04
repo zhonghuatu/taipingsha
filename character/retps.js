@@ -24,7 +24,13 @@ game.import('character',
 			re_xusichen: ['male', 'qun', 2, ['tps_zuobishen', 'tps_baofa', 'tps_school_hg']],
 			maozihao: ['male', 'shu', 3, ['tps_wanji', 'tps_gaile']],
 			zhanglingkai: ['male', 'shu', 3, ['tps_huashui', 'xinguanxing','tps_shuipi']],
+			re_gechenqi: ['male', 'wu', 4, ['tps_nudui','reganglie']],
+			chenzhenbo: ['male', 'shu', 4, ['liangong', 'tps_juehou'], ['des:陈桢博，反低效学习小组创始人之一，是反低效学习小组中最有发言权的人，不仅如此，他还因为日人功夫了得而被太平吉安成员熟知。']],
+			yuanyuxuan: ['male', 'shu', 3, ['shensi', 'tiba',"tps_school_2z"], ['des:袁雨轩，是太平吉安总部最强大的刷题者，不仅作业刷的快，还有令人羡慕的好成绩。就是有时候老是被姚皇燊上。']],
 			re_chenhongliang: ['male', 'wu', 4, ['tps_lumang']],
+			re_panhaotian: ['male', 'shu', 3, ['tps_yonglan','tps_shicai','tps_cunmu'], ['des:潘皓天，太平吉安中不太突出的一个人物，喜欢阅读。']],
+			liangyue: ['male', 'shen', Infinity, ['tps_wudi', 'tps_shoucuo', 'tps_duoluo'], ['des:太平吉安人际关系中心，爱好编程，但学习成绩并不稳定','shu']],
+			yaohuangshen: ['male', 'wu', 3, ['tps_huyou','tps_yuanhuo', 'jiuchi'], ['des:机灵鬼一个，身手矫健，爱耍小聪明。']],
 			re_zhangyihe: ['female', 'shen', 3, ['tps_nixue',"tps_school_2z"],['wei']],
 			re_fangyiyuan: ['female', 'qun', 3, ['tps_feili','tps_mengtai']],
 			chengjingya: ['female', 'qun', 4, ['tps_juai','tps_huoai']],
@@ -1459,6 +1465,22 @@ game.import('character',
                     },
                 },
             },
+			"tps_yonglan1":{
+				mod:{
+					cardUsable:function(card,player){
+						var cards=player.storage.tps_yonglan1;
+						for(var i=0;i<cards.length;i++){
+							if(get.suit(cards[i])==get.suit(card)) return Infinity;
+						};
+					},
+					targetInRange:function(card,player){
+						var cards=player.storage.tps_yonglan1;
+						for(var i=0;i<cards.length;i++){
+							if(get.suit(cards[i])==get.suit(card)) return true;
+						};
+					}
+				},
+			},
             "tps_shicai": {
                 group: ["tps_shicai_1", "tps_shicai_2", "tps_shicai_3"],
                 subSkill: {
@@ -1792,6 +1814,82 @@ game.import('character',
 					noShan:true
 				}
 			},
+            tps_nudui:{
+				group:["tps_nudui1"],
+				audio:2,
+				trigger:{global:'gameDrawAfter'},
+				direct:true,
+				content:function(){
+					"step 0"
+					player.chooseTarget(get.prompt('tps_nudui'),function(card, player, target) {
+                        return target != player
+                    },1).ai = function (player,target) {
+						if (target.hasSkill('hongyan'))
+							return 0;
+						return !get.attitude(player,target);
+					};
+					"step 1"
+					if(result.bool){
+						result.targets[0].addSkill("tps_nudui2");
+					}
+				},
+				ai:{
+					threaten:0.8,
+				}
+			},
+            tps_nudui1:{
+				audio:2,
+				trigger:{global:'dieAfter'},
+				filter:function(event,player){
+					return event.player.hasSkill("tps_nudui2");
+				},
+				content:function(){
+					"step 0"
+					player.draw(3);
+					"step 1"
+					console.log(event);
+					if(trigger.source==player){
+						player.chooseTarget(get.prompt('tps_nudui1'),function(card, player, target) {
+							return target != player
+						},1).ai = function (player,target) {
+							if (target.hasSkill('hongyan'))
+								return 0;
+							return !get.attitude(player,target);
+						};
+					}
+					"step 2"
+					if(trigger.source==player && result.bool){
+						result.targets[0].addSkill("tps_nudui2");
+					}
+				},
+				ai:{
+					threaten:0.8,
+				}
+			},
+			tps_nudui2:{
+				mark:true,
+				intro:{
+					content:function(dialog,content,player){
+						return '你成为了怒怼的对象，所有来自拥有“怒怼”技能的角色对你的伤害×2。';
+					}
+				},
+				audio: 2,
+				trigger: {
+					player: 'damageBefore'
+				},
+				forced: true,
+				filter: function(event, player) {
+					return event.source.hasSkill('tps_nudui');
+				},
+				content: function() {
+					"step 0"
+					trigger.source.chooseToDiscard(get.prompt('tps_nudui1'),'he',1);
+					"step 1"
+					if(result.bool){
+						trigger.num*=2;
+					}
+				},
+			}
 		},
 		translate: {
 		    re_liujiqing:"柳季青",
@@ -1813,7 +1911,13 @@ game.import('character',
 			re_xusichen: "徐思辰",
 			maozihao: "毛子豪",
 			zhanglingkai: "张凌凯",
+			re_gechenqi: "葛辰启",
+			chenzhenbo: "陈桢博",
+			yuanyuxuan: "袁雨轩",
 			re_chenhongliang: "陈泓亮",
+			re_panhaotian: "潘皓天",
+			liangyue: "梁越",
+			yaohuangshen: "姚皇燊",
 			re_fangyiyuan: "方易圆",
 			re_zhangyihe: "章易禾",
 			chengjingya: "程竞雅",
@@ -1922,6 +2026,11 @@ game.import('character',
 			tps_re_mensao_info:'每当你成为一张其他角色指定的动作牌目标时，你可以取消之，然后视为该角色对你使用一张【问】。',
 			tps_huibi:"回避",
 			tps_huibi_info:'摸牌阶段摸牌时，你可以额外摸X张牌（X为现存势力数）。若如此做，你于本回合出牌阶段内使用的牌不能指定其他角色为目标。',
+			tps_nudui:"怒怼",
+			tps_nudui1:"怒怼",
+			tps_nudui2:"怒怼",
+			tps_nudui2_mark:"怼",
+			tps_nudui_info:'锁定技，当所有玩家展示其角色，或你杀死一名有“怼”标记的角色时，你可指定一名玩家。若如此做，其获得一个“怼”标记，且受到来自你的伤害时，你可弃置一张牌使该伤害×2；有“怼”标记的玩家退学后，你摸3张牌。',
 			
 			tps_school_hg:"杭高林欢",
 			tps_school_hg1:"杭高林欢",

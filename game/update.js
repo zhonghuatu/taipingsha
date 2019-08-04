@@ -7,6 +7,8 @@ window.noname_update={
 	],
 	files:[
 		'character/retps.js',
+		'card/extra.js',
+		'card/guozhan.js',
 		'image/card/hualiu.png',
 		'image/card/jingfanma.png',
 	]

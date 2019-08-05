@@ -7,45 +7,45 @@ game.import('character',
 		character: {
 		    re_liujiqing:['male','shen',3,["tps_lianzhi","tps_re_jingxin","tps_school_2z"],["shu","tps"]],
 		    re_xiaohong:['male','shen',3,['tps_zhuangbi','tps_bici',"tps_school_2z"],['shu']],
-		    zhoulinghang: ['male', 'wu', 3, ['tps_pengzhang','tps_yifen']],
-		    re_hezihang: ['male', 'qun', 3, ['tps_re_caiyi','tps_fuyou']],
-			wangzile: ['male', 'qun', 2, ['tps_xingyun', 'tps_laolian']],
+		    zhoulinghang: ['male', 'wu', 3, ['tps_pengzhang','tps_yifen','tps_school_xj']],
+		    re_hezihang: ['male', 'qun', 3, ['tps_re_caiyi','tps_fuyou','tps_school_xj']],
+			wangzile: ['male', 'qun', 2, ['tps_xingyun', 'tps_laolian','tps_school_14']],
 			wangguiyang: ['male', 'wu', 3, ['tps_xiabi']],
 			wumengxiang: ['male', 'wu', 6, ['benghuai','tps_qingui']],
-		    re_shiao: ['male', 'shu', 4, ['tps_re_bufa', 'tps_bangtou','tps_langxing']],
-			xuheng: ['male', 'wu', 3, ['tps_bier']],
+		    re_shiao: ['male', 'shu', 4, ['tps_re_bufa', 'tps_bangtou','tps_langxing','tps_school_xj']],
+			xuheng: ['male', 'wu', 3, ['tps_bier','tps_school_xj']],
 			re_huanghaojun: ['male', 'wei', 4, ['tps_siren','tps_zuosi','tps_re_shangjin']],
-		    re_zhengqihang:['male','shu',4,['tps_re_qianshui','tps_tuoqiao']],
+		    re_zhengqihang:['male','shu',4,['tps_re_qianshui','tps_tuoqiao','tps_school_xj']],
 			re_chenkaihao: ['male', 'wei', 3, ['tps_jinze', 'tps_renqing'], ['des:陈凯豪可谓是初三四班最帅的之一，作为一个语文课代表，<s>他非常的尽职</s>。']],
 			xujingyi: ['male', 'wei', 3, ['xinjianxiong', 'tps_weigui'], ['des:徐憬怿作为秦王能面不改色地应对比他高一个头的荆轲（贵炀兄），违起纪来跟写一篇美妙的诗歌一样，而且他在这两个方面都做得很好。']],
 			hushiqun: ['male', 'wu', 3, ['tps_jinji','tps_guanlan','tps_tujin']],
 			re_lujunyu: ['male', 'qun', 3, ['tps_re_mensao']],
-			re_shouxintao:['male','shen',0,['tps_guoren'],['wu']],
+			re_shouxintao:['male','shen',0,['tps_guoren','tps_school_xj'],['wu']],
 			re_xusichen: ['male', 'qun', 2, ['tps_zuobishen', 'tps_baofa', 'tps_school_hg']],
-			maozihao: ['male', 'shu', 3, ['tps_wanji', 'tps_gaile']],
+			maozihao: ['male', 'shu', 3, ['tps_wanji', 'tps_gaile','tps_school_14']],
 			zhanglingkai: ['male', 'shu', 3, ['tps_huashui', 'xinguanxing','tps_shuipi']],
 			re_gechenqi: ['male', 'wu', 4, ['tps_nudui','reganglie']],
 			chenzhenbo: ['male', 'shu', 4, ['liangong', 'tps_juehou'], ['des:陈桢博，反低效学习小组创始人之一，是反低效学习小组中最有发言权的人，不仅如此，他还因为日人功夫了得而被太平吉安成员熟知。']],
 			yuanyuxuan: ['male', 'shu', 3, ['shensi', 'tiba',"tps_school_2z"], ['des:袁雨轩，是太平吉安总部最强大的刷题者，不仅作业刷的快，还有令人羡慕的好成绩。就是有时候老是被姚皇燊上。']],
 			re_chenhongliang: ['male', 'wu', 4, ['tps_lumang']],
-			re_panhaotian: ['male', 'shu', 3, ['tps_yonglan','tps_shicai','tps_cunmu'], ['des:潘皓天，太平吉安中不太突出的一个人物，喜欢阅读。']],
-			liangyue: ['male', 'shen', Infinity, ['tps_wudi', 'tps_shoucuo', 'tps_duoluo'], ['des:太平吉安人际关系中心，爱好编程，但学习成绩并不稳定','shu']],
-			yaohuangshen: ['male', 'wu', 3, ['tps_huyou','tps_yuanhuo', 'jiuchi'], ['des:机灵鬼一个，身手矫健，爱耍小聪明。']],
+			re_panhaotian: ['male', 'shu', 3, ['tps_yonglan','tps_shicai','tps_cunmu','tps_school_xj'], ['des:潘皓天，太平吉安中不太突出的一个人物，喜欢阅读。']],
+			liangyue: ['male', 'shen', Infinity, ['tps_wudi', 'tps_shoucuo', 'tps_duoluo','tps_school_14'], ['des:太平吉安人际关系中心，爱好编程，但学习成绩并不稳定','shu']],
+			yaohuangshen: ['male', 'wu', 3, ['tps_huyou','tps_yuanhuo', 'jiuchi','tps_school_xj'], ['des:机灵鬼一个，身手矫健，爱耍小聪明。']],
 			re_zhangyihe: ['female', 'shen', 3, ['tps_nixue',"tps_school_2z"],['wei']],
 			re_fangyiyuan: ['female', 'qun', 3, ['tps_feili','tps_mengtai']],
-			chengjingya: ['female', 'qun', 4, ['tps_juai','tps_huoai']],
+			chengjingya: ['female', 'qun', 4, ['tps_juai','tps_huoai','tps_school_xj']],
 			luxinting: ['female', 'wei', 3, ['tps_qinxue']],
 			liuchun: ['female', 'wu', 3, ['tps_jiwei']],
-			re_wangjing: ['female', 'qun', 3, ['xinzhiheng','tps_chadao','jiuyuan'],['zhu']],
+			re_wangjing: ['female', 'qun', 3, ['xinzhiheng','tps_chadao','jiuyuan','tps_school_14'],['zhu']],
 			//re_zhangjiahui:['female','wu',3,['xiaoji','xinjieyin']],
 			mouminzi: ['female', 'wei', 3, ['tps_tianwen', 'tps_miaobi', 'tps_shenghua']],
 			re_chenyimiao: ['female', 'shen', 3, ['tps_re_qiangpo','tps_re_zhuanzhu', 'tps_school_hg'],['wei']],
 			re_laileshang: ['female', 'wei', 3, ['tps_bihu','tps_bili']],
 			re_wangchenxiao: ['female', 'shu', 3, ['tps_shushen', 'tps_zeyou', 'tps_school_hg']],
 			re_zhangche: ['female', 'wei', 3, ['tps_pianwen', 'tps_re_wencai', 'tps_school_hg']],
-			jiangxiyu:['female','qun',3,['tps_fanren']],
+			jiangxiyu:['female','qun',3,['tps_fanren','tps_school_xj']],
 			re_liufangfei: ['female', 'qun', 4, ['tps_gemo','hyunshen']],
-			re_yuruijia: ['female', 'shu', 3, ['tps_shushen']],
+			re_yuruijia: ['female', 'shu', 3, ['tps_shushen','tps_school_14']],
 			laimeixi: ['female', 'qun', 3, ['lijian','beige']],
 			
 			re_wangjie: ['female', 'shu', 3,['tps_jiexin','tps_jiesi','tps_liuji']]
@@ -1712,6 +1712,7 @@ game.import('character',
 				usable:1,
 				filterCard:true,
 				filter:function(event,player){
+					if(!lib.config.schoolMod)return false;
 					return player.getEquip(3)&&player.getEquip(3).name=="hualiu"&&!event.iwhile;
 				},
 				filterTarget:function(card,player,target){
@@ -1889,7 +1890,106 @@ game.import('character',
 						trigger.num*=2;
 					}
 				},
-			}
+			},
+			tps_school_xj:{
+				group:['tps_school_xj1']
+			},
+			tps_school_xj1:{
+				enable:'phaseUse',
+				usable:1,
+				filter:function(event,player){
+					if(!lib.config.schoolMod)return false;
+					return player.getEquip(4)&&player.getEquip(4).name=="zixin"&&!event.iwhile;
+				},
+				selectTarget:1,
+				filterTarget:function(card,player,target){
+					return player!=target;
+				},
+				content:function(){
+					var card = player.getEquip(4);
+					game.swapSeat(player,target);
+					player.$gain2(card);
+					player.storage.tps_school_xj2=card;
+					player.addSkill('tps_school_xj2');
+					ui.special.appendChild(card);
+					player.syncStorage('tps_school_xj2');
+				},
+				ai:{
+					order:5,
+					result:{
+						player:function(player,target){
+							var att=get.attitude(player,target);
+							if(target==player.previous&&att>0) return att;
+							if(target==player.next&&att<0) return -att;
+							var att2=get.attitude(player,player.next);
+							if(target==player.next.next&&att<0&&att2<0) return -att-att2;
+							return 0;
+						}
+					}
+				},
+			},
+			tps_school_xj2:{
+				mark:'card',
+				intro:{
+					content:'card'
+				},
+				//group:["tps_school_2z_3"],
+				forced:true,
+				mod: {
+					globalFrom:function(from,to,current){
+						return current-Math.min(from.hp,3)+1;
+					},
+				},
+			},
+			tps_school_14:{
+				group:['tps_school_141','tps_school_142']
+			},
+			tps_school_141: {
+				filter:function(event,player){
+					if(!lib.config.schoolMod)return false;
+					return player.getEquip(4)&&player.getEquip(4).name=="dawan";
+				},
+				audio: 2,
+				trigger: {
+					player: "phaseDrawBegin",
+				},
+				content: function () {
+					trigger.num++;
+				},
+				ai: {
+					threaten: 1.3,
+				},
+			},
+			tps_school_142:{
+				audio:2,
+				trigger:{player:'loseEnd'},
+				filter:function(event,player){
+					if(!lib.config.schoolMod)return false;
+					if(!player.getEquip(4)||player.getEquip(4).name!="dawan") return false;
+					if(player.countCards('h')||player==_status.currentPhase) return false;
+					for(var i=0;i<event.cards.length;i++){
+						if(event.cards[i].original=='h') return true;
+					}
+					return false;
+				},
+				content:function(){
+					player.draw(2);
+				},
+				ai:{
+					threaten:0.8,
+					effect:{
+						target:function(card){
+							if(card.name=='guohe'||card.name=='liuxinghuoyu') return 0.5;
+						}
+					},
+					noh:true,
+					skillTagFilter:function(player,tag){
+						if(tag=='noh'){
+							if(player.countCards('h')!=1) return false;
+						}
+					}
+				}
+			},
 		},
 		translate: {
 		    re_liujiqing:"柳季青",
@@ -2045,7 +2145,16 @@ game.import('character',
 			tps_school_2z2_info:"你回合外使用或打出【答】时，其可令你判定，若结果为：语文，其对你造成2点文竞扣分；英语，其弃置你一张手牌，然后对你造成1点文竞扣分。",
 			
 			tps_school_xj:"学车高人",
-
+			tps_school_xj1:"学车高人",
+			tps_school_xj1_info:"出牌阶段，若你装备有【学军之梦】，你可以与一名玩家交换座位；若如此做，你将【学军之梦】置于你的角色牌顶，然后你拥有以下效果：锁定技，你与其他角色的距离-(X-1)（X为你的分数值且至多为3）。",
+			tps_school_xj2:"学车",
+			tps_school_xj2_info:"锁定技，你与其他角色的距离-(X-1)（X为你的分数值且至多为3）。",
+			
+			tps_school_14:"菊中蒟蒻",
+			tps_school_141:"菊中蒟蒻",
+			tps_school_141_info:"摸牌阶段，若你装备有【十四之梦】，你可以多摸一张牌。",
+			tps_school_142:"菊中蒟蒻",
+			tps_school_142_info:"你的回合外，若你装备有【十四之梦】，每当你失去最后一张手牌时，你摸两张牌。"
 			/*
 			debug_lmk1:"乱码-科1",
 			debug_lmk1_info:"乱码-科1",

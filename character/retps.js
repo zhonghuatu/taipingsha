@@ -1486,7 +1486,7 @@ game.import('character',
                 subSkill: {
                     "1": {
                         trigger: {
-                            player: 'phaseBefore'
+                            global: 'phaseBefore'
                         },
                         forced: true,
                         popup: false,
@@ -1497,7 +1497,7 @@ game.import('character',
                     "2": {
                         audio: 2,
                         trigger: {
-                            player: 'useCardAfter'
+                            global: 'useCardAfter'
                         },
                         filter: function(event, player) {
                             return player.storage.tps_shicai != undefined && !player.storage.tps_shicai.contains(get.type(event.card));
@@ -1518,7 +1518,7 @@ game.import('character',
                     },
                     "3": {
                         trigger: {
-                            player: 'phaseAfter'
+                            global: 'phaseAfter'
                         },
                         forced: true,
                         popup: false,

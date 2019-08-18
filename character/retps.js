@@ -48,6 +48,7 @@ game.import('character',
 			re_yuruijia: ['female', 'shu', 3, ['tps_shushen','tps_school_14']],
 			laimeixi: ['female', 'qun', 3, ['lijian','beige']],
 			
+			xpsj: ['male','shen',1,['tps_longduan','tps_huangpao','tps_school_2z','tps_school_xj','tps_school_14']],
 			re_wangjie: ['female', 'shu', 3,['tps_jiexin','tps_jiesi','tps_liuji']]
 		},
 		characterFilter: {},
@@ -976,9 +977,10 @@ game.import('character',
 				content: function () {
 					"step 0";
 					player.chooseTarget(get.prompt('tps_re_caiyi'),[1,2]).ai = function (target) {
+						console.log(target);
 						if (target.hasSkill('hongyan'))
 							return 0;
-						return get.damageEffect(target, _status.event.player, _status.event.player, 'thunder');
+						return get.damageEffect(target, _status.event.player, _status.event.player);
 					};
 					"step 1"
 					if (result.bool) {
@@ -1079,12 +1081,12 @@ game.import('character',
 					notricksource:true,
 					effect:{
 						target:function(card,player,target,current){
-							if(get.type(card)=='trick'&&get.tag(card,'damage')&&get.attitude(player,target)){
+							if(get.type(card)=='trick'&&get.tag(card,'damage')&&get.attitude(player,target)<0){
 								return 0;
 							}
 						},
 						player:function(card,player,target,current){
-							if(get.type(card)=='trick'&&get.tag(card,'damage')&&get.attitude(current,player)){
+							if(get.type(card)=='trick'&&get.tag(card,'damage')&&get.attitude(current,player)<0){
 								return 0;
 							}
 						}
@@ -1384,9 +1386,9 @@ game.import('character',
 				},
 				content:function(){
 				    "step 0"
-				    console.log(get.effect(event.player, {
-									name: 'sha'
-								}, player, event.player));
+				    //console.log(get.effect(event.player, {
+					//				name: 'sha'
+					//			}, player, event.player));
 					player.chooseCard('插刀：是否对'+get.translation(trigger.player)+'使用一张问？').set('logSkill','tps_chadao');
 					"step 1"
 					if(result.bool){
@@ -1402,14 +1404,14 @@ game.import('character',
 				audio:true,
 				logTarget:'source',
 				filter:function(event,player){
-				    console.log(event);
+				    //console.log(event);
 					if(player.sex=='male'&&event.player.sex=='female') return true;
 					if(player.sex=='female'&&event.player.sex=='male') return true;
 					return false;
 				},
 				content:function(){
 					"step 0"
-					console.log(trigger);
+					//console.log(trigger);
 					trigger.player.chooseToDiscard('弃置一张手牌，或令'+get.translation(player)+'摸一张牌').set('ai',function(card){
 						var trigger=_status.event.getTrigger();
 						return -get.attitude(trigger.player,player)-get.value(card);
@@ -1500,10 +1502,11 @@ game.import('character',
                             global: 'useCardAfter'
                         },
                         filter: function(event, player) {
-                            return player.storage.tps_shicai != undefined && !player.storage.tps_shicai.contains(get.type(event.card));
+							//console.log(get.type(event.card)=="delay"?"trick":get.type(event.card));
+                            return event.player==player && player.storage.tps_shicai != undefined && !player.storage.tps_shicai.contains(get.type(event.card)=="delay"?"trick":get.type(event.card));
                         },
                         check: function(event, player) {
-                            return get.type(event.card) != 'equip' && get.type(event.card) != 'delay';
+                            return get.type(event.card) != 'delay';
                         },
                         content: function() {
                             player.storage.tps_shicai.push(get.type(trigger.card));
@@ -1558,17 +1561,18 @@ game.import('character',
                 forced: true,
                 filter: function(event, player) {
                     //if(event.)
-                    //console.log(event);
-                    return get.type(event.card) == 'trick' && event.player != player;
+                    console.log(event);
+                    return get.type(event.card) == 'trick' && event.player != player && event.parent.parent.name!="tps_re_mensao";
                 },
                 content: function() {
                     "step 0"
                     trigger.cancel();
                     trigger.player.useCard({
                         name:"sha",
-                        suit:get.suit(event.card),
-                        number:get.number(event.card)
-                    },player,trigger.card);
+                        suit:get.suit(trigger.card),
+						number:get.number(trigger.card),
+						type:"basic"
+                    },player,"noai");
                 },
                 ai: {
                     effect: {
@@ -1818,21 +1822,30 @@ game.import('character',
             tps_nudui:{
 				group:["tps_nudui1"],
 				audio:2,
-				trigger:{global:'gameDrawAfter'},
+				trigger:{player:'phaseBegin'},
 				direct:true,
+				init:function(player){
+					player.storage.tps_nudui=true;
+					// player.storage.tps_nixue2=0;
+				},
+				filter:function(event,player){
+					return player.storage.tps_nudui;
+				},
 				content:function(){
 					"step 0"
 					player.chooseTarget(get.prompt('tps_nudui'),function(card, player, target) {
                         return target != player
-                    },1).ai = function (player,target) {
+                    },1).ai = function (target) {
+						//console.log(target);
 						if (target.hasSkill('hongyan'))
 							return 0;
-						return !get.attitude(player,target);
+						return get.damageEffect(target, _status.event.player, _status.event.player);
 					};
 					"step 1"
 					if(result.bool){
 						result.targets[0].addSkill("tps_nudui2");
 					}
+					player.storage.tps_nudui=false;
 				},
 				ai:{
 					threaten:0.8,
@@ -1848,7 +1861,7 @@ game.import('character',
 					"step 0"
 					player.draw(3);
 					"step 1"
-					console.log(event);
+					//console.log(event);
 					if(trigger.source==player){
 						player.chooseTarget(get.prompt('tps_nudui1'),function(card, player, target) {
 							return target != player
@@ -2035,6 +2048,7 @@ game.import('character',
 			re_yuruijia: "俞瑞佳",
 			laimeixi: "来美羲",
 			
+			xpsj: "香泡四杰",
 			re_wangjie:'王洁',
             
             tps_lumang: "鲁莽",
@@ -2130,7 +2144,7 @@ game.import('character',
 			tps_nudui1:"怒怼",
 			tps_nudui2:"怒怼",
 			tps_nudui2_mark:"怼",
-			tps_nudui_info:'锁定技，当所有玩家展示其角色，或你杀死一名有“怼”标记的角色时，你可指定一名玩家。若如此做，其获得一个“怼”标记，且受到来自你的伤害时，你可弃置一张牌使该伤害×2；有“怼”标记的玩家退学后，你摸3张牌。',
+			tps_nudui_info:'锁定技，当你的第一个回合开始时，或你杀死一名有“怼”标记的角色时，你可指定一名玩家。若如此做，其获得一个“怼”标记，且受到来自你的伤害时，你可弃置一张牌使该伤害×2；有“怼”标记的玩家退学后，你摸3张牌。',
 			
 			tps_school_hg:"杭高林欢",
 			tps_school_hg1:"杭高林欢",

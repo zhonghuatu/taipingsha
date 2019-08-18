@@ -15,6 +15,7 @@ window.noname_update={
 	],
 	files:[
 		'card/extra.js',
+		'card/standard.js',
 		'card/guozhan.js',
 		'character/retps.js',
 		'character/tps.js',

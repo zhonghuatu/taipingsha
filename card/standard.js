@@ -346,18 +346,45 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				type:'equip',
 				subtype:'equip4',
 				distance:{globalFrom:-1},
+				ai:{
+					basic:{
+						equipValue:function(card,player){
+							if(!lib.config.schoolMod)return 1;
+							if(player.hasSkill("tps_school_hg"))return 6.5;
+							return 1;
+						}
+					}
+				}
 			},
 			dawan:{
 				fullskin:true,
 				type:'equip',
 				subtype:'equip4',
 				distance:{globalFrom:-1},
+				ai:{
+					basic:{
+						equipValue:function(card,player){
+							if(!lib.config.schoolMod)return 1;
+							if(player.hasSkill("tps_school_14"))return 8;
+							return 1;
+						}
+					}
+				}
 			},
 			zixin:{
 				fullskin:true,
 				type:'equip',
 				subtype:'equip4',
 				distance:{globalFrom:-1},
+				ai:{
+					basic:{
+						equipValue:function(card,player){
+							if(!lib.config.schoolMod)return 1;
+							if(player.hasSkill("tps_school_xj"))return 8;
+							return 1;
+						}
+					}
+				}
 			},
 			zhuge:{
 				fullskin:true,

@@ -301,6 +301,15 @@ game.import('card',function(lib,game,ui,get,ai,_status){
 				type:'equip',
 				subtype:'equip3',
 				distance:{globalTo:1},
+				ai:{
+					basic:{
+						equipValue:function(card,player){
+							if(!lib.config.schoolMod)return 1;
+							if(player.hasSkill("tps_school_2z"))return 7.5;
+							return 1;
+						}
+					}
+				}
 			},
 			zhuque:{
 				fullskin:true,

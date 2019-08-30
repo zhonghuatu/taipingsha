@@ -1,8 +1,8 @@
 window.noname_update={
-	version:'2.5.1.0',
-	update:'2.5.1.0',
+	version:'2.5.1.1',
+	update:'2.5.1.1',
 	changeLog:[
-		'<strong>咕咕咕的更新：</strong>\n1.修复了潘皓天、葛辰启、俞瑞佳和卢俊雨的相关BUG。\n2.因为香泡四杰指的四个人分别去了饿中、学车和菊中，所以香泡四杰在母校模式新增对饿中、学车和菊中相关装备特殊技能的支持。',
+		'<strong>咕咕咕的更新：</strong>\n1.修复了潘皓天、葛辰启、俞瑞佳和卢俊雨的相关BUG。\n2.因为香泡四杰指的四个人分别去了饿中、学车和菊中，所以香泡四杰在母校模式新增对饿中、学车和菊中相关装备特殊技能的支持；3.修复吴孟祥和姚皇燊照片问题。',
 		'以下为最后一次常规更新内容：',
 		'修改了二中之梦和长河之梦',
 		'为二中之梦、学军之梦、十四之梦添加了母校模式',
@@ -22,5 +22,7 @@ window.noname_update={
 		'game/package.js',
 		'image/card/hualiu.png',
 		'image/card/jingfanma.png',
+		'image/character/wumengxiang.jpg',
+		'image/character/yaohuangshen.jpg',
 	]
 };
